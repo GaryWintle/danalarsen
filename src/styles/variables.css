@@ -1,13 +1,30 @@
 :root {
-  /* Primary Brand Colors */
-  --primary-100: oklch(79.6% 0.145 64.8);
-  --primary-200: oklch(70.9% 0.162 47.9);
-  --primary-300: oklch(63.6% 0.17 37.2);
+  /* SEMANTIC TOKENS */
 
-  /* Secondary Brand Colors */
-  --secondary-100: oklch(83.6% 0.109 190.1);
-  --secondary-200: oklch(74.1% 0.105 210.4);
-  --secondary-300: oklch(56.6% 0.099 216.9);
+  /* Background */
+  --bg-page: var(--neutral-200);
+  --bg-surface: var(--neutral-100);
+
+  /* Type */
+  --text-hero: var(--neutral-100);
+  --text-primary: var(--blue-300);
+  --text-secondary: var(--neutral-500);
+
+  /* Buttons */
+  --button-primary: var(--orange-200);
+  --button-secondary: var(--blue-200);
+
+  /* PRIMITIVE TOKENS */
+
+  /* Accent Brand Colors */
+  --orange-100: oklch(79.6% 0.145 64.8);
+  --orange-200: oklch(70.9% 0.162 47.9);
+  --orange-300: oklch(63.6% 0.17 37.2);
+
+  /* Base Brand Colors */
+  --blue-100: oklch(83.6% 0.109 190.1);
+  --blue-200: oklch(74.1% 0.105 210.4);
+  --blue-300: oklch(56.6% 0.099 216.9);
 
   /* Neutral / Gray Scale */
   --neutral-100: oklch(98.3% 0.004 236.5);
@@ -17,6 +34,46 @@
   --neutral-500: oklch(46.6% 0.025 237.3);
   --neutral-600: oklch(32.1% 0.027 242.3);
 
+  /* Spacing */
+  --sp-01: 0.4em;
+  --sp-02: 0.8em;
+  --sp-03: 1.2em;
+  --sp-04: 1.6rem;
+  --sp-05: 2.4rem;
+  --sp-06: clamp(2.8rem, 4vw, 3.2rem);
+  --sp-07: clamp(4.2rem, 4.5vw, 4.8rem);
+  --sp-08: clamp(5.5rem, 5vw, 7.4rem);
+  --section-block: clamp(5rem, 8vw, 15rem);
+  --section-inline: clamp(1.8rem, 4.5vw, 3.2rem);
+  --max-width: 151.3rem;
+
   /* Typography */
   --font-header: 'CD', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --font-01: 1.4rem;
+  --font-02: 1.6rem;
+  --font-03: 1.8rem;
+  --font-04: 2.4rem;
+  --font-05: 2.7rem;
+  --font-06: 4rem;
+
+  --font-header-sm: 1.8rem;
+  --font-header-md: clamp(2.4rem, 3vw, 2.6rem);
+  --font-header-lg: clamp(2.8rem, 4vw, 3.6rem);
+  --font-header-xl: 6rem;
+
+  /* Font weights */
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  /* Line heights */
+  --line-height-tight: 1.35;
+  --line-height-normal: 1.55;
+  --line-height-loose: 1.75;
+
+  /* Rounded Corners */
+  --br-01: 0.4rem;
+  --br-02: 0.8rem;
+  --br-03: 1.2rem;
 }

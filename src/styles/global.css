@@ -2,11 +2,37 @@
   font-family: 'CD';
   src: url('/fonts/CD-Black.woff2') format('woff2'),
     url('/fonts/CD-Black.woff') format('woff');
-  font-weight: 700; /* Regular */
+  font-weight: 700; /* Black */
   font-style: normal;
   font-display: swap;
+}
+@font-face {
+  font-family: 'CD';
+  src: url('/fonts/CD-Semibold.woff2') format('woff2'),
+    url('/fonts/CD-Semibold.woff') format('woff');
+  font-weight: 400; /* Black */
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'CD';
+  src: url('/fonts/CD-Light-Italic.woff2') format('woff2'),
+    url('/fonts/CD-Light-Italic.woff') format('woff');
+  font-weight: 400; /* Italic */
+  font-style: italic;
+  font-display: swap;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  lang: en;
 }
 
 h1 {
   font-family: var(--font-header);
+  color: white;
+  font-size: 8rem;
+  letter-spacing: -2px;
+  line-height: 110%;
 }
