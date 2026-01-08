@@ -1,1 +1,12 @@
-@import 'tailwindcss';
+@font-face {
+  font-family: 'CD';
+  src: url('/fonts/CD-Black.woff2') format('woff2'),
+    url('/fonts/CD-Black.woff') format('woff');
+  font-weight: 700; /* Regular */
+  font-style: normal;
+  font-display: swap;
+}
+
+h1 {
+  font-family: var(--font-header);
+}

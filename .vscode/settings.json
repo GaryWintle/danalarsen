@@ -1,0 +1,9 @@
+{
+  "tailwindCSS.experimental.configFile": "src/styles/global.css",
+  "tailwindCSS.experimental.classRegex": [
+    ["class:list={([^}]*)}[^>]*>", "['\"`]([^'\"`]*)['\"`]"]
+  ],
+  "files.associations": {
+    "*.astro": "astro"
+  }
+}

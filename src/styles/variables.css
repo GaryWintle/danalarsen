@@ -1,0 +1,22 @@
+:root {
+  /* Primary Brand Colors */
+  --primary-100: oklch(79.6% 0.145 64.8);
+  --primary-200: oklch(70.9% 0.162 47.9);
+  --primary-300: oklch(63.6% 0.17 37.2);
+
+  /* Secondary Brand Colors */
+  --secondary-100: oklch(83.6% 0.109 190.1);
+  --secondary-200: oklch(74.1% 0.105 210.4);
+  --secondary-300: oklch(56.6% 0.099 216.9);
+
+  /* Neutral / Gray Scale */
+  --neutral-100: oklch(98.3% 0.004 236.5);
+  --neutral-200: oklch(96.6% 0.008 258.3);
+  --neutral-300: oklch(92.4% 0.014 226.6);
+  --neutral-400: oklch(76.3% 0.026 237);
+  --neutral-500: oklch(46.6% 0.025 237.3);
+  --neutral-600: oklch(32.1% 0.027 242.3);
+
+  /* Typography */
+  --font-header: 'CD', system-ui, sans-serif;
+}
