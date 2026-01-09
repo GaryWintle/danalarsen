@@ -73,3 +73,10 @@ h6 {
 #__next {
   isolation: isolate;
 }
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

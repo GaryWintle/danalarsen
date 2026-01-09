@@ -1,0 +1,36 @@
+---
+import Logo from '@graphics/dl-logo.svg?raw'
+---
+<nav>
+  <div class="logo" set:html={Logo} />
+
+  <div class="navigation">
+    <ul class="links">
+      <li><a class="nav-link" href="">Projects</a></li>
+      <li><a class="nav-link" href="">About</></li>
+      <li><a class="nav-link" href="">Contact</></li>
+    </ul>
+    <ul class="links social">
+      <li><a href="">1</a></li>
+      <li><a href="">1</a></li>
+      <li><a href="">1</a></li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+  nav {
+    display: flex;
+    background-color: black;
+  }
+  .links {
+    display: flex;
+  }
+  .nav-link {
+    color: var(--button-text);
+    text-decoration: none;
+  }
+
+
+
+</style>

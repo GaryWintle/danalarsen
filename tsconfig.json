@@ -10,7 +10,7 @@
       "@sections/*": ["src/sections/*"],
       "@styles/*": ["src/styles/*"],
       "@images/*": ["src/assets/images/*"],
-      "@icons/*": ["src/assets/graphics/*"]
+      "@graphics/*": ["src/assets/graphics/*"]
     }
   }
 }

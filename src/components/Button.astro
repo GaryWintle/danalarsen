@@ -1,0 +1,32 @@
+---
+const {
+  color // primary | secondary
+} = Astro.props
+---
+
+<button class={color}><slot /></button>
+
+<style>
+  button {
+    font-family: var(--font-body);
+    font-size: var(--font-02);
+    font-weight: var(--font-weight-semibold);
+    color: var(--button-text);
+    border-radius: var(--br-01);
+    padding-block: var(--sp-02);
+    padding-inline: var(--sp-06);
+    border: none;
+    line-height: 1;
+    letter-spacing: 0.02rem;
+}
+
+.primary {
+  background-color: var(--button-primary);
+  &:hover {
+    background-color: red;
+  }
+}
+.secondary {
+  background-color: var(--button-secondary);
+}
+</style>

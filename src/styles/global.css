@@ -31,8 +31,8 @@ html {
 
 h1 {
   font-family: var(--font-header);
-  color: white;
-  font-size: 8rem;
-  letter-spacing: -2px;
-  line-height: 110%;
+  color: var(--neutral-100);
+  font-size: clamp(4rem, calc(5vw + 1rem), 8rem);
+  letter-spacing: -1px;
+  line-height: 105%;
 }
