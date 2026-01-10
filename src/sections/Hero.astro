@@ -1,36 +1,66 @@
 ---
 import Button from '@components/Button.astro'
+import HeroDivider from '@graphics/hero-divider.svg?raw'
 ---
+
 <header>
-  <div class="container">
-    <h1><span class="name-highlight">Dana Larsen</span> is an Advocate & Activist for Sensible Drug Policy to <span class="text-highlight">End</span> the War on Drugs.</h1>
-    <div class="buttons-container">
-      <Button color="primary">Speak with Dana</Button>
-      <Button color="secondary">About Dana</Button></div>
-    
+  <div class="wrapper">
+    <div class="content-container">
+      <h1>
+        <span class="name-highlight">Dana Larsen</span> is an Advocate & Activist
+        for Sensible Drug Policy to <span class="text-highlight">End</span> the War
+        on Drugs.
+      </h1>
+      <div class="buttons-container">
+        <Button color="primary">Speak with Dana</Button>
+        <Button color="secondary">About Dana</Button>
+      </div>
+    </div>
+
+    <div class="hero-divider" set:html={HeroDivider} />
   </div>
-  <div></div>
 </header>
 
 <style>
   header {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    justify-content: center;
+    justify-items: center;
     align-content: center;
     width: 100%;
-    height: 90vh;
-    background-image: url("/images/dl-hero-desktop.webp");
+    height: max(80rem, 95vh);
+    background-image:
+      linear-gradient(to top, var(--photo-underglow), transparent 20%),
+      url('/images/dl-hero-desktop.webp');
     background-size: cover;
     background-position: center;
+    /* background-attachment: fixed; */
+    position: relative;
+  }
+  .hero-divider {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .hero-divider svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .wrapper {
+    /* background-color: red; */
+    width: min(100%, var(--max-width));
     padding-inline: var(--section-inline);
   }
-  .container {
+  .content-container {
     display: flex;
     flex-direction: column;
     gap: var(--layout-03);
-    width: min(var(--max-width), 100%);
-    height: 50%;
+    width: min(50%, calc(var(--max-width) / 2));
+    height: 100%;
+    margin-block-start: -10vh;
   }
   .buttons-container {
     display: flex;
@@ -39,11 +69,10 @@ import Button from '@components/Button.astro'
   }
 
   .name-highlight {
-    color: var(--blue-100)
+    color: var(--blue-100);
   }
   .text-highlight {
     color: var(--blue-100);
     font-style: italic;
   }
 </style>
-

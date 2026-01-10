@@ -1,6 +1,6 @@
 ---
 const {
-  color // primary | secondary
+  color, // primary | secondary
 } = Astro.props
 ---
 
@@ -18,15 +18,18 @@ const {
     border: none;
     line-height: 1;
     letter-spacing: 0.02rem;
-}
+  }
 
-.primary {
-  background-color: var(--button-primary);
-  &:hover {
+  .primary {
+    background-color: var(--button-primary);
+    box-shadow: var(--button-primary-shadow);
+  }
+  .primary:hover {
     background-color: red;
   }
-}
-.secondary {
-  background-color: var(--button-secondary);
-}
+
+  .secondary {
+    background-color: var(--button-secondary);
+    box-shadow: var(--button-secondary-shadow);
+  }
 </style>

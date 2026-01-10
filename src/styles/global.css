@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'CD';
-  src: url('/fonts/CD-Black.woff2') format('woff2'),
+  src:
+    url('/fonts/CD-Black.woff2') format('woff2'),
     url('/fonts/CD-Black.woff') format('woff');
   font-weight: 700; /* Black */
   font-style: normal;
@@ -8,7 +9,8 @@
 }
 @font-face {
   font-family: 'CD';
-  src: url('/fonts/CD-Semibold.woff2') format('woff2'),
+  src:
+    url('/fonts/CD-Semibold.woff2') format('woff2'),
     url('/fonts/CD-Semibold.woff') format('woff');
   font-weight: 400; /* Black */
   font-style: normal;
@@ -16,7 +18,8 @@
 }
 @font-face {
   font-family: 'CD';
-  src: url('/fonts/CD-Light-Italic.woff2') format('woff2'),
+  src:
+    url('/fonts/CD-Light-Italic.woff2') format('woff2'),
     url('/fonts/CD-Light-Italic.woff') format('woff');
   font-weight: 400; /* Italic */
   font-style: italic;
@@ -29,10 +32,24 @@ html {
   lang: en;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bg-page);
+  position: absolute;
+}
+
+body > section {
+  padding-block: var(--section-block);
+  padding-inline: var(--section-inline);
+  width: min(100%, var(--max-width));
+}
+
 h1 {
   font-family: var(--font-header);
   color: var(--neutral-100);
-  font-size: clamp(4rem, calc(5vw + 1rem), 8rem);
+  font-size: clamp(5rem, calc(6vw + 1rem), 8rem);
   letter-spacing: -1px;
-  line-height: 105%;
+  line-height: 110%;
 }

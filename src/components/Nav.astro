@@ -1,19 +1,32 @@
 ---
 import Logo from '@graphics/dl-logo.svg?raw'
+import Facebook from '@graphics/socials/facebook-base.svg?raw'
+import Instagram from '@graphics/socials/instagram-base.svg?raw'
+import X from '@graphics/socials/x-base.svg?raw'
 ---
+
 <nav>
   <div class="logo" set:html={Logo} />
 
   <div class="navigation">
     <ul class="links">
       <li><a class="nav-link" href="">Projects</a></li>
-      <li><a class="nav-link" href="">About</></li>
-      <li><a class="nav-link" href="">Contact</></li>
+      <li><a class="nav-link" href="">About</a></li>
+      <li><a class="nav-link" href="">Contact</a></li>
     </ul>
-    <ul class="links social">
-      <li><a href="">1</a></li>
-      <li><a href="">1</a></li>
-      <li><a href="">1</a></li>
+    <ul class="links social-group">
+      <li>
+        <a href="social-link"><div class="social-icon" set:html={Facebook} /></a
+        >
+      </li>
+      <li>
+        <a href="social-link"
+          ><div class="social-icon" set:html={Instagram} /></a
+        >
+      </li>
+      <li>
+        <a href="social-link"><div class="social-icon" set:html={X} /></a>
+      </li>
     </ul>
   </div>
 </nav>
@@ -21,16 +34,36 @@ import Logo from '@graphics/dl-logo.svg?raw'
 <style>
   nav {
     display: flex;
-    background-color: black;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: min(100%, var(--max-width));
+    padding-inline-end: var(--section-inline);
+    padding-inline-start: calc(var(--section-inline) / 2);
+    padding-block: var(--sp-04);
+    z-index: 5;
+  }
+  .navigation {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-06);
+  }
+  .logo {
+    width: 12rem;
   }
   .links {
     display: flex;
+    gap: 32px;
+  }
+  .social-group {
+    gap: var(--sp-01);
   }
   .nav-link {
+    font-family: var(--font-body);
+    font-size: var(--font-02);
     color: var(--button-text);
+    letter-spacing: 0.02rem;
     text-decoration: none;
+    font-weight: var(--font-weight-semibold);
   }
-
-
-
 </style>

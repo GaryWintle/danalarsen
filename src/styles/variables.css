@@ -17,12 +17,12 @@
 
   /* PRIMITIVE TOKENS */
 
-  /* Accent Brand Colors */
+  /* Primary Brand Colors */
   --orange-100: oklch(80% 0.15 65);
   --orange-200: oklch(67% 0.17 48);
   --orange-300: oklch(64% 0.17 37);
 
-  /* Base Brand Colors */
+  /* Secondary Brand Colors */
   --blue-100: oklch(84% 0.18 190);
   --blue-200: oklch(70% 0.13 210);
   --blue-300: oklch(57% 0.12 217);
@@ -34,6 +34,17 @@
   --neutral-400: oklch(76% 0.025 237);
   --neutral-500: oklch(47% 0.025 237);
   /* --neutral-600: oklch(32.1% 0.027 242.3); */
+
+  /* Transparencies */
+  --photo-underglow: oklch(from var(--blue-100) l c h / 0.2);
+
+  /* Shadows*/
+  --button-primary-shadow:
+    inset 0 1px 1px oklch(from var(--orange-100) l c h / 0.4),
+    0 2px 3px oklch(from var(--orange-300) l c h / 0.3);
+  --button-secondary-shadow:
+    inset 0 1px 1px oklch(from var(--blue-100) l c h / 0.4),
+    0 2px 3px oklch(from var(--blue-300) l c h / 0.3);
 
   /* Spacing */
   --sp-01: 0.4em;

@@ -1,0 +1,5 @@
+<svg viewBox="0 0 1519 78" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M448.332 16H0V69H1519V43.5H506.168C498.3 43.5 490.676 40.7715 484.595 35.7796L469.905 23.7204C463.824 18.7285 456.2 16 448.332 16Z" fill="var(--neutral-200, currentColor)"/>
+<path vector-effect="non-scaling-stroke" opacity="0.59" d="M0 10L448.332 10C456.2 10 463.824 12.7285 469.905 17.7204L484.595 29.7796C490.676 34.7715 498.3 37.5 506.168 37.5H1519" stroke="#67E0D9" stroke-width="20"/>
+<path vector-effect="non-scaling-stroke" d="M0 14L448.332 14C456.2 14 463.824 16.7285 469.905 21.7204L484.595 33.7796C490.676 38.7715 498.3 41.5 506.168 41.5H1519" stroke="#4BBDD0" stroke-width="12"/>
+</svg>
