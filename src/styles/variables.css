@@ -7,8 +7,10 @@
 
   /* Type */
   --text-hero: var(--neutral-100);
-  --text-primary: var(--blue-300);
-  --text-secondary: var(--neutral-500);
+  --text-title: var(--blue-300);
+  --text-title-ondark: var(--neutral-100);
+  --text-body: var(--neutral-500);
+  --text-body-ondark: var(--neutral-200);
 
   /* Buttons */
   --button-primary: var(--orange-200);
@@ -33,23 +35,34 @@
   --neutral-300: oklch(92% 0.015 227);
   --neutral-400: oklch(76% 0.025 237);
   --neutral-500: oklch(47% 0.025 237);
-  /* --neutral-600: oklch(32.1% 0.027 242.3); */
+  --neutral-600: oklch(32% 0.027 242);
 
   /* Transparencies */
-  --photo-underglow: oklch(from var(--blue-100) l c h / 0.2);
+  --photo-underglow: linear-gradient(
+    to top,
+    oklch(from var(--blue-100) l c h / 0.2),
+    transparent 20%
+  );
 
   /* Shadows*/
+  --shadow-shallow:
+    0 1px 2px oklch(from var(--blue-300) l c h / 0.01),
+    0 3px 5px oklch(from var(--blue-300) l c h / 0.02),
+    0 4px 15px oklch(from var(--blue-300) l c h / 0.04);
   --button-primary-shadow:
     inset 0 1px 1px oklch(from var(--orange-100) l c h / 0.4),
-    0 2px 3px oklch(from var(--orange-300) l c h / 0.3);
+    0 2px 3px oklch(from var(--orange-300) l c h / 0.1);
   --button-secondary-shadow:
     inset 0 1px 1px oklch(from var(--blue-100) l c h / 0.4),
-    0 2px 3px oklch(from var(--blue-300) l c h / 0.3);
+    0 2px 3px oklch(from var(--blue-300) l c h / 0.08);
+
+  /* Borders */
+  --image-border: 1px solid var(--neutral-300);
 
   /* Spacing */
-  --sp-01: 0.4em;
-  --sp-02: 0.8em;
-  --sp-03: 1.2em;
+  --sp-01: 0.4rem;
+  --sp-02: 0.8rem;
+  --sp-03: 1.2rem;
   --sp-04: 1.6rem;
   --sp-05: 2.4rem;
   --sp-06: 3.2rem;
@@ -68,7 +81,7 @@
   --font-02: 1.6rem;
   --font-03: 1.8rem;
   --font-04: clamp(2.3rem, 3vw, 2.4rem);
-  --font-05: clamp(2.7rem, 4vw, 4rem);
+  --font-05: clamp(2.7rem, 4vw, 3.8rem);
 
   /* Font weights */
   --font-weight-normal: 400;

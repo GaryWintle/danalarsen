@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets'
+
+import PotheadBooks from '@images/project-photos/projects-potheadbooks.png'
+import CannabisDispensary from '@images/project-photos/projects-cannabisdispensary.png'
+import GetYourDrugsTested from '@images/project-photos/projects-getyourdrugstested.jpg'
+
+import CocaLeafCafe from '@images/project-photos/projects-cocaleafcafe.png'
+import MushroomDispensary from '@images/project-photos/projects-mushroomdispensary.png'
+import MicrodoseCafe from '@images/project-photos/projects-microdosecafe.png'
+
+import ProjectCard from '@components/ProjectCard.astro'
+
+const projectCards = [
+  {
+    src: PotheadBooks,
+    title: 'Pothead Books',
+    text: 'A smooth, low-dose mushroom shot designed to elevate you.',
+    href: 'menu/#shooters',
+  },
+  {
+    src: CannabisDispensary,
+    title: 'The Dispensary',
+    text: 'A smooth, low-dose mushroom shot designed to elevate you.',
+    href: 'menu/#shooters',
+  },
+  {
+    src: GetYourDrugsTested,
+    title: 'Get Your Drugs Tested',
+    text: 'A smooth, low-dose mushroom shot designed to elevate you.',
+    href: 'menu/#shooters',
+  },
+  {
+    src: CocaLeafCafe,
+    title: 'Coca Leaf Cafe',
+    text: 'A smooth, low-dose mushroom shot designed to elevate you.',
+    href: 'menu/#shooters',
+  },
+  {
+    src: MushroomDispensary,
+    title: 'Mushroom Dispensary',
+    text: 'A smooth, low-dose mushroom shot designed to elevate you.',
+    href: 'menu/#shooters',
+  },
+  {
+    src: MicrodoseCafe,
+    title: 'Microdose Cafe',
+    text: 'A smooth, low-dose mushroom shot designed to elevate you.',
+    href: 'menu/#shooters',
+  },
+]
+---
+
+<section>
+  <h2>Dana Larsen's Projects</h2>
+  <p>
+    Check out any of the links below to explore Dana's various projects'
+    websites.
+  </p>
+  <div class="project-swiper">
+    <Image src={PotheadBooks} alt="Pothead Books" loading="lazy" />
+  </div>
+
+  <!-- Project Cards -->
+
+  <div class="wrapper">
+    {projectCards.map((props) => <ProjectCard {...props} />)}
+  </div>
+</section>
+
+<style>
+  .project-swiper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: var(--image-border);
+    border-radius: var(--br-02);
+    margin-block: var(--layout-01);
+  }
+  .project-swiper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(30rem, 100%), 1fr));
+    row-gap: clamp(1.6rem, 3vw, 3.2rem);
+    column-gap: clamp(1.2rem, 2vw, 2.4rem);
+  }
+</style>

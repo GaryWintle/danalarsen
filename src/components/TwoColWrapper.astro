@@ -1,19 +1,60 @@
+---
+import Projects from '@sections/Projects.astro'
+---
+
 <section class="two-column-wrapper">
-  <section></section>
-  <aside></aside>
+  <section class="projects-section">
+    <Projects />
+  </section>
+  <aside class="news-section">
+    <h3>Dana in the News</h3>
+  </aside>
+  <aside class="columns-section"><h3>Dana's Columns</h3></aside>
 </section>
 
 <style>
   .two-column-wrapper {
     display: grid;
     grid-template-columns: 1fr 30rem;
-    height: 1200px;
-    background-color: aqua;
+    grid-template-rows: auto;
+    grid-template-areas:
+      'projects news'
+      'projects columns';
+    column-gap: var(--layout-02);
+    row-gap: var(--layout-01);
+
+    /* background-color: grey; */
   }
-  section {
-    background-color: aquamarine;
+  .projects-section {
+    /* background-color: aquamarine; */
+    grid-area: projects;
   }
-  aside {
+  .news-section {
     background-color: blueviolet;
+    grid-area: news;
+    height: 100%;
+  }
+  .columns-section {
+    background-color: blue;
+    grid-area: columns;
+    height: 400px;
+  }
+
+  @media (max-width: 83.4rem) {
+    .two-column-wrapper {
+      grid-template-columns: 1fr 30rem;
+      grid-template-areas:
+        'news columns'
+        'projects projects';
+    }
+  }
+  @media (max-width: 40.2rem) {
+    .two-column-wrapper {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'news'
+        'columns'
+        'projects';
+    }
   }
 </style>

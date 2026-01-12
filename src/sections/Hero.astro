@@ -26,11 +26,10 @@ import HeroDivider from '@graphics/hero-divider.svg?raw'
     display: grid;
     justify-items: center;
     align-content: center;
-    width: 100%;
+    width: 100vw;
     height: max(80rem, 95vh);
     background-image:
-      linear-gradient(to top, var(--photo-underglow), transparent 20%),
-      url('/images/dl-hero-desktop.webp');
+      var(--photo-underglow), url('/images/dl-hero-desktop.webp');
     background-size: cover;
     background-position: center;
     /* background-attachment: fixed; */
@@ -38,7 +37,7 @@ import HeroDivider from '@graphics/hero-divider.svg?raw'
   }
   .hero-divider {
     position: absolute;
-    bottom: -20px;
+    bottom: -25px;
     left: 50%;
     width: 100vw;
     transform: translateX(-50%);
