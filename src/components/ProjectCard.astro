@@ -2,10 +2,10 @@
 import { Image } from 'astro:assets'
 import PotheadBooks from '@images/project-photos/projects-potheadbooks.png'
 import Button from '@components/Button.astro'
-const { src, title, text, href } = Astro.props
+const { src, title, text, url, href } = Astro.props
 ---
 
-<a href={href}>
+<a href={href} rel="noopener noreferrer">
   <div class="card">
     <div class="card-image-container">
       <Image src={src} alt={title} loading="lazy" />
@@ -14,7 +14,7 @@ const { src, title, text, href } = Astro.props
         <p class="body-text">
           {text}
         </p>
-        <Button color="secondary">potheadbooks.com</Button>
+        <Button color="secondary">{url}</Button>
       </div>
     </div>
   </div></a
@@ -25,7 +25,7 @@ const { src, title, text, href } = Astro.props
     width: 100%;
     height: max(45rem, 100%);
     overflow: hidden;
-    background-color: var(--neutral-100);
+    background-color: var(--bg-surface);
     border-radius: var(--br-02);
     box-shadow: var(--shadow-shallow);
     border: var(--image-border);

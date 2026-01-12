@@ -1,10 +1,13 @@
 ---
 import { Image } from 'astro:assets'
 
+//Hero Image
+import ImageMain from '@images/project-photos/projects-main.jpg'
+
+// Card Images
 import PotheadBooks from '@images/project-photos/projects-potheadbooks.png'
 import CannabisDispensary from '@images/project-photos/projects-cannabisdispensary.png'
 import GetYourDrugsTested from '@images/project-photos/projects-getyourdrugstested.jpg'
-
 import CocaLeafCafe from '@images/project-photos/projects-cocaleafcafe.png'
 import MushroomDispensary from '@images/project-photos/projects-mushroomdispensary.png'
 import MicrodoseCafe from '@images/project-photos/projects-microdosecafe.png'
@@ -16,50 +19,58 @@ const projectCards = [
     src: PotheadBooks,
     title: 'Pothead Books',
     text: 'A smooth, low-dose mushroom shot designed to elevate you.',
-    href: 'menu/#shooters',
+    url: 'potheadbooks.com',
+    href: 'https://potheadbooks.com/',
   },
   {
     src: CannabisDispensary,
     title: 'The Dispensary',
     text: 'A smooth, low-dose mushroom shot designed to elevate you.',
-    href: 'menu/#shooters',
+    url: 'cannabisdispensary.ca',
+    href: 'https://cannabisdispensary.ca/',
   },
   {
     src: GetYourDrugsTested,
     title: 'Get Your Drugs Tested',
     text: 'A smooth, low-dose mushroom shot designed to elevate you.',
-    href: 'menu/#shooters',
+    url: 'getyourdrugstested.com',
+    href: 'https://getyourdrugstested.com/',
   },
   {
     src: CocaLeafCafe,
     title: 'Coca Leaf Cafe',
     text: 'A smooth, low-dose mushroom shot designed to elevate you.',
+    url: 'cocaleafcafe.com',
     href: 'menu/#shooters',
   },
   {
     src: MushroomDispensary,
     title: 'Mushroom Dispensary',
     text: 'A smooth, low-dose mushroom shot designed to elevate you.',
-    href: 'menu/#shooters',
+    url: 'mushroomdispensary.com',
+    href: 'https://mushroomdispensary.com/',
   },
   {
     src: MicrodoseCafe,
     title: 'Microdose Cafe',
     text: 'A smooth, low-dose mushroom shot designed to elevate you.',
-    href: 'menu/#shooters',
+    url: 'microdosecafe.ca',
+    href: 'https://microdosecafe.ca/',
   },
 ]
 ---
 
 <section>
-  <h2>Dana Larsen's Projects</h2>
-  <p>
-    Check out any of the links below to explore Dana's various projects'
-    websites.
-  </p>
-  <div class="project-swiper">
-    <Image src={PotheadBooks} alt="Pothead Books" loading="lazy" />
+  <div class="section-text">
+    <h2>Dana Larsen's Projects</h2>
+    <p>
+      Check out any of the links below to explore Dana's various projects'
+      websites.
+    </p>
   </div>
+  <!-- <div class="project-swiper">
+    <Image src={ImageMain} alt="Pothead Books" loading="lazy" />
+  </div> -->
 
   <!-- Project Cards -->
 
@@ -69,6 +80,13 @@ const projectCards = [
 </section>
 
 <style>
+  .section-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-03);
+    padding-block: var(--layout-01);
+  }
+
   .project-swiper {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -86,7 +104,7 @@ const projectCards = [
   .wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(30rem, 100%), 1fr));
-    row-gap: clamp(1.6rem, 3vw, 3.2rem);
-    column-gap: clamp(1.2rem, 2vw, 2.4rem);
+    row-gap: clamp(2.4rem, 2.5vw, 4.8rem);
+    column-gap: clamp(1.6rem, 2vw, 2.8rem);
   }
 </style>

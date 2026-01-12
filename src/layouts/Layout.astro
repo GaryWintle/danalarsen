@@ -2,13 +2,174 @@
 import '@styles/reset.css'
 import '@styles/variables.css'
 import '@styles/global.css'
+
+const title =
+  Astro.props.title ?? 'Dana Larsen — Vancouver drug policy reform activist'
+const desc =
+  Astro.props.description ??
+  'Vancouver-based drug policy reform activist advocating harm reduction, cannabis law reforms, and evidence-based public health.'
+const siteUrl = 'https://www.danalarsen.com'
+const pageUrl = Astro.props.url ?? siteUrl
+const ogImage =
+  Astro.props.ogImage ?? `${siteUrl}/images/og-default-1200x630.jpg` // replace
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>{Astro.props.title}</title>
+
+    <!-- Device block customization -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="theme-color" content="#0C849C" />
+    <title>{title}</title>
+
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={pageUrl} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:locale" content="en_CA" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:site_name" content="Dana Larsen" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Dana Larsen | Vancouver drug policy reform activist"
+    />
+    <!-- profile-specific OG  -->
+    <meta property="profile:first_name" content="Dana" />
+    <meta property="profile:last_name" content="Larsen" />
+    <meta property="profile:username" content="DanaLarsen" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Fonts -->
+    <link
+      rel="preload"
+      href="/fonts/CD-Black.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/fonts/CD-Light-Italic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.svg" />
+
+    <!-- Structured data: WebSite + WebPage + Person -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "{siteUrl}#website",
+            "url": "{siteUrl}",
+            "name": "Dana Larsen",
+            "description": "Official site for Dana Larsen — Vancouver-based drug policy reform activist.",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Dana Larsen"
+            },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "{siteUrl}/?s={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "{pageUrl}#webpage",
+            "url": "{pageUrl}",
+            "name": "{title}",
+            "description": "{desc}",
+            "inLanguage": "en-CA",
+            "isPartOf": { "@id": "{siteUrl}#website" },
+            "mainEntity": { "@id": "{siteUrl}#person" }
+          },
+          {
+            "@type": "Person",
+            "@id": "{siteUrl}#person",
+            "name": "Dana Larsen",
+            "alternateName": "Dana Albert Larsen",
+            "description": "Canadian author, Vancouver-based activist and drug policy reform advocate, founder of community harm reduction services and retail operations.",
+            "url": "{siteUrl}",
+            "image": "{siteUrl}/images/danalarsen-profile",
+            "gender": "Male",
+            "birthDate": "1971",
+            "nationality": "CA",
+            "knowsLanguage": ["English", "French"],
+            "knowsAbout": [
+              "Drug policy reform",
+              "Cannabis legalization",
+              "Harm reduction",
+              "Psychedelics advocacy",
+              "Community health"
+            ],
+            "sameAs": [
+              "https://en.wikipedia.org/wiki/Dana_Larsen",
+              "{OFFICIAL_TWITTER_URL}",
+              "{OFFICIAL_FACEBOOK_URL}",
+              "{OFFICIAL_INSTAGRAM_URL}"
+            ],
+            "founderOf": [
+              {
+                "@type": "Organization",
+                "name": "Pothead Books",
+                "url": "https://potheadbooks.com/"
+              },
+              {
+                "@type": "Organization",
+                "name": "The Medicinal Cannabis Dispensary",
+                "url": "https://cannabisdispensary.ca/"
+              },
+              {
+                "@type": "Organization",
+                "name": "Get Your Drugs Tested",
+                "url": "https://getyourdrugstested.com/"
+              },
+              {
+                "@type": "Organization",
+                "name": "Coca Leaf Cafe",
+                "url": "https://cocaleafcafe.com/"
+              },
+              {
+                "@type": "Organization",
+                "name": "The Medicinal Mushroom Dispensary",
+                "url": "https://mushroomdispensary.com/"
+              },
+              {
+                "@type": "Organization",
+                "name": "Microdose Cafe",
+                "url": "https://microdosecafe.ca/"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <slot />

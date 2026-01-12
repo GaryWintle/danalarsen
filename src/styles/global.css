@@ -40,7 +40,7 @@ body {
   position: absolute;
 }
 
-body > section {
+main > section {
   padding-block: var(--section-block);
   padding-inline: var(--section-inline);
   width: min(100%, var(--max-width));
@@ -60,7 +60,6 @@ h2 {
   font-size: var(--font-05);
   letter-spacing: -0.7px;
   line-height: 100%;
-  margin-bottom: var(--sp-03);
 }
 
 h3 {
