@@ -1,0 +1,62 @@
+---
+import defaultNewsImage from '@images/column-thumbnails/dana-news-policeraid.webp'
+
+const {
+  newsImage = defaultNewsImage,
+  newsHeadline = 'Headline goes here.',
+  newsSource = 'Pothead Press',
+  newsDate = 'April 20, 1982',
+  newsDateTime = '1982-04-20',
+  href = 'https://potheadbooks.com/',
+} = Astro.props
+import { Image } from 'astro:assets'
+
+const isExternal = href.startsWith('http')
+---
+
+<li class="news-item">
+  <a
+    href={href}
+    class="news-link"
+    rel={isExternal ? 'noopener noreferrer' : undefined}
+    target={isExternal ? '_blank' : undefined}
+    target="_blank"
+    aria-label={`Read article: ${newsHeadline} from ${newsSource}`}
+  >
+    <div class="news-image">
+      <Image
+        src={newsImage}
+        alt={newsHeadline}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <div class="text-container">
+      <h3 class="news-headline">{newsHeadline}</h3>
+      <p class="news-source">{newsSource}</p>
+      <time datetime={newsDateTime} class="news-date">{newsDate}</time>
+    </div>
+  </a>
+</li>
+
+<style>
+  .news-link {
+    display: flex;
+    padding-block: var(--sp-05);
+    gap: var(--sp-03);
+  }
+
+  .news-image {
+    width: 9.8rem;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--br-01);
+    overflow: hidden;
+    flex-shrink: 0;
+    border: var(--image-border);
+  }
+  .news-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

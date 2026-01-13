@@ -1,10 +1,18 @@
 ---
 const {
-  color, // primary | secondary
+  color,
+  class: className, // Renamed this to avoid keyword conflict
+  showExternalIcon = false,
 } = Astro.props
+
+import extIcon from '@graphics/Icons/external-link.svg?raw'
 ---
 
-<button class={color}><slot /></button>
+<button class:list={[color, className]}>
+  <slot />
+  <slot name="icon" />
+  {showExternalIcon && <div class="ext-icon" set:html={extIcon} />}
+</button>
 
 <style>
   button {
@@ -18,18 +26,31 @@ const {
     border: none;
     line-height: 1;
     letter-spacing: 0.02rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--sp-02);
+  }
+
+  button:hover {
+    cursor: pointer;
   }
 
   .primary {
     background-color: var(--button-primary);
     box-shadow: var(--button-primary-shadow);
+    transition: all 250ms ease-out;
   }
   .primary:hover {
-    background-color: red;
+    background-color: var(--button-primary__hover);
   }
 
   .secondary {
     background-color: var(--button-secondary);
     box-shadow: var(--button-secondary-shadow);
+    transition: all 250ms ease-out;
+  }
+  .secondary:hover {
+    background-color: var(--button-secondary__hover);
   }
 </style>

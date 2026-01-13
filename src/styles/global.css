@@ -51,7 +51,7 @@ h1 {
   color: var(--text-title-ondark);
   font-size: clamp(5rem, calc(6vw + 1rem), 8rem);
   letter-spacing: -1px;
-  line-height: 110%;
+  line-height: 113%;
 }
 
 h2 {
@@ -75,8 +75,29 @@ p {
   color: var(--text-body);
   font-size: var(--font-02);
   line-height: 1.5;
+  font-weight: 400;
 }
 
 a {
   text-decoration: none;
+}
+
+.news-headline {
+  font-size: var(--font-02);
+  font-family: var(--font-body);
+  line-height: 1.1;
+  font-weight: var(--font-weight-semibold);
+}
+.news-source {
+  color: var(--neutral-500);
+  font-size: var(--font-01);
+  font-family: var(--font-body);
+  line-height: 1.1;
+  font-weight: var(--font-weight-semibold);
+}
+.news-date {
+  color: var(--neutral-500);
+  font-size: var(--font-01);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-normal);
 }

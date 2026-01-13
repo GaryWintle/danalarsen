@@ -1,60 +1,108 @@
 ---
 import Projects from '@sections/Projects.astro'
+import SidebarBlock from '@components/SidebarBlock.astro'
+import newsIcon from '@graphics/Icons/globe.svg?raw'
+import columnsIcon from '@graphics/Icons/writer.svg?raw'
+import NewsBlock from '@components/NewsBlock.astro'
+
+import storyOne from '@images/column-thumbnails/dana-news-policeraid.webp'
+
+const newsBlocks = [
+  {
+    newsImage: storyOne,
+    newsHeadline:
+      'Police raid Vancouver cannabis dispensaries linked to Dana Larsen',
+    newsSource: 'Vancouver Sun',
+    newsDate: 'Jan 28, 2025',
+    newsDateTime: '2025-01-28',
+    href: 'https://potheadbooks.com/',
+  },
+  {
+    newsImage: storyOne,
+    newsHeadline:
+      'Police raid Vancouver cannabis dispensaries linked to Dana Larsen',
+    newsSource: 'Vancouver Sun',
+    newsDate: 'Jan 28, 2025',
+    newsDateTime: '2025-01-28',
+    href: 'https://potheadbooks.com/',
+  },
+  {
+    newsImage: storyOne,
+    newsHeadline:
+      'Police raid Vancouver cannabis dispensaries linked to Dana Larsen',
+    newsSource: 'Vancouver Sun',
+    newsDate: 'Jan 28, 2025',
+    newsDateTime: '2025-01-28',
+    href: 'https://potheadbooks.com/',
+  },
+]
 ---
 
 <section class="two-column-wrapper">
   <section class="projects-section">
     <Projects />
   </section>
+
+  <!-- News Section -->
   <aside class="news-section">
-    <h3>Dana in the News</h3>
+    <SidebarBlock title="Dana in the News" icon={newsIcon}>
+      <!-- News Story -->
+      {newsBlocks.map((props) => <NewsBlock {...props} />)}
+    </SidebarBlock>
+    <aside class="columns-section">
+      <SidebarBlock title="Dana's Columns" icon={columnsIcon}>News</SidebarBlock
+      >
+    </aside>
   </aside>
-  <aside class="columns-section"><h3>Dana's Columns</h3></aside>
-</section>
 
-<style>
-  .two-column-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 30rem;
-    grid-template-rows: auto;
-    grid-template-areas:
-      'projects news'
-      'projects columns';
-    column-gap: var(--layout-02);
-    row-gap: var(--layout-01);
-
-    /* background-color: grey; */
-  }
-  .projects-section {
-    /* background-color: aquamarine; */
-    grid-area: projects;
-  }
-  .news-section {
-    background-color: blueviolet;
-    grid-area: news;
-    height: 100%;
-  }
-  .columns-section {
-    background-color: blue;
-    grid-area: columns;
-    height: 400px;
-  }
-
-  @media (max-width: 83.4rem) {
+  <style>
     .two-column-wrapper {
+      display: grid;
       grid-template-columns: 1fr 30rem;
+      grid-template-rows: auto;
       grid-template-areas:
-        'news columns'
-        'projects projects';
+        'projects news'
+        'projects columns';
+      column-gap: var(--layout-03);
+      row-gap: var(--layout-01);
+      padding-inline-end: 0;
+
+      /* background-color: grey; */
     }
-  }
-  @media (max-width: 40.2rem) {
-    .two-column-wrapper {
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        'news'
-        'columns'
-        'projects';
+    .projects-section {
+      /* background-color: aquamarine; */
+      grid-area: projects;
     }
-  }
-</style>
+    .news-section {
+      /* border: 1px solid blueviolet; */
+      grid-area: news;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--layout-01);
+    }
+    .columns-section {
+      /* border: 1px solid blue; */
+      grid-area: columns;
+      height: 400px;
+    }
+
+    @media (max-width: 83.4rem) {
+      .two-column-wrapper {
+        grid-template-columns: 1fr 30rem;
+        grid-template-areas:
+          'news columns'
+          'projects projects';
+      }
+    }
+    @media (max-width: 40.2rem) {
+      .two-column-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          'news'
+          'columns'
+          'projects';
+      }
+    }
+  </style>
+</section>

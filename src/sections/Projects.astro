@@ -61,7 +61,7 @@ const projectCards = [
 ---
 
 <section>
-  <div class="section-text">
+  <div class="section-text" id="projects">
     <h2>Dana Larsen's Projects</h2>
     <p>
       Check out any of the links below to explore Dana's various projects'
@@ -84,7 +84,7 @@ const projectCards = [
     display: flex;
     flex-direction: column;
     gap: var(--sp-03);
-    padding-block: var(--layout-01);
+    padding-block-end: var(--layout-01);
   }
 
   .project-swiper {
@@ -107,4 +107,11 @@ const projectCards = [
     row-gap: clamp(2.4rem, 2.5vw, 4.8rem);
     column-gap: clamp(1.6rem, 2vw, 2.8rem);
   }
+
+  /* .wrapper:hover :global(.card:not(:hover)) {
+    filter: grayscale(35%);
+    filter: brightness(0.96);
+    opacity: 0.85;
+    transition: opacity 300ms ease;
+  } */
 </style>

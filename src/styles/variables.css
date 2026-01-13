@@ -14,7 +14,9 @@
 
   /* Buttons */
   --button-primary: var(--orange-200);
+  --button-primary__hover: oklch(from var(--orange-200) 72% 0.19 60);
   --button-secondary: var(--blue-200);
+  --button-secondary__hover: oklch(from var(--blue-200) 77% 0.15 200);
   --button-text: var(--neutral-100);
 
   /* PRIMITIVE TOKENS */
@@ -26,7 +28,7 @@
 
   /* Secondary Brand Colors */
   --blue-100: oklch(84% 0.18 190);
-  --blue-200: oklch(70% 0.13 210);
+  --blue-200: oklch(67% 0.13 210);
   --blue-300: oklch(57% 0.12 217);
 
   /* Neutral / Gray Scale */
@@ -49,6 +51,14 @@
     0 1px 2px oklch(from var(--blue-300) l c h / 0.01),
     0 3px 5px oklch(from var(--blue-300) l c h / 0.02),
     0 4px 15px oklch(from var(--blue-300) l c h / 0.04);
+  --shadow-mid:
+    0 2px 4px oklch(from var(--blue-300) l c h / 0.03),
+    0 6px 8px oklch(from var(--blue-300) l c h / 0.04),
+    0 10px 20px oklch(from var(--blue-300) l c h / 0.05);
+  --shadow-deep:
+    0 2px 3px oklch(from var(--blue-300) l c h / 0.04),
+    0 7px 12px oklch(from var(--blue-300) l c h / 0.05),
+    0 12px 35px oklch(from var(--blue-300) l c h / 0.08);
   --button-primary-shadow:
     inset 0 1px 1px oklch(from var(--orange-100) l c h / 0.4),
     0 2px 3px oklch(from var(--orange-300) l c h / 0.1);

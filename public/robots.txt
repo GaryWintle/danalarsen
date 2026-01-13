@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://danalarsen.com/sitemap.xml

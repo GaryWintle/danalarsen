@@ -1,0 +1,26 @@
+---
+const { title, icon } = Astro.props
+
+// import globeIcon from '@graphics/Icons/globe.svg?raw'
+import sidebarUnderline from '@graphics/sidebar-underline.svg?raw'
+---
+
+<ul>
+  <div class="heading-container">
+    <div class="headline-icon" set:html={icon} />
+    <h2>{title}</h2>
+  </div>
+  <div class="sidebar-underline" set:html={sidebarUnderline} /><slot />
+</ul>
+
+<style>
+  h2 {
+    font-size: var(--font-04);
+    font-weight: 400;
+  }
+  .heading-container {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-02);
+  }
+</style>

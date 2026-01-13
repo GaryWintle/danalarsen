@@ -5,22 +5,25 @@ import Button from '@components/Button.astro'
 const { src, title, text, url, href } = Astro.props
 ---
 
-<a href={href} rel="noopener noreferrer">
-  <div class="card">
-    <div class="card-image-container">
-      <Image src={src} alt={title} loading="lazy" />
-      <div class="card-text-container">
-        <h3>{title}</h3>
-        <p class="body-text">
-          {text}
-        </p>
-        <Button color="secondary">{url}</Button>
-      </div>
+<div class="card">
+  <a href={href} rel="noopener noreferrer" class="card-link"></a>
+  <div class="card-image-container">
+    <Image src={src} alt={title} loading="lazy" />
+    <div class="card-text-container">
+      <h3>{title}</h3>
+      <p class="body-text">
+        {text}
+      </p>
+      <Button color="secondary" class="card-button" showExternalIcon={true}
+        >{url}</Button
+      >
     </div>
-  </div></a
->
+  </div>
+</div>
 
 <style>
+  :global(.poop) {
+  }
   .card {
     width: 100%;
     height: max(45rem, 100%);
@@ -29,6 +32,29 @@ const { src, title, text, url, href } = Astro.props
     border-radius: var(--br-02);
     box-shadow: var(--shadow-shallow);
     border: var(--image-border);
+    transition:
+      transform 280ms ease-out,
+      box-shadow 680ms ease-out;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-deep);
+    cursor: pointer;
+    /* background: linear-gradient(
+      to top,
+      oklch(from var(--blue-100) l c h / 0.2),
+      transparent 20%
+    ); */
+  }
+
+  .card:hover :global(.card-button) {
+    background-color: var(--button-secondary__hover);
+  }
+
+  .card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
   }
 
   .card-text-container {
