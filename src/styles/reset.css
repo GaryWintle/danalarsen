@@ -3,6 +3,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  /* border: 1px solid red; */
 }
 
 /* 2. Remove default margin */
@@ -18,6 +19,7 @@
 }
 
 body {
+  margin: 0;
   /* 4. Add accessible line-height */
   line-height: 1.5;
   /* 5. Improve text rendering */

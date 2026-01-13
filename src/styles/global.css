@@ -33,11 +33,15 @@ html {
 }
 
 body {
+  background-color: var(--bg-page);
+  position: absolute;
+  overflow-x: hidden;
+}
+
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--bg-page);
-  position: absolute;
 }
 
 main > section {
@@ -87,6 +91,10 @@ a {
   font-family: var(--font-body);
   line-height: 1.1;
   font-weight: var(--font-weight-semibold);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* Changed from 2 to 3 */
+  overflow: hidden;
 }
 .news-source {
   color: var(--neutral-500);

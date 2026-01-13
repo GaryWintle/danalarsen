@@ -1,7 +1,6 @@
 ---
 const { title, icon } = Astro.props
 
-// import globeIcon from '@graphics/Icons/globe.svg?raw'
 import sidebarUnderline from '@graphics/sidebar-underline.svg?raw'
 ---
 
@@ -22,5 +21,13 @@ import sidebarUnderline from '@graphics/sidebar-underline.svg?raw'
     display: flex;
     align-items: center;
     gap: var(--sp-02);
+  }
+
+  .sidebar-underline {
+    margin-block-end: var(--sp-04);
+  }
+
+  ul > :global(li:not(:last-child)) {
+    border-bottom: var(--news-divider);
   }
 </style>

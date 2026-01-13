@@ -5,34 +5,33 @@ import newsIcon from '@graphics/Icons/globe.svg?raw'
 import columnsIcon from '@graphics/Icons/writer.svg?raw'
 import NewsBlock from '@components/NewsBlock.astro'
 
-import storyOne from '@images/column-thumbnails/dana-news-policeraid.webp'
+import story01 from '@images/column-thumbnails/dana-news-policeraid.webp'
+import story02 from '@images/column-thumbnails/dana-news-supplier.jpg'
+import story03 from '@images/column-thumbnails/dana-news-policeraid.webp'
 
 const newsBlocks = [
   {
-    newsImage: storyOne,
+    newsImage: story01,
     newsHeadline:
-      'Police raid Vancouver cannabis dispensaries linked to Dana Larsen',
+      'Police raid Vancouver cannabis dispensaries linked to Dana Larsen ',
     newsSource: 'Vancouver Sun',
-    newsDate: 'Jan 28, 2025',
-    newsDateTime: '2025-01-28',
+    newsDate: 'January 28, 2025',
     href: 'https://potheadbooks.com/',
   },
   {
-    newsImage: storyOne,
+    newsImage: story02,
     newsHeadline:
-      'Police raid Vancouver cannabis dispensaries linked to Dana Larsen',
-    newsSource: 'Vancouver Sun',
-    newsDate: 'Jan 28, 2025',
-    newsDateTime: '2025-01-28',
+      'Pot Activist, retailer Dana Larsen sue for not paying supplier',
+    newsSource: 'North Shore News',
+    newsDate: 'May 31, 2024',
     href: 'https://potheadbooks.com/',
   },
   {
-    newsImage: storyOne,
+    newsImage: story03,
     newsHeadline:
       'Police raid Vancouver cannabis dispensaries linked to Dana Larsen',
     newsSource: 'Vancouver Sun',
-    newsDate: 'Jan 28, 2025',
-    newsDateTime: '2025-01-28',
+    newsDate: '2025-01-28',
     href: 'https://potheadbooks.com/',
   },
 ]
@@ -65,7 +64,7 @@ const newsBlocks = [
         'projects columns';
       column-gap: var(--layout-03);
       row-gap: var(--layout-01);
-      padding-inline-end: 0;
+      /* padding-inline-end: 0; */
 
       /* background-color: grey; */
     }

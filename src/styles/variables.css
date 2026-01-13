@@ -69,6 +69,8 @@
   /* Borders */
   --image-border: 1px solid var(--neutral-300);
 
+  --news-divider: 1px solid var(--neutral-300);
+
   /* Spacing */
   --sp-01: 0.4rem;
   --sp-02: 0.8rem;
