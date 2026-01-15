@@ -47,7 +47,8 @@ main {
 main > section {
   padding-block: var(--section-block);
   padding-inline: var(--section-inline);
-  width: min(100%, var(--max-width));
+  width: var(--max-width);
+  /* width: min(100%, var(--max-width)); */
 }
 
 h1 {

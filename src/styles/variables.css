@@ -83,7 +83,7 @@
   --layout-03: clamp(5.5rem, 5vw, 7.4rem);
   --section-block: clamp(5rem, 8vw, 15rem);
   --section-inline: clamp(1.8rem, 4.5vw, 3.2rem);
-  --max-width: 151.3rem;
+  --max-width: min(100%, 151.3rem);
 
   /* Typography */
   --font-header: 'CD', system-ui, sans-serif;
