@@ -1,0 +1,73 @@
+---
+import danaIcon from '@graphics/dana-headicon.svg?raw'
+import Button from '@components/Button.astro'
+---
+
+<section class="newsletter">
+  <div class="newsletter-container">
+    <div class="dana-icon" set:html={danaIcon} />
+    <div class="newsletter-text-content">
+      <h2>Join the Revolution!</h2>
+      <p>
+        Sign up for in-depth, informative drug war related updates and join Dana
+        in the fight against the war on drugs.
+      </p>
+    </div>
+    <form class="newsletter-input">
+      <label class="newsletter-input-label"> Email Address </label>
+      <div class="newsletter-input-field">
+        <input
+          id="newsletter-email"
+          name="email"
+          type="email"
+          placeholder="Enter your Email"
+          required
+          autocomplete="email"
+        />
+      </div>
+      <Button type="submit">Subscibe Today!</Button>
+    </form>
+    <p>Fully private. No spam. Unsub anytime.</p>
+  </div>
+</section>
+
+<style>
+  .newsletter {
+  }
+
+  .newsletter-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--layout-02);
+    padding-block: var(--layout-03);
+    background-color: var(--bg-surface);
+    box-shadow: var(--shadow-mid);
+    border-radius: var(--br-03);
+  }
+
+  .newsletter-text-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-03);
+  }
+
+  .dana-icon {
+    position: absolute;
+    top: -9rem;
+    width: 12rem;
+    height: auto;
+    filter: drop-shadow(0 2px 2px oklch(from var(--blue-300) l c h / 0.1));
+  }
+
+  /* .dana-icon svg {
+    overflow: visible;
+    filter: var(--shadow-drop-mid);
+  } */
+
+  p {
+    width: 55ch;
+  }
+</style>

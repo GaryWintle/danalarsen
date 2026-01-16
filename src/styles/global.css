@@ -57,14 +57,16 @@ h1 {
   font-size: clamp(5rem, calc(6vw + 1rem), 8rem);
   letter-spacing: -1px;
   line-height: 113%;
+  text-wrap: balance;
 }
 
 h2 {
   font-family: var(--font-header);
   color: var(--text-title);
   font-size: var(--font-05);
-  letter-spacing: -0.7px;
-  line-height: 100%;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  text-wrap: balance;
 }
 
 h3 {
@@ -73,6 +75,7 @@ h3 {
   color: var(--text-title);
   font-size: var(--font-04);
   line-height: 100%;
+  text-wrap: balance;
 }
 
 p {
@@ -96,6 +99,8 @@ a {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3; /* Changed from 2 to 3 */
   overflow: hidden;
+  text-wrap: balance;
+  hyphens: auto;
 }
 .news-source {
   color: var(--neutral-500);

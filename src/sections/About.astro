@@ -11,13 +11,18 @@ import Button from '@components/Button.astro'
           Lorem ipsum dolor sit amet consectetur. Nisl faucibus non magna ipsum.
           Lorem ipsum dolor sit amet consectetur. Nisl faucibus non magna ipsum.
         </p>
+        <div class="button-wrapper">
+          <Button color="primary">More about Dana</Button>
+        </div>
       </div>
-      <Button color="primary">More about Dana</Button>
     </div>
   </div>
 </section>
 
 <style>
+  p {
+    width: min(100%, 55ch);
+  }
   .about {
     position: relative;
     width: 100%;
@@ -34,7 +39,7 @@ import Button from '@components/Button.astro'
     background: center / cover no-repeat url('/images/dana-about.webp');
     filter: grayscale(1);
     opacity: 0.2;
-    background-color: rgba(0, 80, 160, 0.6);
+    background-color: var(--blue-300);
     background-blend-mode: multiply;
     z-index: -1;
   }
@@ -51,7 +56,9 @@ import Button from '@components/Button.astro'
   }
 
   .about-container {
+    /* border: 1px solid red; */
     width: var(--max-width);
+    padding-inline: var(--section-inline);
     position: relative;
     z-index: 2;
   }
@@ -59,9 +66,26 @@ import Button from '@components/Button.astro'
   .about-card {
     background-color: var(--bg-surface);
     border-radius: var(--br-02);
-    width: 55%;
-    height: 500px;
+    width: min(50%, 80rem);
+    height: auto;
     box-shadow: 12px 12px 0 var(--blue-200);
-    margin-inline-start: 60px;
+    /* margin-inline-start: 60px; */
+  }
+
+  .about-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-04);
+    padding-inline: 9.6rem;
+    padding-block: 7.8rem;
+  }
+
+  .button-wrapper {
+    align-self: end;
+    justify-self: end;
+  }
+
+  p {
+    margin-block-end: var(--sp-05);
   }
 </style>
