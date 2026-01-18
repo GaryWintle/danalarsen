@@ -78,7 +78,7 @@ import Button from '@components/Button.astro'
   }
 
   .about-card {
-    grid-area: 1 / 1 / 9 / 9;
+    grid-area: 1 / 1 / 9 / 6;
     background-color: var(--bg-surface);
     border-radius: var(--br-02);
     max-width: 80rem;
@@ -88,7 +88,6 @@ import Button from '@components/Button.astro'
       box-shadow 0.3s ease,
       transform 0.3s ease;
     z-index: 2;
-    opacity: 0.5;
   }
 
   .about-card:hover {
@@ -97,10 +96,12 @@ import Button from '@components/Button.astro'
   }
 
   .about-image {
-    grid-area: 1 / 1 / 9 / 9;
+    grid-area: 2 / 4 / 8 / 9;
     width: auto;
+    max-height: 100%;
     object-fit: cover;
     z-index: 1;
+    justify-self: end;
   }
 
   .about-copy {
