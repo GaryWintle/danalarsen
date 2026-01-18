@@ -43,6 +43,10 @@ button,
 textarea,
 select {
   font: inherit;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: transparent;
 }
 
 /* 8. Avoid text overflows */

@@ -7,32 +7,41 @@ import Button from '@components/Button.astro'
   <div class="newsletter-container">
     <div class="dana-icon" set:html={danaIcon} />
     <div class="newsletter-text-content">
-      <h2>Join the Revolution!</h2>
+      <h2 class="newsletter-title">Join the Revolution!</h2>
       <p>
         Sign up for in-depth, informative drug war related updates and join Dana
         in the fight against the war on drugs.
       </p>
     </div>
     <form class="newsletter-input">
-      <label class="newsletter-input-label"> Email Address </label>
-      <div class="newsletter-input-field">
-        <input
-          id="newsletter-email"
-          name="email"
-          type="email"
-          placeholder="Enter your Email"
-          required
-          autocomplete="email"
-        />
-      </div>
+      <label
+        for="newsletter-email"
+        class="newsletter-input-label visually-hidden"
+      >
+        Email Address
+      </label>
+
+      <input
+        id="newsletter-email"
+        name="email"
+        type="email"
+        placeholder="Enter your Email"
+        required
+        autocomplete="email"
+      />
+
       <Button type="submit">Subscibe Today!</Button>
     </form>
-    <p>Fully private. No spam. Unsub anytime.</p>
+    <p class="fine-print">Fully private. No spam. Unsub anytime.</p>
   </div>
 </section>
 
 <style>
   .newsletter {
+    display: grid;
+    place-items: center;
+    margin-block-start: 6rem;
+    /* margin-block: var(--section-block); */
   }
 
   .newsletter-container {
@@ -41,7 +50,6 @@ import Button from '@components/Button.astro'
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: var(--layout-02);
     padding-block: var(--layout-03);
     background-color: var(--bg-surface);
@@ -64,12 +72,59 @@ import Button from '@components/Button.astro'
     filter: drop-shadow(0 2px 2px oklch(from var(--blue-300) l c h / 0.1));
   }
 
-  /* .dana-icon svg {
-    overflow: visible;
-    filter: var(--shadow-drop-mid);
-  } */
+  .newsletter-title {
+    margin-block-start: 4rem;
+  }
 
   p {
     width: 55ch;
+    text-align: center;
+  }
+  .newsletter-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    gap: var(--sp-05);
+  }
+
+  input {
+    width: 100%;
+    font-size: var(--font-04);
+    font-family: var(--font-body);
+    font-weight: var(--font-weight-semibold);
+    color: var(--neutral-500);
+    background-color: var(--neutral-100);
+    border: var(--image-border);
+    padding: var(--sp-03) var(--sp-04);
+    border-radius: var(--br-02);
+    text-align: center;
+    box-shadow: var(--shadow-shallow);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.3s ease;
+  }
+  input::placeholder {
+    color: var(--neutral-400);
+  }
+  input:focus {
+    border: 1px solid var(--blue-200);
+    box-shadow: 0 0 0 3px oklch(from var(--blue-200) l c h / 0.2);
+  }
+
+  .fine-print {
+    font-size: var(--font-01);
+    color: var(--neutral-400);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
   }
 </style>
