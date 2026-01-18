@@ -87,7 +87,7 @@
   --layout-01: clamp(2.8rem, 4vw, 3.2rem);
   --layout-02: clamp(4.2rem, 4.5vw, 4.8rem);
   --layout-03: clamp(5.5rem, 5vw, 7.4rem);
-  --section-block: clamp(5rem, 8vw, 15rem);
+  --section-block: clamp(6rem, 10vw, 18rem);
   --section-inline: clamp(1.8rem, 4.5vw, 3.2rem);
   --max-width: min(100%, 151.3rem);
 

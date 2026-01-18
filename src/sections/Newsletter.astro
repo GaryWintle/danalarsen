@@ -3,38 +3,44 @@ import danaIcon from '@graphics/dana-headicon.svg?raw'
 import Button from '@components/Button.astro'
 ---
 
-<section class="newsletter">
+<section
+  id="newsletter"
+  class="newsletter"
+  aria-labelledby="newsletter-heading"
+>
   <div class="newsletter-container">
     <div class="dana-icon" set:html={danaIcon} />
     <div class="newsletter-text-content">
-      <h2>Join the Revolution!</h2>
+      <h2 id="newsletter-heading">Join the Revolution!</h2>
       <p>
         Sign up for in-depth, informative drug war related updates and join Dana
         in the fight against the war on drugs.
       </p>
     </div>
-    <form class="newsletter-input">
-      <label class="newsletter-input-label"> Email Address </label>
-      <div class="newsletter-input-field">
+    <form class="newsletter-form">
+      <label class="newsletter-label" for="newsletter-email"
+        >Email Address</label
+      >
+      <div class="newsletter-input-group">
         <input
           id="newsletter-email"
           name="email"
           type="email"
-          placeholder="Enter your Email"
+          placeholder="Enter your email"
           required
           autocomplete="email"
         />
+        <Button type="submit">Subscribe Today!</Button>
       </div>
-      <Button type="submit">Subscibe Today!</Button>
     </form>
-    <p>Fully private. No spam. Unsub anytime.</p>
+    <p class="newsletter-privacy">Fully private. No spam. Unsub anytime.</p>
   </div>
 </section>
 
 <style>
-  .newsletter {
+  section {
+    padding-block: calc(var(--section-block) + 9rem);
   }
-
   .newsletter-container {
     position: relative;
     display: flex;
@@ -42,6 +48,7 @@ import Button from '@components/Button.astro'
     align-items: center;
     gap: var(--layout-02);
     padding-block: var(--layout-03);
+    padding-inline: var(--sp-05);
     background-color: var(--bg-surface);
     box-shadow: var(--shadow-mid);
     border-radius: var(--br-03);
@@ -52,6 +59,11 @@ import Button from '@components/Button.astro'
     flex-direction: column;
     align-items: center;
     gap: var(--sp-03);
+    text-align: center;
+  }
+
+  .newsletter-text-content p {
+    max-width: 55ch;
   }
 
   .dana-icon {
@@ -62,12 +74,71 @@ import Button from '@components/Button.astro'
     filter: drop-shadow(0 2px 2px oklch(from var(--blue-300) l c h / 0.1));
   }
 
-  /* .dana-icon svg {
-    overflow: visible;
-    filter: var(--shadow-drop-mid);
-  } */
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-03);
+    width: 100%;
+    max-width: 50rem;
+  }
 
-  p {
-    width: 55ch;
+  .newsletter-label {
+    font-size: var(--fs-01);
+    font-weight: 500;
+    color: var(--text-secondary, inherit);
+  }
+
+  .newsletter-input-group {
+    display: flex;
+    gap: var(--sp-03);
+    width: 100%;
+  }
+
+  .newsletter-input-group input {
+    flex: 1;
+    padding: var(--sp-03) var(--sp-04);
+    font-size: var(--fs-02);
+    border: 2px solid var(--blue-100, #ddd);
+    border-radius: var(--br-02);
+    background-color: var(--bg-surface);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .newsletter-input-group input::placeholder {
+    color: var(--text-tertiary, #999);
+  }
+
+  .newsletter-input-group input:hover {
+    border-color: var(--blue-200, #bbb);
+  }
+
+  .newsletter-input-group input:focus {
+    outline: none;
+    border-color: var(--blue-300, #0066cc);
+    box-shadow: 0 0 0 3px oklch(from var(--blue-300) l c h / 0.2);
+  }
+
+  .newsletter-input-group input:focus:invalid {
+    border-color: var(--red-300, #cc0000);
+    box-shadow: 0 0 0 3px oklch(from var(--red-300, #cc0000) l c h / 0.2);
+  }
+
+  .newsletter-privacy {
+    font-size: var(--fs-00, 0.75rem);
+    color: var(--text-tertiary, #666);
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .newsletter-input-group {
+      flex-direction: column;
+    }
+
+    .newsletter-input-group input {
+      width: 100%;
+    }
   }
 </style>
