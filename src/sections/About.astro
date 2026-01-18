@@ -2,11 +2,13 @@
 import Button from '@components/Button.astro'
 ---
 
-<section class="about">
+<section id="about" class="about" aria-labelledby="about-heading">
   <div class="about-container">
     <div class="about-card">
       <div class="about-copy">
-        <h2>Meet Dana Larsen, Canada’s Leader in Drug Policy Revolution.</h2>
+        <h2 id="about-heading">
+          Meet Dana Larsen, Canada's Leader in Drug Policy Revolution.
+        </h2>
         <p>
           Lorem ipsum dolor sit amet consectetur. Nisl faucibus non magna ipsum.
           Lorem ipsum dolor sit amet consectetur. Nisl faucibus non magna ipsum.
@@ -16,20 +18,28 @@ import Button from '@components/Button.astro'
         </div>
       </div>
     </div>
+    <img
+      src="/images/dana-about.webp"
+      alt="Dana Larsen"
+      class="about-image"
+      loading="lazy"
+    />
   </div>
 </section>
 
 <style>
   p {
     width: min(100%, 55ch);
+    margin-block-end: var(--sp-05);
   }
+
   .about {
     position: relative;
     width: 100%;
     display: grid;
     place-items: center;
     overflow: hidden;
-    background: right / contain no-repeat url('/images/dana-about.webp');
+    padding-block: var(--layout-02);
   }
 
   .about::before {
@@ -37,6 +47,7 @@ import Button from '@components/Button.astro'
     position: absolute;
     inset: 0;
     background: center / cover no-repeat url('/images/dana-about.webp');
+    background-attachment: fixed;
     filter: grayscale(1);
     opacity: 0.2;
     background-color: var(--blue-300);
@@ -56,20 +67,40 @@ import Button from '@components/Button.astro'
   }
 
   .about-container {
-    /* border: 1px solid red; */
     width: var(--max-width);
     padding-inline: var(--section-inline);
     position: relative;
     z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    align-items: center;
   }
 
   .about-card {
+    grid-area: 1 / 1 / 9 / 9;
     background-color: var(--bg-surface);
     border-radius: var(--br-02);
-    width: min(50%, 80rem);
+    max-width: 80rem;
     height: auto;
     box-shadow: 12px 12px 0 var(--blue-200);
-    /* margin-inline-start: 60px; */
+    transition:
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
+    z-index: 2;
+    opacity: 0.5;
+  }
+
+  .about-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 16px 16px 0 var(--blue-200);
+  }
+
+  .about-image {
+    grid-area: 1 / 1 / 9 / 9;
+    width: auto;
+    object-fit: cover;
+    z-index: 1;
   }
 
   .about-copy {
@@ -85,7 +116,29 @@ import Button from '@components/Button.astro'
     justify-self: end;
   }
 
-  p {
-    margin-block-end: var(--sp-05);
+  @media (max-width: 768px) {
+    .about-container {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+    }
+
+    .about-card {
+      grid-column: 1;
+      grid-row: 1;
+      max-width: 100%;
+    }
+
+    .about-image {
+      grid-column: 1;
+      grid-row: 2;
+      justify-self: center;
+      max-width: 80%;
+      margin-block-start: var(--sp-05);
+    }
+
+    .about-copy {
+      padding-inline: var(--sp-05);
+      padding-block: var(--sp-06);
+    }
   }
 </style>
