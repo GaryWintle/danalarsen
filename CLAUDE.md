@@ -30,6 +30,7 @@ This is Dana Larsen's portfolio website built as a single-page Astro site.
 - Colors use oklch() color space for perceptual uniformity
 - Fluid typography/spacing via clamp() functions
 - Styles are scoped within .astro component `<style>` blocks
+- **Note:** When targeting elements injected via `set:html` (like raw SVG imports), use `:global()` in selectors since injected content doesn't receive Astro's scoping attributes. Example: `.wrapper :global(svg) { ... }`
 
 **TypeScript Path Aliases:**
 ```

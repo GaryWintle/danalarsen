@@ -39,7 +39,7 @@ import Button from '@components/Button.astro'
     display: grid;
     place-items: center;
     overflow: hidden;
-    padding-block: var(--layout-02);
+    padding-block: 0;
   }
 
   .about::before {
@@ -49,6 +49,7 @@ import Button from '@components/Button.astro'
     background: center / cover no-repeat url('/images/dana-about.webp');
     background-attachment: fixed;
     filter: grayscale(1);
+    filter: blur(8px);
     opacity: 0.2;
     background-color: var(--blue-300);
     background-blend-mode: multiply;
@@ -60,7 +61,7 @@ import Button from '@components/Button.astro'
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      oklch(from var(--blue-300) 44% c h),
+      oklch(from var(--blue-300) 40% c h),
       var(--blue-300)
     );
     z-index: -2;
@@ -72,36 +73,36 @@ import Button from '@components/Button.astro'
     position: relative;
     z-index: 2;
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(8, 1fr);
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
     align-items: center;
   }
 
   .about-card {
-    grid-area: 1 / 1 / 9 / 6;
-    background-color: var(--bg-surface);
+    grid-area: 1 / 1 / 8 / 5;
+    background: var(--bg-surface);
     border-radius: var(--br-02);
-    max-width: 80rem;
+    width: min(70rem, 100%);
     height: auto;
     box-shadow: 12px 12px 0 var(--blue-200);
+
     transition:
       box-shadow 0.3s ease,
       transform 0.3s ease;
     z-index: 2;
-  }
-
-  .about-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 16px 16px 0 var(--blue-200);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   .about-image {
-    grid-area: 2 / 4 / 8 / 9;
+    grid-area: 2 / 4 / 7 / 8;
     width: auto;
     max-height: 100%;
     object-fit: cover;
     z-index: 1;
     justify-self: end;
+    border-radius: var(--br-02);
+    border: 1px solid oklch(from var(--blue-300) 45% c h);
   }
 
   .about-copy {
