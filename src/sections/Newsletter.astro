@@ -25,7 +25,7 @@ import Button from '@components/Button.astro'
         id="newsletter-email"
         name="email"
         type="email"
-        placeholder="Enter your Email"
+        placeholder="Enter your Email Address"
         required
         autocomplete="email"
       />
@@ -72,12 +72,44 @@ import Button from '@components/Button.astro'
     filter: drop-shadow(0 2px 2px oklch(from var(--blue-300) l c h / 0.1));
   }
 
-  .dana-icon :global(svg) {
-    transform-origin: center;
-    animation: pulse 5s ease-in-out infinite;
+  .dana-icon::before,
+  .dana-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12rem;
+    height: 12rem;
+    translate: -50% -50%;
+    border-radius: 50%;
+    border: 2px solid var(--blue-100);
+    animation: broadcast 6s ease-out infinite;
   }
 
-  @keyframes pulse {
+  .dana-icon::after {
+    animation-delay: 4s;
+  }
+
+  @keyframes broadcast {
+    0% {
+      border: 3px solid var(--blue-100);
+      transform: scale(1);
+      opacity: 0.35;
+    }
+    100% {
+      border: 1px solid var(--blue-100);
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  /* .dana-icon :global(svg) {
+    position: relative;
+    transform-origin: center;
+    animation: pulse 5s ease-in-out infinite;
+  } */
+
+  /* @keyframes pulse {
     0%,
     100% {
       transform: scale(1);
@@ -85,7 +117,7 @@ import Button from '@components/Button.astro'
     50% {
       transform: scale(1.03);
     }
-  }
+  } */
 
   .newsletter-title {
     margin-block-start: 4rem;

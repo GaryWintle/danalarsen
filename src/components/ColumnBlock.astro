@@ -1,0 +1,57 @@
+---
+const {
+  headline = 'Column headline goes here',
+  source = 'Publication Name',
+  date = 'January 1, 2025',
+  href = '#',
+} = Astro.props
+
+const parsedDate = new Date(String(date))
+
+const dateTime = Number.isNaN(parsedDate.getTime())
+  ? undefined
+  : parsedDate.toISOString().split('T')[0]
+
+const isExternal = href.startsWith('http')
+---
+
+<li class="column-item">
+  <a
+    href={href}
+    class="column-link"
+    rel={isExternal ? 'noopener noreferrer' : undefined}
+    target={isExternal ? '_blank' : undefined}
+    aria-label={`Read column: ${headline} from ${source}`}
+  >
+    <div class="text-container">
+      <h3 class="news-headline">{headline}</h3>
+      <div class="column-info-text">
+        <p class="news-source">{source}</p>
+        <time datetime={dateTime} class="news-date">{date}</time>
+      </div>
+    </div>
+  </a>
+</li>
+
+<style>
+  .column-link {
+    display: flex;
+    padding-block: var(--sp-04);
+    transition: transform 200ms ease-out;
+  }
+
+  .column-link:hover {
+    transform: translateX(-2px);
+  }
+
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-01);
+  }
+
+  .column-info-text {
+    display: flex;
+    flex-direction: column;
+  }
+</style>

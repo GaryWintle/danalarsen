@@ -21,11 +21,13 @@ npm run preview  # Preview production build locally
 This is Dana Larsen's portfolio website built as a single-page Astro site.
 
 **Component Organization:**
+
 - `src/layouts/Layout.astro` - Master wrapper with meta tags, SEO, and JSON-LD structured data
 - `src/sections/` - Page sections (Hero, Projects, About, Newsletter) composed in index.astro
 - `src/components/` - Reusable UI components (Nav, Footer, Button, ProjectCard, etc.)
 
 **Styling System:**
+
 - Design tokens defined in `src/styles/variables.css` using CSS custom properties
 - Colors use oklch() color space for perceptual uniformity
 - Fluid typography/spacing via clamp() functions
@@ -33,6 +35,7 @@ This is Dana Larsen's portfolio website built as a single-page Astro site.
 - **Note:** When targeting elements injected via `set:html` (like raw SVG imports), use `:global()` in selectors since injected content doesn't receive Astro's scoping attributes. Example: `.wrapper :global(svg) { ... }`
 
 **TypeScript Path Aliases:**
+
 ```
 @components/* → src/components/*
 @layouts/*    → src/layouts/*
@@ -45,3 +48,7 @@ This is Dana Larsen's portfolio website built as a single-page Astro site.
 ## Formatting
 
 Uses Prettier with Astro plugin. Config: no semicolons, single quotes, 80 char width.
+
+## Use Up-to-Date Docs
+
+Use Context7 to check up-to-date docs when needed for implementing new libraries or frameworks, or adding features using them.

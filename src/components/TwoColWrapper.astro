@@ -4,6 +4,7 @@ import SidebarBlock from '@components/SidebarBlock.astro'
 import newsIcon from '@graphics/Icons/globe.svg?raw'
 import columnsIcon from '@graphics/Icons/writer.svg?raw'
 import NewsBlock from '@components/NewsBlock.astro'
+import ColumnBlock from '@components/ColumnBlock.astro'
 
 import story01 from '@images/column-thumbnails/dana-news-policeraid.webp'
 import story02 from '@images/column-thumbnails/dana-news-supplier.jpg'
@@ -35,6 +36,39 @@ const newsBlocks = [
     href: 'https://potheadbooks.com/',
   },
 ]
+
+const columnBlocks = [
+  {
+    headline: 'The deep connection between Pride and 4/20',
+    source: 'The Georgia Straight',
+    date: 'May 20, 2018',
+    href: '#',
+  },
+  {
+    headline: 'Vancouver 4/20 is a protest against stigmatization of cannabis',
+    source: 'Daily Hive',
+    date: 'Mar 7, 2019',
+    href: '#',
+  },
+  {
+    headline: 'Masturbation Panic and the War on Drugs',
+    source: 'Georgia Straight',
+    date: 'Nov 22, 2020',
+    href: '#',
+  },
+  {
+    headline: 'Killer Cops on Vancouver Streets',
+    source: 'Georgia Straight',
+    date: 'Aug 20, 2020',
+    href: '#',
+  },
+  {
+    headline: 'Challenge coins reveal disturbing side of policing',
+    source: 'Georgia Straight',
+    date: 'Oct 26, 2020',
+    href: '#',
+  },
+]
 ---
 
 <section class="two-column-wrapper">
@@ -49,8 +83,9 @@ const newsBlocks = [
       {newsBlocks.map((props) => <NewsBlock {...props} />)}
     </SidebarBlock>
     <aside class="columns-section">
-      <SidebarBlock title="Dana's Columns" icon={columnsIcon}>News</SidebarBlock
-      >
+      <SidebarBlock title="Dana's Columns" icon={columnsIcon}>
+        {columnBlocks.map((props) => <ColumnBlock {...props} />)}
+      </SidebarBlock>
     </aside>
   </aside>
 
@@ -82,9 +117,7 @@ const newsBlocks = [
       gap: var(--layout-01);
     }
     .columns-section {
-      /* border: 1px solid blue; */
       grid-area: columns;
-      height: 400px;
     }
 
     @media (max-width: 83.4rem) {
