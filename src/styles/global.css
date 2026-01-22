@@ -29,7 +29,6 @@
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
-  lang: en;
 }
 
 body {
@@ -54,7 +53,7 @@ main > section {
 h1 {
   font-family: var(--font-header);
   color: var(--text-title-ondark);
-  font-size: clamp(5rem, calc(6vw + 1rem), 8rem);
+  font-size: clamp(4.5rem, calc(6vw + 1rem), 8rem);
   letter-spacing: -1px;
   line-height: 113%;
   text-wrap: balance;
@@ -114,4 +113,13 @@ a {
   font-size: var(--font-01);
   font-family: var(--font-body);
   font-weight: var(--font-weight-normal);
+}
+
+/* Mobile Phone */
+
+@media (max-width: 64rem) {
+  body {
+    background-color: var(--bg-page);
+    overflow-x: hidden;
+  }
 }

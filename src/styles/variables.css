@@ -19,6 +19,9 @@
   --button-secondary__hover: oklch(from var(--blue-200) 77% 0.15 200);
   --button-text: var(--neutral-100);
 
+  /* Accessibility */
+  --focus-ring: 2px solid oklch(from var(--blue-100) l c h / 0.4);
+
   /* PRIMITIVE TOKENS */
 
   /* Primary Brand Colors */
@@ -88,7 +91,7 @@
   --layout-02: clamp(4.2rem, 4.5vw, 4.8rem);
   --layout-03: clamp(5.5rem, 5vw, 7.4rem);
   --section-block: clamp(5rem, 8vw, 15rem);
-  --section-inline: clamp(1.8rem, 4.5vw, 3.2rem);
+  --section-inline: clamp(2.4rem, 4.5vw, 3.2rem);
   --max-width: min(100%, 151.3rem);
 
   /* Typography */
@@ -115,4 +118,7 @@
   --br-01: 0.4rem;
   --br-02: 0.8rem;
   --br-03: 1.2rem;
+}
+
+@media (max-width: 40rem) {
 }

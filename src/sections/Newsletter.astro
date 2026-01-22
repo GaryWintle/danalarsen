@@ -13,7 +13,12 @@ import Button from '@components/Button.astro'
         in the fight against the war on drugs.
       </p>
     </div>
-    <form class="newsletter-input">
+    <form
+      class="newsletter-input"
+      aria-labelledby="newsletter-title"
+      action="/api/subscribe"
+      method="post"
+    >
       <label
         for="newsletter-email"
         class="newsletter-input-label visually-hidden"
@@ -28,11 +33,16 @@ import Button from '@components/Button.astro'
         placeholder="Enter your Email Address"
         required
         autocomplete="email"
+        aria-describedby="newsletter-privacy"
       />
 
-      <Button type="submit">Subscibe Today!</Button>
+      <Button type="submit" aria-label="Subscribe to Dana Larsen's newsletter"
+        >Subscibe Today!</Button
+      >
     </form>
-    <p class="fine-print">Fully private. No spam. Unsub anytime.</p>
+    <p id="newsletter-privacy" class="fine-print">
+      Fully private. No spam. Unsub anytime.
+    </p>
   </div>
 </section>
 
@@ -154,7 +164,7 @@ import Button from '@components/Button.astro'
   input::placeholder {
     color: var(--neutral-400);
   }
-  input:focus {
+  input:focus-visible {
     border: 1px solid var(--blue-200);
     box-shadow: 0 0 0 3px oklch(from var(--blue-200) l c h / 0.2);
   }

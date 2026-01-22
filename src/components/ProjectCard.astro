@@ -4,8 +4,7 @@ import Button from '@components/Button.astro'
 const { src, title, text, url, href } = Astro.props
 ---
 
-<div class="card">
-  <a href={href} rel="noopener noreferrer" class="card-link"></a>
+<div class="card" role="article" aria-labelledby="project-title-{title}">
   <div class="card-image-container">
     <Image src={src} alt={title} loading="lazy" />
     <div class="card-text-container">
@@ -13,16 +12,21 @@ const { src, title, text, url, href } = Astro.props
       <p class="body-text">
         {text}
       </p>
-      <Button color="secondary" class="card-button" showExternalIcon={true}
-        >{url}</Button
+      <Button
+        href={href}
+        rel="noopener noreferrer"
+        color="secondary"
+        class="card-button"
+        showExternalIcon={true}
+        aria-label={`Visit ${title} website (opens in new tab)`}
       >
+        {url}
+      </Button>
     </div>
   </div>
 </div>
 
 <style>
-  :global(.poop) {
-  }
   .card {
     width: 100%;
     height: max(45rem, 100%);
@@ -34,21 +38,32 @@ const { src, title, text, url, href } = Astro.props
     transition:
       transform 280ms ease-out,
       box-shadow 680ms ease-out;
+    position: relative;
   }
-  .card:hover {
+
+  .card :global(.card-button)::after {
+    content: '';
+    position: absolute;
+    inset: 0; /* Covers the entire card */
+    z-index: 10; /* Sits above card content */
+  }
+
+  .card:hover,
+  .card:has(:focus-visible) {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-deep);
+  }
+
+  .card:hover,
+  .card:focus-within {
     transform: translateY(-5px);
     box-shadow: var(--shadow-deep);
     cursor: pointer;
   }
 
-  .card:hover :global(.card-button) {
+  .card:hover :global(.card-button),
+  .card:focus-within :global(.card-button) {
     background-color: var(--button-secondary__hover);
-  }
-
-  .card-link {
-    display: block;
-    color: inherit;
-    text-decoration: none;
   }
 
   .card-text-container {
@@ -58,6 +73,7 @@ const { src, title, text, url, href } = Astro.props
     gap: var(--sp-02);
     padding-inline: var(--sp-05);
     padding-block: var(--sp-06);
+    z-index: 2;
   }
 
   .card-image-container {
@@ -71,7 +87,7 @@ const { src, title, text, url, href } = Astro.props
     inset: 0;
     background: linear-gradient(
       to bottom,
-      oklch(from var(--neutral-500) l c h / 0.15),
+      oklch(from var(--neutral-600) l c h / 0.15),
       transparent 70%
     );
     z-index: 1;

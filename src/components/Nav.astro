@@ -5,8 +5,10 @@ import Instagram from '@graphics/socials/instagram-base.svg?raw'
 import X from '@graphics/socials/x-base.svg?raw'
 ---
 
-<nav>
-  <div class="logo" set:html={Logo} />
+<nav aria-label="Primary navigation">
+  <a href="/" class="logo-link" aria-label="Dana Larsen - Return to homepage">
+    <div class="logo" set:html={Logo} /></a
+  >
 
   <div class="navigation">
     <ul class="links">
@@ -16,16 +18,28 @@ import X from '@graphics/socials/x-base.svg?raw'
     </ul>
     <ul class="links social-group">
       <li>
-        <a href="social-link"><div class="social-icon" set:html={Facebook} /></a
+        <a
+          href="https://facebook.com/danalarsen"
+          aria-label="Follow Dana Larsen on Facebook"
+          rel="noopener noreferrer"
+          target="_blank"><div class="social-icon" set:html={Facebook} /></a
         >
       </li>
       <li>
-        <a href="social-link"
-          ><div class="social-icon" set:html={Instagram} /></a
+        <a
+          href="https://instagram.com/danalarsen"
+          aria-label="Follow Dana Larsen on Instagram"
+          rel="noopener noreferrer"
+          target="_blank"><div class="social-icon" set:html={Instagram} /></a
         >
       </li>
       <li>
-        <a href="social-link"><div class="social-icon" set:html={X} /></a>
+        <a
+          href="https://x.com/danalarsen"
+          aria-label="Follow Dana Larsen on X (formerly Twitter)"
+          rel="noopener noreferrer"
+          target="_blank"><div class="social-icon" set:html={X} /></a
+        >
       </li>
     </ul>
   </div>
@@ -88,7 +102,20 @@ import X from '@graphics/socials/x-base.svg?raw'
     transition: transform 220ms cubic-bezier(0.85, 0.09, 0.15, 0.91);
   }
 
-  .nav-link:hover::after {
+  .nav-link:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
     transform: scaleX(1);
+  }
+
+  @media (max-width: 64rem) {
+    .navigation {
+      opacity: 0;
+    }
   }
 </style>

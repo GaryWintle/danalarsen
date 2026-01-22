@@ -40,7 +40,14 @@ const isExternal = href.startsWith('http')
     transition: transform 200ms ease-out;
   }
 
-  .column-link:hover {
+  .column-link:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 1px;
+    border-radius: 4px;
+  }
+
+  .column-link:hover,
+  .column-link:focus-visible {
     transform: translateX(-2px);
   }
 

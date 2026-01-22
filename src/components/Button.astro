@@ -1,21 +1,34 @@
 ---
+interface Props {
+  color?: 'primary' | 'secondary'
+  class?: string
+  showExternalIcon?: boolean
+  href?: string
+  [key: string]: any
+}
+
 const {
   color = 'primary',
   class: className, // Renamed this to avoid keyword conflict
   showExternalIcon = false,
+  href,
+  ...rest
 } = Astro.props
 
 import extIcon from '@graphics/Icons/external-link.svg?raw'
+
+const Component = href ? 'a' : 'button'
 ---
 
-<button class:list={[color, className]}>
+<Component href={href} class:list={[color, className]} {...rest}>
   <slot />
   <slot name="icon" />
   {showExternalIcon && <div class="ext-icon" set:html={extIcon} />}
-</button>
+</Component>
 
 <style>
-  button {
+  button,
+  a {
     font-family: var(--font-body);
     font-size: var(--font-02);
     font-weight: var(--font-weight-semibold);
@@ -32,7 +45,16 @@ import extIcon from '@graphics/Icons/external-link.svg?raw'
     gap: var(--sp-02);
   }
 
-  button:hover {
+  button:focus-visible,
+  a:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 3px;
+  }
+
+  button:hover,
+  button:focus-visible,
+  a:hover,
+  a:focus-visible {
     cursor: pointer;
   }
 
@@ -41,7 +63,8 @@ import extIcon from '@graphics/Icons/external-link.svg?raw'
     box-shadow: var(--button-primary-shadow);
     transition: all 250ms ease-out;
   }
-  .primary:hover {
+  .primary:hover,
+  .primary:focus-visible {
     background-color: var(--button-primary__hover);
   }
 
@@ -50,7 +73,24 @@ import extIcon from '@graphics/Icons/external-link.svg?raw'
     box-shadow: var(--button-secondary-shadow);
     transition: all 250ms ease-out;
   }
-  .secondary:hover {
+  .secondary:hover,
+  .secondary:focus-visible {
     background-color: var(--button-secondary__hover);
+  }
+
+  @media (max-width: 64rem) {
+    button,
+    a {
+      font-size: var(--font-03);
+      padding-block: var(--sp-05);
+      padding-inline: var(--sp-06);
+      border: none;
+      line-height: 1;
+      letter-spacing: 0.02rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--sp-02);
+    }
   }
 </style>

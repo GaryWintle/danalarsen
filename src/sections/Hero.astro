@@ -1,9 +1,10 @@
 ---
+import Nav from '@components/Nav.astro'
 import Button from '@components/Button.astro'
 import HeroDivider from '@graphics/hero-divider.svg?raw'
 ---
 
-<header>
+<header aria-label="Hero section">
   <div class="wrapper">
     <div class="content-container">
       <h1>
@@ -13,8 +14,18 @@ import HeroDivider from '@graphics/hero-divider.svg?raw'
         > the War on Drugs.
       </h1>
       <div class="buttons-container">
-        <Button color="primary">Speak with Dana</Button>
-        <Button color="secondary">About Dana</Button>
+        <Button
+          color="primary"
+          href="/contact"
+          aria-label="Contact Dana Larsen to book a speaking engagement"
+          >Speak with Dana</Button
+        >
+        <Button
+          color="secondary"
+          href="#about"
+          aria-label="Learn more about Dana Larsen's advocacy work"
+          >About Dana</Button
+        >
       </div>
     </div>
 
@@ -25,8 +36,7 @@ import HeroDivider from '@graphics/hero-divider.svg?raw'
 <style>
   header {
     display: grid;
-    justify-items: center;
-    align-content: center;
+    place-items: center;
     width: 100vw;
     height: max(80rem, 95vh);
     background-image:
@@ -36,6 +46,31 @@ import HeroDivider from '@graphics/hero-divider.svg?raw'
     /* background-attachment: fixed; */
     position: relative;
   }
+  .wrapper {
+    /* border: 1px solid red; */
+
+    width: min(100%, var(--max-width));
+    height: 100%;
+    padding-inline: var(--section-inline);
+  }
+
+  .content-container {
+    /* border: 1px solid green; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: var(--layout-03);
+    width: min(50%, calc(var(--max-width) / 2));
+    height: 100%;
+    /* margin-block-start: -10vh; */
+  }
+  .buttons-container {
+    display: flex;
+    gap: var(--sp-05);
+    padding-inline: var(--sp-02);
+  }
+
   .hero-divider {
     position: absolute;
     bottom: -25px;
@@ -48,24 +83,6 @@ import HeroDivider from '@graphics/hero-divider.svg?raw'
     display: block;
     width: 100%;
     height: auto;
-  }
-  .wrapper {
-    /* background-color: red; */
-    width: min(100%, var(--max-width));
-    padding-inline: var(--section-inline);
-  }
-  .content-container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--layout-03);
-    width: min(50%, calc(var(--max-width) / 2));
-    height: 100%;
-    margin-block-start: -10vh;
-  }
-  .buttons-container {
-    display: flex;
-    gap: var(--sp-05);
-    padding-inline: var(--sp-02);
   }
 
   .name-highlight {
@@ -96,6 +113,65 @@ import HeroDivider from '@graphics/hero-divider.svg?raw'
   @keyframes underline-reveal {
     to {
       transform: scaleX(1);
+    }
+  }
+
+  @media (max-width: 64rem) {
+    header {
+      width: 100%;
+      height: 100dvh;
+      background-image:
+        var(--photo-underglow), url('/images/dl-hero-mobile.webp');
+      background-size: cover;
+      background-position: bottom;
+    }
+    .wrapper {
+      /* border: 1px solid blue; */
+      background: linear-gradient(transparent 70%, rgba(0, 0, 0, 0.849) 95%);
+      background-blend-mode: multiply;
+
+      height: 100%;
+      width: 100%;
+      padding-inline: var(--section-inline);
+    }
+    .content-container {
+      /* border: 1px solid red; */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--layout-03);
+      padding-block-start: 10rem;
+      padding-block-end: 4rem;
+      width: 100%;
+      height: 100%;
+      /* margin-block-start: -10vh; */
+    }
+    h1 {
+      line-height: 1.2;
+    }
+    .buttons-container {
+      width: 100%;
+      display: flex;
+      align-self: center;
+      gap: var(--sp-03);
+      padding-inline: var(--sp-02);
+      flex-direction: column;
+      justify-self: end;
+    }
+
+    .hero-divider {
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 100%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      overflow-x: hidden;
+    }
+    .hero-divider svg {
+      display: block;
+      width: 100%;
+      height: auto;
     }
   }
 </style>
