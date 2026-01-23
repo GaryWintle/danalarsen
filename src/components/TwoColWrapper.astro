@@ -73,7 +73,7 @@ const columnBlocks = [
 
 <section class="two-column-wrapper">
   <section class="projects-section">
-    <Projects />
+    <slot />
   </section>
 
   <!-- News Section -->
@@ -90,6 +90,13 @@ const columnBlocks = [
   </aside>
 
   <style>
+    aside {
+      position: sticky;
+      top: 0;
+      /* background-color: red; */
+      height: fit-content;
+    }
+
     .two-column-wrapper {
       display: grid;
       grid-template-columns: 1fr 30rem;

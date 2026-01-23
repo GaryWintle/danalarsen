@@ -35,6 +35,9 @@ body {
   background-color: var(--bg-page);
   position: absolute;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 main {
@@ -48,6 +51,11 @@ main > section {
   padding-inline: var(--section-inline);
   width: var(--max-width);
   /* width: min(100%, var(--max-width)); */
+}
+
+::selection {
+  background-color: var(--orange-200);
+  color: var(--neutral-100);
 }
 
 h1 {

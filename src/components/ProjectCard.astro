@@ -27,6 +27,17 @@ const { src, title, text, url, href } = Astro.props
 </div>
 
 <style>
+  @property --gradient-percent {
+    syntax: '<percentage>';
+    initial-value: 0%;
+    inherits: false;
+  }
+  @property --gradient-opacity {
+    syntax: '<number>';
+    initial-value: 0;
+    inherits: false;
+  }
+
   .card {
     width: 100%;
     height: max(45rem, 100%);
@@ -48,11 +59,11 @@ const { src, title, text, url, href } = Astro.props
     z-index: 10; /* Sits above card content */
   }
 
-  .card:hover,
+  /* .card:hover,
   .card:has(:focus-visible) {
     transform: translateY(-5px);
     box-shadow: var(--shadow-deep);
-  }
+  } */
 
   .card:hover,
   .card:focus-within {
@@ -86,11 +97,25 @@ const { src, title, text, url, href } = Astro.props
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      to bottom,
-      oklch(from var(--neutral-600) l c h / 0.15),
-      transparent 70%
+      to top,
+      oklch(from var(--blue-200) l c h / var(--gradient-opacity)),
+      oklch(from var(--blue-200) l c h / 0.02) var(--gradient-percent)
     );
     z-index: 1;
+    transition:
+      --gradient-percent 280ms ease-out,
+      --gradient-opacity 380ms ease-out;
+  }
+
+  .card:hover .card-image-container::after,
+  .card:focus-within .card-image-container::after {
+    --gradient-percent: 20%;
+    --gradient-opacity: 0.3;
+    background: linear-gradient(
+      to top,
+      oklch(from var(--blue-200) l c h / var(--gradient-opacity)),
+      oklch(from var(--blue-200) l c h / 0) var(--gradient-percent)
+    );
   }
 
   .card-image-container img {
