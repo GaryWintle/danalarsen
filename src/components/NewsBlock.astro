@@ -47,11 +47,19 @@ const isExternal = href.startsWith('http')
 </li>
 
 <style>
+  @property --gradient-opacity {
+    syntax: '<number>';
+    initial-value: 0;
+    inherits: false;
+  }
+
   .news-link {
     display: flex;
     padding-block: var(--sp-04);
     gap: var(--sp-03);
-    transition: transform 200ms ease-out;
+    transition:
+      --gradient-opacity 380ms ease-out,
+      --color 280ms ease-out;
   }
 
   .news-link:focus-visible {
@@ -62,7 +70,15 @@ const isExternal = href.startsWith('http')
 
   .news-link:hover,
   .news-link:focus-visible {
-    transform: translateX(-2px);
+    --gradient-opacity: 0.8;
+    background: linear-gradient(
+      transparent,
+      oklch(from var(--neutral-100) l c h / var(--gradient-opacity))
+    );
+  }
+  .news-link:hover h3,
+  .news-link:focus-visible h3 {
+    color: var(--blue-200);
   }
 
   .news-image {

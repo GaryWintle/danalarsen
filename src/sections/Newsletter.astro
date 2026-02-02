@@ -50,8 +50,8 @@ import Button from '@components/Button.astro'
   .newsletter {
     display: grid;
     place-items: center;
-    margin-block-start: 6rem;
-    /* margin-block: var(--section-block); */
+    padding-block-start: calc(var(--section-block) + 6rem);
+    padding-block-end: var(--section-block);
   }
 
   .newsletter-container {

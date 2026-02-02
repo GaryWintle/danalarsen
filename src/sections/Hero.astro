@@ -116,14 +116,15 @@ import HeroDivider from '@graphics/hero-divider.svg?raw'
     }
   }
 
-  @media (max-width: 64rem) {
+  /* Tablet */
+  @media (max-width: 1024px) {
     header {
       width: 100%;
       height: 100dvh;
       background-image:
         var(--photo-underglow), url('/images/dl-hero-mobile.webp');
       background-size: cover;
-      background-position: bottom;
+      background-position: 64% -30px;
     }
     .wrapper {
       /* border: 1px solid blue; */
@@ -140,8 +141,8 @@ import HeroDivider from '@graphics/hero-divider.svg?raw'
       flex-direction: column;
       justify-content: space-between;
       gap: var(--layout-03);
-      padding-block-start: 10rem;
-      padding-block-end: 4rem;
+      padding-block-start: 13rem;
+      padding-block-end: 6rem;
       width: 100%;
       height: 100%;
       /* margin-block-start: -10vh; */
@@ -153,9 +154,9 @@ import HeroDivider from '@graphics/hero-divider.svg?raw'
       width: 100%;
       display: flex;
       align-self: center;
-      gap: var(--sp-03);
+      gap: var(--sp-05);
       padding-inline: var(--sp-02);
-      flex-direction: column;
+      flex-direction: row;
       justify-self: end;
     }
 
@@ -172,6 +173,18 @@ import HeroDivider from '@graphics/hero-divider.svg?raw'
       display: block;
       width: 100%;
       height: auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .buttons-container {
+      width: 100%;
+      display: flex;
+      align-self: center;
+      gap: var(--sp-03);
+      padding-inline: var(--sp-02);
+      flex-direction: column;
+      justify-self: end;
     }
   }
 </style>

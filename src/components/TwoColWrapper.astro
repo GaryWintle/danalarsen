@@ -76,10 +76,9 @@ const columnBlocks = [
     <slot />
   </section>
 
-  <!-- News Section -->
-  <aside class="news-section">
+  <!-- Sidebar -->
+  <aside class="sidebar-section">
     <SidebarBlock title="Dana in the News" icon={newsIcon}>
-      <!-- News Story -->
       {newsBlocks.map((props) => <NewsBlock {...props} />)}
     </SidebarBlock>
     <aside class="columns-section">
@@ -90,23 +89,16 @@ const columnBlocks = [
   </aside>
 
   <style>
-    aside {
-      position: sticky;
-      top: 0;
-      /* background-color: red; */
-      height: fit-content;
-    }
-
     .two-column-wrapper {
       display: grid;
-      grid-template-columns: 1fr 30rem;
+      grid-template-columns: 1fr 35rem;
       grid-template-rows: auto;
       grid-template-areas:
         'projects news'
-        'projects columns';
-      column-gap: var(--layout-03);
+        'projects news';
+      column-gap: var(--layout-01);
       row-gap: var(--layout-01);
-      /* padding-inline-end: 0; */
+      padding-inline-end: 340;
 
       /* background-color: grey; */
     }
@@ -114,14 +106,24 @@ const columnBlocks = [
       /* background-color: aquamarine; */
       grid-area: projects;
     }
-    .news-section {
-      /* background-color: red; */
-      /* border: 1px solid blueviolet; */
+    .sidebar-section {
+      position: sticky;
+      height: 100vh;
+      top: var(--sp-06);
+      /* background-color: var(--neutral-100); */
+      border-left: var(--news-sidebar-divider);
       grid-area: news;
-      height: auto;
+      /* height: auto; */
       display: flex;
       flex-direction: column;
+
+      padding-inline-start: var(--sp-06);
+      padding-inline-end: 4.2rem;
+      /* margin-block-start: -10px;
+      padding-block-start: 48px; */
+      padding-block: var(--section-block);
       gap: var(--layout-01);
+      z-index: 9999;
     }
     .columns-section {
       grid-area: columns;
@@ -131,7 +133,7 @@ const columnBlocks = [
       .two-column-wrapper {
         grid-template-columns: 1fr 30rem;
         grid-template-areas:
-          'news columns'
+          'news news'
           'projects projects';
       }
     }
@@ -140,7 +142,7 @@ const columnBlocks = [
         grid-template-columns: 1fr;
         grid-template-areas:
           'news'
-          'columns'
+          'news'
           'projects';
       }
     }

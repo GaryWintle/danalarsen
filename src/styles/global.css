@@ -44,14 +44,14 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: var(--max-width);
 }
 
-main > section {
+/* main > section {
   padding-block: var(--section-block);
   padding-inline: var(--section-inline);
   width: var(--max-width);
-  /* width: min(100%, var(--max-width)); */
-}
+} */
 
 ::selection {
   background-color: var(--orange-200);
@@ -61,7 +61,7 @@ main > section {
 h1 {
   font-family: var(--font-header);
   color: var(--text-title-ondark);
-  font-size: clamp(4.5rem, calc(6vw + 1rem), 8rem);
+  font-size: clamp(5.2rem, calc(6vw + 1rem), 8rem);
   letter-spacing: -1px;
   line-height: 113%;
   text-wrap: balance;

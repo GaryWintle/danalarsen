@@ -60,7 +60,7 @@ const projectCards = [
 ]
 ---
 
-<section>
+<section class="projects-section">
   <div class="section-text" id="projects">
     <h2>Dana Larsen's Projects</h2>
     <p>
@@ -80,6 +80,12 @@ const projectCards = [
 </section>
 
 <style>
+  .projects-section {
+    /* width: var(--section-width); */
+    padding-block: var(--section-block);
+    padding-inline: var(--section-inline);
+  }
+
   .section-text {
     display: flex;
     flex-direction: column;

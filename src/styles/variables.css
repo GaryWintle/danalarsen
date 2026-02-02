@@ -78,6 +78,7 @@
 
   /* Borders */
   --image-border: 1px solid var(--neutral-300);
+  --news-sidebar-divider: 1px solid var(--neutral-300);
   --news-divider: 1px solid var(--neutral-300);
 
   /* Spacing */
@@ -91,7 +92,8 @@
   --layout-02: clamp(4.2rem, 4.5vw, 4.8rem);
   --layout-03: clamp(5.5rem, 5vw, 7.4rem);
   --section-block: clamp(5rem, 8vw, 15rem);
-  --section-inline: clamp(2.4rem, 4.5vw, 3.2rem);
+  --section-inline: clamp(3.2rem, 4.5vw, 4.2rem);
+  --section-width: min(100%, 108rem);
   --max-width: min(100%, 151.3rem);
 
   /* Typography */
