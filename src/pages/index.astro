@@ -17,7 +17,7 @@ import NewsBlock from '@components/NewsBlock.astro'
 import newsIcon from '@graphics/Icons/globe.svg?raw'
 import columnsIcon from '@graphics/Icons/writer.svg?raw'
 import { getCollection } from 'astro:content'
-import { fetchOgImage } from '../utils/fetchOgImage'
+import { fetchOgImage } from '@utils/fetchOgImage'
 
 const newsItems = await getCollection('news')
 const columnItems = await getCollection('columns')
