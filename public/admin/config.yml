@@ -40,8 +40,8 @@ collections:
       - label: 'Image'
         name: 'newsImage'
         widget: 'image'
-        required: true
-        hint: 'Square or landscape thumbnail. Recommended: 400x400px minimum.'
+        required: false
+        hint: 'Optional — leave blank to auto-use the article''s own thumbnail.'
       - label: 'Headline'
         name: 'newsHeadline'
         widget: 'string'

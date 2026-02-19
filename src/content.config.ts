@@ -5,7 +5,7 @@ import { z } from 'astro/zod'
 const news = defineCollection({
   loader: glob({ pattern: '**/[^_]*.md', base: './src/content/news' }),
   schema: z.object({
-    newsImage: z.string(),
+    newsImage: z.string().optional(),
     newsHeadline: z.string(),
     newsSource: z.string(),
     newsDate: z.string(),

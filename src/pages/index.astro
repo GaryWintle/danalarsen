@@ -17,9 +17,18 @@ import NewsBlock from '@components/NewsBlock.astro'
 import newsIcon from '@graphics/Icons/globe.svg?raw'
 import columnsIcon from '@graphics/Icons/writer.svg?raw'
 import { getCollection } from 'astro:content'
+import { fetchOgImage } from '../utils/fetchOgImage'
 
 const newsItems = await getCollection('news')
 const columnItems = await getCollection('columns')
+
+const resolvedNewsItems = await Promise.all(
+  newsItems.map(async (item) => ({
+    ...item.data,
+    newsImage:
+      item.data.newsImage ?? (await fetchOgImage(item.data.href)) ?? undefined,
+  })),
+)
 ---
 
 <Layout title="DanaLarsen | Canadian Drug Policy Reform Activist">
@@ -30,7 +39,7 @@ const columnItems = await getCollection('columns')
     <About />
     <Newsletter />
     <SidebarBlock slot="news" title="Dana in the News" icon={newsIcon}>
-      {newsItems.map((item) => <NewsBlock {...item.data} />)}
+      {resolvedNewsItems.map((item) => <NewsBlock {...item} />)}
     </SidebarBlock>
     <SidebarBlock slot="columns" title="Dana's Columns" icon={columnsIcon}>
       {columnItems.map((item) => <ColumnBlock {...item.data} />)}
