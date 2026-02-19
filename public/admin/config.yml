@@ -51,12 +51,15 @@ collections:
         hint: 'e.g. The Tyee, Vancouver Sun'
       - label: 'Date'
         name: 'newsDate'
-        widget: 'string'
-        hint: 'e.g. January 29, 2025'
+        widget: 'datetime'
+        format: 'MMMM D, YYYY'
+        date_format: 'MMMM D, YYYY'
+        time_format: false
       - label: 'Link'
         name: 'href'
         widget: 'string'
-        hint: 'Full URL to the article'
+        hint: 'Full URL including https:// (e.g. https://thetyee.ca/...)'
+        pattern: ['^https?://', 'Must be a full URL starting with https://']
 
   - name: 'columns'
     label: 'Columns'
@@ -79,9 +82,12 @@ collections:
         hint: 'e.g. The Georgia Straight'
       - label: 'Date'
         name: 'date'
-        widget: 'string'
-        hint: 'e.g. May 20, 2018'
+        widget: 'datetime'
+        format: 'MMMM D, YYYY'
+        date_format: 'MMMM D, YYYY'
+        time_format: false
       - label: 'Link'
         name: 'href'
         widget: 'string'
-        hint: 'Full URL to the article'
+        hint: 'Full URL including https:// (e.g. https://thegeorgiastraight.com/...)'
+        pattern: ['^https?://', 'Must be a full URL starting with https://']
