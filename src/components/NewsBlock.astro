@@ -56,9 +56,10 @@ const isExternal = href.startsWith('http')
   .news-link {
     display: flex;
     padding-block: var(--sp-04);
+    padding-inline: var(--sp-06);
     gap: var(--sp-03);
     transition:
-      --gradient-opacity 380ms ease-out,
+      --gradient-opacity 280ms ease-out,
       --color 280ms ease-out;
   }
 
@@ -70,7 +71,7 @@ const isExternal = href.startsWith('http')
 
   .news-link:hover,
   .news-link:focus-visible {
-    --gradient-opacity: 0.8;
+    --gradient-opacity: 0.6;
     background: linear-gradient(
       transparent,
       oklch(from var(--neutral-100) l c h / var(--gradient-opacity))

@@ -38,28 +38,30 @@ import Button from '@components/Button.astro'
     width: 100%;
     display: grid;
     place-items: center;
-    overflow: hidden;
-    padding-block: 0;
+    overflow: visible;
+    padding-block: var(--section-block);
+    z-index: 0;
   }
 
   .about::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background: center / cover no-repeat url('/images/dana-about.webp');
+    inset: 0 0 0 -100vw;
+    /* top: 0;
+    right: 0;
+    bottom: 0;
+    left: -100vw; */
+    background: url(public/images/danalarsen-about.webp);
+    background-size: cover;
     background-attachment: fixed;
-    filter: grayscale(1);
-    filter: blur(8px);
-    opacity: 0.2;
-    background-color: var(--blue-300);
-    background-blend-mode: multiply;
     z-index: -1;
+    opacity: 0.06;
   }
 
   .about::after {
     content: '';
     position: absolute;
-    inset: 0;
+    inset: 0 0 0 -100vw;
     background: linear-gradient(
       oklch(from var(--blue-300) 40% c h),
       var(--blue-300)
@@ -79,12 +81,14 @@ import Button from '@components/Button.astro'
   }
 
   .about-card {
-    grid-area: 1 / 1 / 8 / 5;
-    background: var(--bg-surface);
+    /* grid-area: 1 / 1 / 8 / 5; */
+    grid-area: 2 / 4 / 7 / 8;
+    background: oklch(from var(--bg-surface) l c h / 0.93);
     border-radius: var(--br-02);
     width: min(70rem, 100%);
     height: auto;
-    box-shadow: 12px 12px 0 var(--blue-200);
+    /* box-shadow: 12px 12px 0 var(--blue-200); */
+    box-shadow: 10px 10px 10px oklch(from var(--neutral-600) l c h / 0.2);
 
     transition:
       box-shadow 0.3s ease,
@@ -95,7 +99,8 @@ import Button from '@components/Button.astro'
   }
 
   .about-image {
-    grid-area: 2 / 4 / 7 / 8;
+    /* grid-area: 2 / 4 / 7 / 8; */
+    grid-area: 1 / 1 / 8 / 5;
     width: auto;
     max-height: 100%;
     object-fit: cover;
@@ -103,6 +108,7 @@ import Button from '@components/Button.astro'
     justify-self: end;
     border-radius: var(--br-02);
     border: 1px solid oklch(from var(--blue-300) 45% c h);
+    box-shadow: 10px 10px 10px oklch(from var(--neutral-600) l c h / 0.2);
   }
 
   .about-copy {
