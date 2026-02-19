@@ -10,7 +10,8 @@
       "@sections/*": ["src/sections/*"],
       "@styles/*": ["src/styles/*"],
       "@images/*": ["src/assets/images/*"],
-      "@graphics/*": ["src/assets/graphics/*"]
+      "@graphics/*": ["src/assets/graphics/*"],
+      "@data/*": ["src/data*"]
     }
   }
 }

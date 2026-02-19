@@ -1,14 +1,11 @@
 ---
-import defaultNewsImage from '@images/column-thumbnails/dana-news-policeraid.webp'
-
 const {
-  newsImage = defaultNewsImage,
+  newsImage = '/uploads/news/dana-news-policeraid.webp',
   newsHeadline = 'Headline goes here.',
   newsSource = 'Pothead Press',
   newsDate = 'April 20, 1982',
   href = 'https://potheadbooks.com/',
 } = Astro.props
-import { Image } from 'astro:assets'
 
 const parsedDate = new Date(String(newsDate))
 
@@ -29,12 +26,7 @@ const isExternal = href.startsWith('http')
     aria-label={`Read article: ${newsHeadline} from ${newsSource}`}
   >
     <div class="news-image">
-      <Image
-        src={newsImage}
-        alt={newsHeadline}
-        loading="lazy"
-        decoding="async"
-      />
+      <img src={newsImage} alt={newsHeadline} loading="lazy" decoding="async" />
     </div>
     <div class="text-container">
       <h3 class="news-headline">{newsHeadline}</h3>
@@ -56,9 +48,10 @@ const isExternal = href.startsWith('http')
   .news-link {
     display: flex;
     padding-block: var(--sp-04);
+    padding-inline: var(--sp-06);
     gap: var(--sp-03);
     transition:
-      --gradient-opacity 380ms ease-out,
+      --gradient-opacity 280ms ease-out,
       --color 280ms ease-out;
   }
 
@@ -70,7 +63,7 @@ const isExternal = href.startsWith('http')
 
   .news-link:hover,
   .news-link:focus-visible {
-    --gradient-opacity: 0.8;
+    --gradient-opacity: 0.6;
     background: linear-gradient(
       transparent,
       oklch(from var(--neutral-100) l c h / var(--gradient-opacity))

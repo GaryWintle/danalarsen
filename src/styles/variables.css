@@ -36,7 +36,7 @@
 
   /* Neutral / Gray Scale */
   --neutral-100: oklch(98% 0 237);
-  --neutral-200: oklch(96% 0 258);
+  --neutral-200: oklch(96% 0.005 258);
   --neutral-300: oklch(92% 0.015 227);
   --neutral-400: oklch(76% 0.025 237);
   --neutral-500: oklch(47% 0.025 237);
@@ -100,6 +100,7 @@
   --font-header: 'CD', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
 
+  /* Font sizes */
   --font-01: 1.4rem;
   --font-02: 1.6rem;
   --font-03: 1.8rem;

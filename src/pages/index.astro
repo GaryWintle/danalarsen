@@ -1,23 +1,40 @@
 ---
 import Layout from '@layouts/Layout.astro'
+
+// Components
 import Nav from '@components/Nav.astro'
 import Hero from '@sections/Hero.astro'
 import TwoColWrapper from '@components/TwoColWrapper.astro'
 import Projects from '@sections/Projects.astro'
 import About from '@sections/About.astro'
 import Newsletter from '@sections/Newsletter.astro'
+import SidebarBlock from '@components/SidebarBlock.astro'
+import ColumnBlock from '@components/ColumnBlock.astro'
 import Footer from '@components/Footer.astro'
+import NewsBlock from '@components/NewsBlock.astro'
+
+// Icons
+import newsIcon from '@graphics/Icons/globe.svg?raw'
+import columnsIcon from '@graphics/Icons/writer.svg?raw'
+import { getCollection } from 'astro:content'
+
+const newsItems = await getCollection('news')
+const columnItems = await getCollection('columns')
 ---
 
 <Layout title="DanaLarsen | Canadian Drug Policy Reform Activist">
   <Nav />
   <Hero />
-  <main id="main-content">
-    <TwoColWrapper>
-      <Projects />
-      <About />
-      <Newsletter />
-    </TwoColWrapper>
-  </main>
-  <Footer />
+  <TwoColWrapper>
+    <Projects />
+    <About />
+    <Newsletter />
+    <SidebarBlock slot="news" title="Dana in the News" icon={newsIcon}>
+      {newsItems.map((item) => <NewsBlock {...item.data} />)}
+    </SidebarBlock>
+    <SidebarBlock slot="columns" title="Dana's Columns" icon={columnsIcon}>
+      {columnItems.map((item) => <ColumnBlock {...item.data} />)}
+    </SidebarBlock>
+  </TwoColWrapper>
 </Layout>
+<Footer />

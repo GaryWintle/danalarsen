@@ -1,92 +1,19 @@
 ---
-import Projects from '@sections/Projects.astro'
-import SidebarBlock from '@components/SidebarBlock.astro'
-import newsIcon from '@graphics/Icons/globe.svg?raw'
-import columnsIcon from '@graphics/Icons/writer.svg?raw'
-import NewsBlock from '@components/NewsBlock.astro'
-import ColumnBlock from '@components/ColumnBlock.astro'
 
-import story01 from '@images/column-thumbnails/dana-news-policeraid.webp'
-import story02 from '@images/column-thumbnails/dana-news-supplier.jpg'
-import story03 from '@images/column-thumbnails/dana-news-policeraid.webp'
-
-const newsBlocks = [
-  {
-    newsImage: story01,
-    newsHeadline:
-      'Police raid Vancouver cannabis dispensaries linked to Dana Larsen ',
-    newsSource: 'Vancouver Sun',
-    newsDate: 'January 28, 2025',
-    href: 'https://potheadbooks.com/',
-  },
-  {
-    newsImage: story02,
-    newsHeadline:
-      'Pot Activist, retailer Dana Larsen sue for not paying supplier',
-    newsSource: 'North Shore News',
-    newsDate: 'May 31, 2024',
-    href: 'https://potheadbooks.com/',
-  },
-  {
-    newsImage: story03,
-    newsHeadline:
-      'Police raid Vancouver cannabis dispensaries linked to Dana Larsen',
-    newsSource: 'Vancouver Sun',
-    newsDate: '2025-01-28',
-    href: 'https://potheadbooks.com/',
-  },
-]
-
-const columnBlocks = [
-  {
-    headline: 'The deep connection between Pride and 4/20',
-    source: 'The Georgia Straight',
-    date: 'May 20, 2018',
-    href: '#',
-  },
-  {
-    headline: 'Vancouver 4/20 is a protest against stigmatization of cannabis',
-    source: 'Daily Hive',
-    date: 'Mar 7, 2019',
-    href: '#',
-  },
-  {
-    headline: 'Masturbation Panic and the War on Drugs',
-    source: 'Georgia Straight',
-    date: 'Nov 22, 2020',
-    href: '#',
-  },
-  {
-    headline: 'Killer Cops on Vancouver Streets',
-    source: 'Georgia Straight',
-    date: 'Aug 20, 2020',
-    href: '#',
-  },
-  {
-    headline: 'Challenge coins reveal disturbing side of policing',
-    source: 'Georgia Straight',
-    date: 'Oct 26, 2020',
-    href: '#',
-  },
-]
 ---
 
-<section class="two-column-wrapper">
-  <section class="projects-section">
-    <slot />
-  </section>
+<main id="main-content">
+  <section class="two-column-wrapper">
+    <section class="projects-section">
+      <slot />
+    </section>
 
-  <!-- Sidebar -->
-  <aside class="sidebar-section">
-    <SidebarBlock title="Dana in the News" icon={newsIcon}>
-      {newsBlocks.map((props) => <NewsBlock {...props} />)}
-    </SidebarBlock>
-    <aside class="columns-section">
-      <SidebarBlock title="Dana's Columns" icon={columnsIcon}>
-        {columnBlocks.map((props) => <ColumnBlock {...props} />)}
-      </SidebarBlock>
+    <!-- Sidebar -->
+    <aside class="sidebar-section">
+      <slot name="news" />
+      <slot name="columns" />
     </aside>
-  </aside>
+  </section>
 
   <style>
     .two-column-wrapper {
@@ -96,8 +23,8 @@ const columnBlocks = [
       grid-template-areas:
         'projects news'
         'projects news';
-      column-gap: var(--layout-01);
-      row-gap: var(--layout-01);
+      /* column-gap: var(--layout-01);
+      row-gap: var(--layout-01); */
       padding-inline-end: 340;
 
       /* background-color: grey; */
@@ -106,19 +33,21 @@ const columnBlocks = [
       /* background-color: aquamarine; */
       grid-area: projects;
     }
+
     .sidebar-section {
+      /* background-color: red; */
       position: sticky;
       height: 100vh;
       top: var(--sp-06);
       /* background-color: var(--neutral-100); */
-      border-left: var(--news-sidebar-divider);
+      /* border-left: var(--news-sidebar-divider); */
       grid-area: news;
       /* height: auto; */
       display: flex;
       flex-direction: column;
 
-      padding-inline-start: var(--sp-06);
-      padding-inline-end: 4.2rem;
+      /* padding-inline-start: 1.2rem;
+      padding-inline-end: 1.2rem; */
       /* margin-block-start: -10px;
       padding-block-start: 48px; */
       padding-block: var(--section-block);
@@ -147,4 +76,4 @@ const columnBlocks = [
       }
     }
   </style>
-</section>
+</main>
