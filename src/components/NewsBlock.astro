@@ -1,14 +1,11 @@
 ---
-import defaultNewsImage from '@images/column-thumbnails/dana-news-policeraid.webp'
-
 const {
-  newsImage = defaultNewsImage,
+  newsImage = '/uploads/news/dana-news-policeraid.webp',
   newsHeadline = 'Headline goes here.',
   newsSource = 'Pothead Press',
   newsDate = 'April 20, 1982',
   href = 'https://potheadbooks.com/',
 } = Astro.props
-import { Image } from 'astro:assets'
 
 const parsedDate = new Date(String(newsDate))
 
@@ -29,12 +26,7 @@ const isExternal = href.startsWith('http')
     aria-label={`Read article: ${newsHeadline} from ${newsSource}`}
   >
     <div class="news-image">
-      <Image
-        src={newsImage}
-        alt={newsHeadline}
-        loading="lazy"
-        decoding="async"
-      />
+      <img src={newsImage} alt={newsHeadline} loading="lazy" decoding="async" />
     </div>
     <div class="text-container">
       <h3 class="news-headline">{newsHeadline}</h3>
