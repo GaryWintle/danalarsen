@@ -37,11 +37,6 @@ collections:
     editor:
       preview: false
     fields:
-      - label: 'Image'
-        name: 'newsImage'
-        widget: 'image'
-        required: false
-        hint: 'Optional — leave blank to auto-use the article''s own thumbnail.'
       - label: 'Headline'
         name: 'newsHeadline'
         widget: 'string'
