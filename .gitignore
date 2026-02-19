@@ -20,5 +20,11 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# Windows Zone.Identifier files and Dropbox metadata
+*.Zone.Identifier
+*.dropbox.attrs
+*.com.dropbox.attrs
+Unconfirmed *.crdownload*
+
 # jetbrains setting folder
 .idea/
