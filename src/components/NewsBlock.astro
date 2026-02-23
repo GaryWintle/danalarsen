@@ -22,7 +22,6 @@ const isExternal = href.startsWith('http')
     class="news-link"
     rel={isExternal ? 'noopener noreferrer' : undefined}
     target={isExternal ? '_blank' : undefined}
-    target="_blank"
     aria-label={`Read article: ${newsHeadline} from ${newsSource}`}
   >
     <div class="news-image">
@@ -48,7 +47,7 @@ const isExternal = href.startsWith('http')
   .news-link {
     display: flex;
     padding-block: var(--sp-04);
-    padding-inline: var(--sp-06);
+    /* padding-inline: var(--sp-06); */
     gap: var(--sp-03);
     transition:
       --gradient-opacity 280ms ease-out,

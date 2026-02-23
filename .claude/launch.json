@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "danalarsen-dev",
+      "runtimeExecutable": "wsl",
+      "runtimeArgs": ["bash", "-c", "cd /home/garywintle/code/danalarsen && npm run dev -- --port 4322"],
+      "port": 4322
+    }
+  ]
+}

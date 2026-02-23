@@ -1,16 +1,25 @@
 ---
-const { title, icon } = Astro.props
+const { title, icon, viewAllHref } = Astro.props
 
 import sidebarUnderline from '@graphics/sidebar-underline.svg?raw'
 ---
 
-<ul>
+<section>
   <div class="heading-container">
     <div class="headline-icon" set:html={icon} />
     <h2>{title}</h2>
   </div>
-  <div class="sidebar-underline" set:html={sidebarUnderline} /><slot />
-</ul>
+  <div class="sidebar-underline" set:html={sidebarUnderline} /><ul><slot /></ul>
+  {
+    viewAllHref && (
+      <div class="view-all-container">
+        <a href={viewAllHref} class="view-all-link">
+          View all &rarr;
+        </a>
+      </div>
+    )
+  }
+</section>
 
 <style>
   h2 {
@@ -18,7 +27,7 @@ import sidebarUnderline from '@graphics/sidebar-underline.svg?raw'
     font-weight: 400;
   }
   .heading-container {
-    padding-inline: var(--sp-06);
+    /* padding-inline: var(--sp-06); */
     display: flex;
     align-items: center;
     gap: var(--sp-02);
@@ -31,5 +40,30 @@ import sidebarUnderline from '@graphics/sidebar-underline.svg?raw'
 
   ul > :global(li:not(:last-child)) {
     border-bottom: var(--news-divider);
+  }
+
+  .view-all-container {
+    /* padding-inline: var(--sp-06); */
+    padding-block: var(--sp-03);
+    border-top: var(--news-divider);
+  }
+
+  .view-all-link {
+    font-family: var(--font-body);
+    font-size: var(--font-02);
+    font-weight: var(--font-weight-semibold);
+    color: var(--blue-200);
+    text-decoration: none;
+    transition: color 200ms ease-out;
+  }
+
+  .view-all-link:hover {
+    color: var(--blue-300);
+  }
+
+  .view-all-link:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 4px;
+    border-radius: var(--br-01);
   }
 </style>

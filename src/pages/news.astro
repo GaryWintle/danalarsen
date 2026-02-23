@@ -1,0 +1,114 @@
+---
+import Layout from '@layouts/Layout.astro'
+
+// Components
+import Nav from '@components/Nav.astro'
+import Footer from '@components/Footer.astro'
+import SidebarBlock from '@components/SidebarBlock.astro'
+import NewsBlock from '@components/NewsBlock.astro'
+import ColumnBlock from '@components/ColumnBlock.astro'
+
+// Icons
+import newsIcon from '@graphics/Icons/globe.svg?raw'
+import columnsIcon from '@graphics/Icons/writer.svg?raw'
+import { getCollection } from 'astro:content'
+import { fetchOgImage } from '@utils/fetchOgImage'
+
+const newsItems = await getCollection('news')
+const columnItems = await getCollection('columns')
+
+const resolvedNewsItems = await Promise.all(
+  newsItems.map(async (item) => ({
+    ...item.data,
+    newsImage:
+      item.data.newsImage ?? (await fetchOgImage(item.data.href)) ?? undefined,
+  })),
+)
+
+const sortedNews = resolvedNewsItems.sort(
+  (a, b) =>
+    new Date(String(b.newsDate)).getTime() -
+    new Date(String(a.newsDate)).getTime(),
+)
+
+const sortedColumns = [...columnItems].sort(
+  (a, b) =>
+    new Date(String(b.data.date)).getTime() -
+    new Date(String(a.data.date)).getTime(),
+)
+---
+
+<Layout
+  title="Dana in the Media | Dana Larsen"
+  description="News coverage and opinion columns featuring Dana Larsen, Canadian drug policy reform activist."
+>
+  <Nav />
+  <main id="main-content" class="page-wrapper">
+    <header class="page-header">
+      <h1 class="page-title">Dana in the Media</h1>
+      <p class="page-subtitle">
+        News coverage and opinion columns featuring Dana Larsen
+      </p>
+    </header>
+    <div class="media-grid">
+      <section class="media-section" aria-label="Dana in the News">
+        <SidebarBlock title="Dana in the News" icon={newsIcon}>
+          {sortedNews.map((item) => <NewsBlock {...item} />)}
+        </SidebarBlock>
+      </section>
+      <section class="media-section" aria-label="Dana's Columns">
+        <SidebarBlock title="Dana's Columns" icon={columnsIcon}>
+          {sortedColumns.map((item) => <ColumnBlock {...item.data} />)}
+        </SidebarBlock>
+      </section>
+    </div>
+  </main>
+</Layout>
+<Footer />
+
+<style>
+  .page-wrapper {
+    width: var(--max-width);
+    padding-inline: var(--section-inline);
+    padding-block-start: calc(var(--section-block) + 7rem);
+    padding-block-end: var(--section-block);
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-02);
+  }
+
+  .page-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-02);
+  }
+
+  .page-title {
+    color: var(--text-title);
+    font-size: var(--font-05);
+  }
+
+  .page-subtitle {
+    font-size: var(--font-03);
+    color: var(--text-body);
+  }
+
+  .media-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--layout-01);
+    align-items: start;
+  }
+
+  .media-section {
+    background-color: var(--bg-surface);
+    border-radius: var(--br-03);
+    overflow: hidden;
+  }
+
+  @media (max-width: 60rem) {
+    .media-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

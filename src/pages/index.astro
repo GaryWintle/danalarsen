@@ -29,6 +29,22 @@ const resolvedNewsItems = await Promise.all(
       item.data.newsImage ?? (await fetchOgImage(item.data.href)) ?? undefined,
   })),
 )
+
+const latestNews = resolvedNewsItems
+  .sort(
+    (a, b) =>
+      new Date(String(b.newsDate)).getTime() -
+      new Date(String(a.newsDate)).getTime(),
+  )
+  .slice(0, 3)
+
+const latestColumns = [...columnItems]
+  .sort(
+    (a, b) =>
+      new Date(String(b.data.date)).getTime() -
+      new Date(String(a.data.date)).getTime(),
+  )
+  .slice(0, 5)
 ---
 
 <Layout title="DanaLarsen | Canadian Drug Policy Reform Activist">
@@ -36,14 +52,25 @@ const resolvedNewsItems = await Promise.all(
   <Hero />
   <TwoColWrapper>
     <Projects />
-    <About />
-    <Newsletter />
-    <SidebarBlock slot="news" title="Dana in the News" icon={newsIcon}>
-      {resolvedNewsItems.map((item) => <NewsBlock {...item} />)}
+
+    <SidebarBlock
+      slot="news"
+      title="Dana in the News"
+      icon={newsIcon}
+      viewAllHref="/news"
+    >
+      {latestNews.map((item) => <NewsBlock {...item} />)}
     </SidebarBlock>
-    <SidebarBlock slot="columns" title="Dana's Columns" icon={columnsIcon}>
-      {columnItems.map((item) => <ColumnBlock {...item.data} />)}
+    <SidebarBlock
+      slot="columns"
+      title="Dana's Columns"
+      icon={columnsIcon}
+      viewAllHref="/news"
+    >
+      {latestColumns.map((item) => <ColumnBlock {...item.data} />)}
     </SidebarBlock>
   </TwoColWrapper>
+  <About />
+  <Newsletter />
+  <Footer />
 </Layout>
-<Footer />
