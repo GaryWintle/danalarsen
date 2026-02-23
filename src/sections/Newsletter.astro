@@ -1,10 +1,15 @@
 ---
 import danaIcon from '@graphics/dana-headicon.svg?raw'
+import weedLeaf from '@graphics/Icons/leaf.svg?raw'
 import Button from '@components/Button.astro'
 ---
 
 <section class="newsletter">
   <div class="newsletter-container">
+    <div class="leaf-clip">
+      <!-- overflow: hidden lives here -->
+      <div class="weed-leaf" set:html={weedLeaf} />
+    </div>
     <div class="dana-icon" set:html={danaIcon} />
     <div class="newsletter-text-content">
       <h2 class="newsletter-title">Join the Revolution!</h2>
@@ -66,6 +71,40 @@ import Button from '@components/Button.astro'
     background-color: var(--bg-surface);
     box-shadow: var(--shadow-mid);
     border-radius: var(--br-03);
+  }
+
+  .leaf-clip {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: var(--br-03);
+  }
+
+  .weed-leaf {
+    position: absolute;
+    bottom: -15%;
+    right: -10%;
+    width: 60%;
+    opacity: 0.07;
+  }
+
+  .weed-leaf :global(svg) {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .newsletter-container::after {
+    content: '';
+    /* position: absolute; */
+    background-image: url(public/favicon.svg);
+  }
+
+  .newsletter-text-content,
+  .newsletter-input,
+  .fine-print,
+  .newsletter-title {
+    position: relative;
   }
 
   .newsletter-text-content {
@@ -135,7 +174,7 @@ import Button from '@components/Button.astro'
   }
 
   p {
-    width: 55ch;
+    width: min(55ch, 100%);
     text-align: center;
   }
   .newsletter-input {
@@ -147,14 +186,15 @@ import Button from '@components/Button.astro'
   }
 
   input {
-    width: 100%;
+    width: 80%;
     font-size: var(--font-04);
     font-family: var(--font-body);
     font-weight: var(--font-weight-semibold);
     color: var(--blue-200);
-    background-color: var(--neutral-100);
+    background-color: oklch(from var(--neutral-100) l c h / 0.7);
+    backdrop-filter: blur(8px);
     border: var(--image-border);
-    padding: var(--sp-03) var(--sp-04);
+    padding: var(--sp-04) var(--sp-04);
     border-radius: var(--br-02);
     text-align: center;
     box-shadow: var(--shadow-shallow);
