@@ -28,3 +28,6 @@ Unconfirmed *.crdownload*
 
 # jetbrains setting folder
 .idea/
+
+# Playwright MCP logs
+.playwright-mcp/
