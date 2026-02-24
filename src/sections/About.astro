@@ -1,5 +1,7 @@
 ---
+import { Picture } from 'astro:assets'
 import Button from '@components/Button.astro'
+import danaAbout from '@images/dana-about.webp'
 ---
 
 <section id="about" class="about" aria-labelledby="about-heading">
@@ -18,8 +20,10 @@ import Button from '@components/Button.astro'
         </div>
       </div>
     </div>
-    <img
-      src="/images/dana-about.webp"
+    <Picture
+      src={danaAbout}
+      formats={['avif', 'webp']}
+      fallbackFormat="webp"
       alt="Dana Larsen"
       class="about-image"
       loading="lazy"

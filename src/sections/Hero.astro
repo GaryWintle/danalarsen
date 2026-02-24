@@ -6,18 +6,18 @@ import HeroDivider from '@graphics/hero-divider.svg?raw'
 import heroDesktop from '@images/dl-hero-desktop.webp'
 import heroMobile from '@images/dl-hero-mobile.webp'
 
-const mobileImg = await getImage({
-  src: heroMobile,
-  format: 'webp',
-  width: 750,
-})
-const desktopImg = await getImage({ src: heroDesktop, format: 'webp' })
+const mobileAvif = await getImage({ src: heroMobile, format: 'avif', width: 750 })
+const mobileWebp = await getImage({ src: heroMobile, format: 'webp', width: 750 })
+const desktopAvif = await getImage({ src: heroDesktop, format: 'avif' })
+const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
 ---
 
 <header aria-label="Hero section">
   <picture class="hero-bg" aria-hidden="true">
-    <source media="(max-width: 1024px)" srcset={mobileImg.src} />
-    <img src={desktopImg.src} alt="" fetchpriority="high" />
+    <source media="(max-width: 1024px)" srcset={mobileAvif.src} type="image/avif" />
+    <source media="(max-width: 1024px)" srcset={mobileWebp.src} type="image/webp" />
+    <source srcset={desktopAvif.src} type="image/avif" />
+    <img src={desktopWebp.src} alt="" fetchpriority="high" />
   </picture>
   <div class="hero-overlay" aria-hidden="true"></div>
   <div class="wrapper">
