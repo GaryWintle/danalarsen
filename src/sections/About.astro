@@ -1,7 +1,5 @@
 ---
-import { Picture } from 'astro:assets'
 import Button from '@components/Button.astro'
-import danaAbout from '@images/dana-about.webp'
 ---
 
 <section id="about" class="about" aria-labelledby="about-heading">
@@ -20,10 +18,8 @@ import danaAbout from '@images/dana-about.webp'
         </div>
       </div>
     </div>
-    <Picture
-      src={danaAbout}
-      formats={['avif', 'webp']}
-      fallbackFormat="webp"
+    <img
+      src="/images/dana-about.webp"
       alt="Dana Larsen"
       class="about-image"
       loading="lazy"
@@ -85,13 +81,9 @@ import danaAbout from '@images/dana-about.webp'
   }
 
   .about-card {
-    /* grid-area: 1 / 1 / 8 / 5; */
     grid-area: 2 / 4 / 7 / 8;
     background: oklch(from var(--bg-surface) l c h / 0.93);
     border-radius: var(--br-02);
-    /* width: min(70rem, 100%); */
-    /* height: auto; */
-    /* box-shadow: 12px 12px 0 var(--blue-200); */
     box-shadow: 10px 10px 10px oklch(from var(--neutral-600) l c h / 0.2);
 
     transition:
@@ -126,6 +118,12 @@ import danaAbout from '@images/dana-about.webp'
   .button-wrapper {
     align-self: end;
     justify-self: end;
+    width: 100%;
+  }
+
+  .button-wrapper :global(a),
+  .button-wrapper :global(button) {
+    width: 100%;
   }
 
   @media (max-width: 768px) {
@@ -136,16 +134,20 @@ import danaAbout from '@images/dana-about.webp'
 
     .about-card {
       grid-column: 1;
-      grid-row: 1;
+      grid-row: 2;
       max-width: 100%;
+      border-radius: 0 0 var(--br-02) var(--br-02);
+      background: oklch(from var(--bg-surface) l c h / 1);
     }
 
     .about-image {
       grid-column: 1;
-      grid-row: 2;
+      grid-row: 1;
       justify-self: center;
-      max-width: 80%;
-      margin-block-start: var(--sp-05);
+      max-width: 100%;
+      border-radius: var(--br-02) var(--br-02) 0 0;
+      border: 0;
+      box-shadow: 10px 10px 10px oklch(from var(--neutral-600) l c h / 0.2);
     }
 
     .about-copy {

@@ -1,12 +1,12 @@
 ---
-import { Picture } from 'astro:assets'
+import { Image } from 'astro:assets'
 import Button from '@components/Button.astro'
 const { src, title, text, url, href } = Astro.props
 ---
 
 <div class="card" role="article" aria-labelledby="project-title-{title}">
   <div class="card-image-container">
-    <Picture src={src} formats={['avif', 'webp']} fallbackFormat="webp" alt={title} loading="lazy" />
+    <Image src={src} alt={title} loading="lazy" />
     <div class="card-text-container">
       <h3>{title}</h3>
       <p class="body-text">
