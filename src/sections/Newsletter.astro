@@ -58,10 +58,11 @@ import Button from '@components/Button.astro'
     place-items: center;
     padding-block-start: calc(var(--section-block) + 6rem);
     padding-block-end: var(--section-block);
+    padding-inline: var(--section-inline);
   }
 
   .newsletter-container {
-    width: 70%;
+    width: var(--max-width);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -74,6 +75,7 @@ import Button from '@components/Button.astro'
   }
 
   .leaf-clip {
+    /* background-color: red; */
     position: absolute;
     inset: 0;
     overflow: hidden;
@@ -153,22 +155,6 @@ import Button from '@components/Button.astro'
     }
   }
 
-  /* .dana-icon :global(svg) {
-    position: relative;
-    transform-origin: center;
-    animation: pulse 5s ease-in-out infinite;
-  } */
-
-  /* @keyframes pulse {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.03);
-    }
-  } */
-
   .newsletter-title {
     margin-block-start: 4rem;
   }
@@ -195,7 +181,7 @@ import Button from '@components/Button.astro'
     backdrop-filter: blur(8px);
     border: var(--image-border);
     padding: var(--sp-04) var(--sp-04);
-    border-radius: var(--br-02);
+    border-radius: var(--br-01);
     text-align: center;
     box-shadow: var(--shadow-shallow);
     transition:
@@ -224,5 +210,33 @@ import Button from '@components/Button.astro'
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+  }
+
+  @media (max-width: 768px) {
+    input {
+      width: 100%;
+      font-size: var(--font-03);
+    }
+
+    .newsletter-text-content {
+      padding-inline: var(--section-inline);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-03);
+    }
+
+    .newsletter-input {
+      width: 100%;
+      padding-inline: var(--section-inline);
+    }
+
+    .weed-leaf {
+      position: absolute;
+      bottom: -8%;
+      right: -45%;
+      width: 120%;
+      opacity: 0.07;
+    }
   }
 </style>
