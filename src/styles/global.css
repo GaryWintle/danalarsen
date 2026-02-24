@@ -126,9 +126,16 @@ a {
 
 /* Mobile Phone */
 
-@media (max-width: 64rem) {
+@media (max-width: 768px) {
   body {
     background-color: var(--bg-page);
     overflow-x: hidden;
+  }
+
+  h1 {
+    font-size: clamp(3.8rem, calc(5vw + 1rem), 6rem);
+    letter-spacing: -0.5px;
+    line-height: 116%;
+    /* text-wrap: balance; */
   }
 }
