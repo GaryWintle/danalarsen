@@ -49,7 +49,7 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
           color="secondary"
           href="#about"
           aria-label="Learn more about Dana Larsen's advocacy work"
-          >About Dana</Button
+          class="btn-about">About Dana</Button
         >
         <Button
           color="primary"
@@ -172,7 +172,7 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
     }
 
     .hero-bg img {
-      object-position: 64% top;
+      object-position: 70% top;
     }
 
     .wrapper {
@@ -186,7 +186,7 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
       flex-direction: column;
       justify-content: space-between;
       gap: var(--layout-03);
-      padding-block-start: 13rem;
+      padding-block-start: 11rem;
       padding-block-end: 3rem;
       width: 100%;
       height: 100%;
@@ -253,6 +253,10 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
       justify-self: end;
     }
     .hero-divider {
+      display: none;
+    }
+
+    .buttons-container :global(.btn-about) {
       display: none;
     }
   }
