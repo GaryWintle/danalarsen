@@ -36,7 +36,7 @@
 
   /* Neutral / Gray Scale */
   --neutral-100: oklch(98% 0 237);
-  --neutral-200: oklch(97% 0.003 248);
+  --neutral-200: oklch(96% 0.006 240);
   --neutral-300: oklch(92% 0.015 227);
   --neutral-400: oklch(76% 0.025 237);
   --neutral-500: oklch(47% 0.025 237);

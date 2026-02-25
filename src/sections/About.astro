@@ -1,25 +1,42 @@
 ---
+import { getImage } from 'astro:assets'
 import Button from '@components/Button.astro'
+import aboutImage from '@images/danalarsen-about.webp'
+
+const optimizedBackground = await getImage({ src: aboutImage, format: 'webp' })
+const optimizedPhoto = await getImage({
+  src: aboutImage,
+  format: 'webp',
+  width: 700,
+})
 ---
 
-<section id="about" class="about" aria-labelledby="about-heading">
+<section
+  id="about"
+  class="about"
+  aria-labelledby="about-heading"
+  style={`--about-bg: url(${optimizedBackground.src})`}
+>
   <div class="about-container">
     <div class="about-card">
       <div class="about-copy">
-        <h2 id="about-heading">
-          Meet Dana Larsen, Canada's Leader in Drug Policy Revolution.
-        </h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur. Nisl faucibus non magna ipsum.
-          Lorem ipsum dolor sit amet consectetur. Nisl faucibus non magna ipsum.
-        </p>
+        <div class="about-text-wrapper">
+          <h2 id="about-heading">
+            Meet Dana Larsen, Canada's Leader in Drug Policy Revolution.
+          </h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur. Nisl faucibus non magna
+            ipsum. Lorem ipsum dolor sit amet consectetur. Nisl faucibus non
+            magna ipsum.
+          </p>
+        </div>
         <div class="button-wrapper">
           <Button color="primary">More about Dana</Button>
         </div>
       </div>
     </div>
     <img
-      src="/images/dana-about.webp"
+      src={optimizedPhoto.src}
       alt="Dana Larsen"
       class="about-image"
       loading="lazy"
@@ -30,7 +47,7 @@ import Button from '@components/Button.astro'
 <style>
   p {
     width: min(100%, 55ch);
-    margin-block-end: var(--sp-05);
+    margin-block-end: var(--sp-02);
   }
 
   .about {
@@ -47,11 +64,7 @@ import Button from '@components/Button.astro'
     content: '';
     position: absolute;
     inset: 0 0 0 -100vw;
-    /* top: 0;
-    right: 0;
-    bottom: 0;
-    left: -100vw; */
-    background: url(public/images/danalarsen-about.webp);
+    background: var(--about-bg);
     background-size: cover;
     background-attachment: fixed;
     z-index: -1;
@@ -97,7 +110,7 @@ import Button from '@components/Button.astro'
   .about-image {
     /* grid-area: 2 / 4 / 7 / 8; */
     grid-area: 1 / 1 / 8 / 5;
-    width: auto;
+    width: 100%;
     max-height: 100%;
     object-fit: cover;
     z-index: 1;
@@ -107,23 +120,26 @@ import Button from '@components/Button.astro'
     box-shadow: 10px 10px 10px oklch(from var(--neutral-600) l c h / 0.2);
   }
 
+  .about-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-03);
+  }
+
   .about-copy {
     display: flex;
     flex-direction: column;
-    gap: var(--sp-04);
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-06);
     padding-inline: 9.6rem;
     padding-block: 7.8rem;
+    height: 100%;
   }
 
   .button-wrapper {
     align-self: end;
     justify-self: end;
-    width: 100%;
-  }
-
-  .button-wrapper :global(a),
-  .button-wrapper :global(button) {
-    width: 100%;
   }
 
   @media (max-width: 768px) {
@@ -153,6 +169,15 @@ import Button from '@components/Button.astro'
     .about-copy {
       padding-inline: var(--sp-05);
       padding-block: var(--sp-06);
+    }
+
+    .button-wrapper {
+      width: 100%;
+    }
+
+    .button-wrapper :global(a),
+    .button-wrapper :global(button) {
+      width: 100%;
     }
   }
 </style>
