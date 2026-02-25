@@ -22,6 +22,9 @@ import sidebarUnderline from '@graphics/sidebar-underline.svg?raw'
 </section>
 
 <style>
+  section {
+    margin-block-end: var(--layout-02);
+  }
   h2 {
     font-size: var(--font-04);
     font-weight: 400;
@@ -65,5 +68,20 @@ import sidebarUnderline from '@graphics/sidebar-underline.svg?raw'
     outline: var(--focus-ring);
     outline-offset: 4px;
     border-radius: var(--br-01);
+  }
+
+  @media (max-width: 768px) {
+    h2 {
+      font-size: var(--font-05);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .heading-container {
+      padding-block-end: var(--sp-02);
+    }
+
+    .sidebar-underline {
+      margin-block-end: var(--sp-06);
+    }
   }
 </style>

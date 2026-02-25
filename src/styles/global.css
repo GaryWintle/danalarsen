@@ -138,4 +138,22 @@ a {
     line-height: 116%;
     /* text-wrap: balance; */
   }
+  .news-headline {
+    font-size: var(--font-03);
+    font-family: var(--font-body);
+    line-height: 1.1;
+  }
+  .news-source {
+    color: var(--neutral-500);
+    font-size: var(--font-02);
+    font-family: var(--font-body);
+    line-height: 1.1;
+    font-weight: var(--font-weight-semibold);
+  }
+  .news-date {
+    color: var(--neutral-500);
+    font-size: var(--font-02);
+    font-family: var(--font-body);
+    font-weight: var(--font-weight-normal);
+  }
 }
