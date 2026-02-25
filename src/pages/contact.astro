@@ -1,0 +1,35 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Nav from '@components/Nav.astro'
+import ContactForm from '@components/ContactForm.astro'
+import Footer from '@components/Footer.astro'
+---
+
+<Layout
+  title="Contact Dana Larsen"
+  description="Get in touch with Dana Larsen for speaking engagements, media inquiries, or general questions."
+  url="https://www.danalarsen.com/contact"
+>
+  <Nav />
+  <main id="main-content" class="contact-page">
+    <div class="contact-wrapper">
+      <ContactForm />
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .contact-page {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    padding-block: var(--section-block);
+    padding-inline: var(--section-inline);
+    min-height: 80vh;
+  }
+
+  .contact-wrapper {
+    width: min(100%, 80rem);
+  }
+</style>

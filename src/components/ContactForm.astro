@@ -1,0 +1,147 @@
+---
+import Button from '@components/Button.astro'
+
+// Edit these to change the form heading and intro text
+const heading = 'Get in Touch'
+const subheading = 'Have a question or want to book Dana for a speaking engagement? Fill out the form below.'
+---
+
+<div class="contact-form-wrapper">
+  <div class="contact-form-header">
+    <h2>{heading}</h2>
+    <p>{subheading}</p>
+  </div>
+
+  <form class="contact-form" name="contact" method="POST" data-netlify="true">
+    <div class="field-row">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your full name" required />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" required />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="subject">Subject</label>
+      <select id="subject" name="subject" required>
+        <option value="" disabled selected>Select a reason for contact</option>
+        <option value="speaking">Speaking Engagement</option>
+        <option value="media">Media Inquiry</option>
+        <option value="general">General Question</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="6" placeholder="Your message..." required></textarea>
+    </div>
+
+    <Button color="primary" type="submit">Send Message</Button>
+  </form>
+</div>
+
+<style>
+  .contact-form-wrapper {
+    background: var(--bg-surface);
+    border-radius: var(--br-02);
+    box-shadow: var(--shadow-mid);
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .contact-form-header {
+    background: var(--blue-300);
+    padding: var(--layout-02) var(--layout-03);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-03);
+  }
+
+  .contact-form-header h2 {
+    color: var(--text-title-ondark);
+  }
+
+  .contact-form-header p {
+    color: var(--text-body-ondark);
+    max-width: 60ch;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-05);
+    padding: var(--layout-02) var(--layout-03);
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-05);
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-02);
+  }
+
+  label {
+    font-family: var(--font-body);
+    font-size: var(--font-01);
+    font-weight: var(--font-weight-semibold);
+    color: var(--neutral-600);
+    letter-spacing: 0.04rem;
+    text-transform: uppercase;
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: var(--font-body);
+    font-size: var(--font-02);
+    color: var(--neutral-600);
+    background: var(--neutral-200);
+    border: 1px solid var(--neutral-300);
+    border-radius: var(--br-02);
+    padding: var(--sp-04) var(--sp-05);
+    width: 100%;
+    transition: border-color 200ms ease, box-shadow 200ms ease;
+    appearance: none;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--neutral-400);
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--blue-200);
+    box-shadow: 0 0 0 3px oklch(from var(--blue-200) l c h / 0.15);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 12rem;
+  }
+
+  @media (max-width: 640px) {
+    .field-row {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-form-header {
+      padding: var(--sp-06) var(--sp-05);
+    }
+
+    .contact-form {
+      padding: var(--sp-06) var(--sp-05);
+    }
+  }
+</style>
