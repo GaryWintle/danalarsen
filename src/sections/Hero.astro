@@ -46,16 +46,16 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
       </h1>
       <div class="buttons-container">
         <Button
-          color="primary"
-          href="/contact"
-          aria-label="Contact Dana Larsen to book a speaking engagement"
-          >Speak with Dana</Button
-        >
-        <Button
           color="secondary"
           href="#about"
           aria-label="Learn more about Dana Larsen's advocacy work"
           >About Dana</Button
+        >
+        <Button
+          color="primary"
+          href="/contact"
+          aria-label="Contact Dana Larsen to book a speaking engagement"
+          >Speak with Dana</Button
         >
       </div>
     </div>
@@ -69,6 +69,7 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
     display: grid;
     place-items: center;
     width: 100%;
+    height: 100%;
     height: max(80rem, 95vh);
     position: relative;
   }
@@ -167,11 +168,11 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
   @media (max-width: 1024px) {
     header {
       width: 100%;
-      height: 98dvh;
+      height: 100dvh;
     }
 
     .hero-bg img {
-      object-position: 64% -20px;
+      object-position: 64% top;
     }
 
     .wrapper {
@@ -186,7 +187,7 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
       justify-content: space-between;
       gap: var(--layout-03);
       padding-block-start: 13rem;
-      padding-block-end: 6rem;
+      padding-block-end: 3rem;
       width: 100%;
       height: 100%;
     }
@@ -220,14 +221,39 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
   }
 
   @media (max-width: 640px) {
+    header {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100dvh;
+      position: relative;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      width: 100%;
+
+      object-fit: cover;
+    }
+
     .buttons-container {
       width: 100%;
       display: flex;
       align-self: center;
       gap: var(--sp-03);
-      padding-inline: var(--sp-02);
+      padding-inline: 0;
       flex-direction: column;
       justify-self: end;
+    }
+    .hero-divider {
+      display: none;
     }
   }
 </style>
