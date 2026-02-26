@@ -1,0 +1,123 @@
+---
+// No props — self-contained component
+---
+
+<button id="back-to-top" aria-label="Back to top" title="Back to top">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="30"
+    height="30"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+<style>
+  #back-to-top {
+    position: fixed;
+    bottom: clamp(2rem, 4vw, 3.2rem);
+    right: clamp(2rem, 4vw, 3.2rem);
+    z-index: 900;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 4.4rem;
+    height: 4.4rem;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+
+    background-color: oklch(from var(--blue-200) l c h / 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid oklch(from var(--neutral-200) l c h / 0.2);
+    color: var(--neutral-200);
+    box-shadow: var(--shadow-mid);
+
+    /* Hidden by default */
+    opacity: 0;
+    transform: translateY(1rem) scale(0.9);
+    pointer-events: none;
+    transition:
+      opacity 300ms ease,
+      transform 300ms ease,
+      background-color 250ms ease-out;
+  }
+
+  #back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  #back-to-top:hover,
+  #back-to-top:focus-visible {
+    background-color: oklch(from var(--blue-200) l c h / 0.75);
+  }
+
+  #back-to-top:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 3px;
+  }
+
+  #back-to-top:active {
+    transform: scale(0.94);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #back-to-top {
+      transition: opacity 150ms ease;
+      transform: none;
+    }
+    #back-to-top.visible {
+      transform: none;
+    }
+    #back-to-top:active {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('back-to-top') as HTMLButtonElement
+  const footer = document.querySelector('footer')
+
+  const SCROLL_THRESHOLD = 400
+  let footerVisible = false
+
+  const toggle = () => {
+    btn.classList.toggle(
+      'visible',
+      window.scrollY > SCROLL_THRESHOLD && !footerVisible,
+    )
+  }
+
+  // Hide the button whenever the footer enters the viewport
+  if (footer) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        footerVisible = entry.isIntersecting
+        toggle()
+      },
+      { threshold: 0 },
+    )
+    observer.observe(footer)
+  }
+
+  window.addEventListener('scroll', toggle, { passive: true })
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  })
+
+  toggle()
+</script>
