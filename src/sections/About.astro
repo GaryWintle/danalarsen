@@ -142,7 +142,29 @@ const optimizedPhoto = await getImage({
     justify-self: end;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1170px) {
+    .about-image {
+      /* grid-area: 2 / 4 / 7 / 8; */
+      grid-area: 1 / 1 / 8 / 6;
+    }
+
+    .about-card {
+      grid-area: 2 / 4 / 8 / 8;
+    }
+
+    .about-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-06);
+      padding-inline: 6rem;
+      padding-block: 5rem;
+      height: 100%;
+    }
+  }
+
+  @media (max-width: 738px) {
     .about-container {
       grid-template-columns: 1fr;
       grid-template-rows: auto auto;

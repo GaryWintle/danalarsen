@@ -133,7 +133,7 @@ a {
   }
 
   h1 {
-    font-size: clamp(3.8rem, calc(5vw + 1rem), 6rem);
+    font-size: clamp(3.8rem, calc(6vw + 1rem), 6rem);
     letter-spacing: -0.5px;
     line-height: 116%;
     /* text-wrap: balance; */

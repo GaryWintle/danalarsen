@@ -165,14 +165,14 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
   }
 
   /* Tablet */
-  @media (max-width: 1024px) {
+  @media (max-width: 950px) {
     header {
       width: 100%;
-      height: 100dvh;
+      height: 90dvh;
     }
 
     .hero-bg img {
-      object-position: 70% top;
+      object-position: 90% top;
     }
 
     .wrapper {
@@ -202,11 +202,13 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
       padding-inline: var(--sp-02);
       flex-direction: row;
       justify-self: end;
+
+      padding-block-end: var(--sp-06);
     }
 
     .hero-divider {
       position: absolute;
-      bottom: -5px;
+      bottom: -15px;
       left: 50%;
       width: 100%;
       transform: translateX(-50%);
@@ -217,6 +219,12 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
       display: block;
       width: 100%;
       height: auto;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .buttons-container {
+      padding-block-end: var(--sp-06);
     }
   }
 
@@ -239,7 +247,6 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
 
     .hero-bg img {
       width: 100%;
-
       object-fit: cover;
     }
 
@@ -251,6 +258,7 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
       padding-inline: 0;
       flex-direction: column;
       justify-self: end;
+      padding-block-end: 0;
     }
     .hero-divider {
       display: none;
