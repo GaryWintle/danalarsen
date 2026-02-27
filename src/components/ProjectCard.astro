@@ -127,4 +127,23 @@ const { src, title, text, url, href } = Astro.props
   .body-text {
     margin-bottom: var(--sp-04);
   }
+
+  @media (max-width: 768px) {
+    .card {
+      border: 2px solid var(--neutral-300);
+    }
+
+    .card-text-container {
+      align-items: center;
+      gap: var(--sp-03);
+      padding-inline: var(--sp-05);
+      padding-block: var(--sp-06);
+      z-index: 2;
+    }
+
+    .body-text {
+      margin-bottom: var(--sp-05);
+      text-align: center;
+    }
+  }
 </style>

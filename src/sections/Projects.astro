@@ -120,4 +120,24 @@ const projectCards = [
     opacity: 0.85;
     transition: opacity 300ms ease;
   } */
+
+  @media (max-width: 768px) {
+    .projects-section {
+      background-color: var(--neutral-300);
+    }
+    .section-text {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-03);
+      padding-block-end: var(--layout-02);
+      align-content: center;
+      text-align: center;
+    }
+    h2 {
+      font-size: clamp(2.8rem, 4vw, 4rem);
+    }
+    p {
+      font-weight: var(--font-weight-semibold);
+    }
+  }
 </style>
