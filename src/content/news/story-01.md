@@ -1,5 +1,5 @@
 ---
-newsImage: /uploads/news/dana-news-policeraid.webp
+newsImage: /uploads/news/dana-news-policeraid-small.webp
 newsHeadline: Raids on Medical Cannabis Dispensaries Threaten Drug-Testing Services
 newsSource: The Tyee
 newsDate: January 29, 2025
