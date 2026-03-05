@@ -53,7 +53,7 @@ import Button from '@components/Button.astro'
 
 <style>
   .newsletter {
-    width: 100%;
+    width: min(100%, var(--section-width));
     display: grid;
     place-items: center;
     padding-block-start: calc(var(--section-block) + 6rem);
