@@ -21,9 +21,21 @@ import Button from '@components/Button.astro'
     <form
       class="newsletter-input"
       aria-labelledby="newsletter-title"
-      action="/api/subscribe"
-      method="post"
+      name="newsletter"
+      method="POST"
+      action="/newsletter/thanks"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
     >
+      <input type="hidden" name="form-name" value="newsletter" />
+
+      <p class="visually-hidden" aria-hidden="true">
+        <label>
+          Leave this field empty
+          <input name="bot-field" tabindex="-1" autocomplete="off" />
+        </label>
+      </p>
+
       <label
         for="newsletter-email"
         class="newsletter-input-label visually-hidden"
@@ -43,8 +55,10 @@ import Button from '@components/Button.astro'
 
       <Button type="submit">Subscribe Today!</Button>
     </form>
+    <p class="newsletter-status" role="status"></p>
     <p id="newsletter-privacy" class="fine-print">
       Fully private. No spam. Unsub anytime.
+      <a class="fine-print-link" href="/privacy">Privacy policy</a>
     </p>
   </div>
 </section>
@@ -194,9 +208,44 @@ import Button from '@components/Button.astro'
     box-shadow: 0 0 0 3px oklch(from var(--blue-200) l c h / 0.2);
   }
 
+  input:user-invalid {
+    border: 1px solid var(--input-error);
+    box-shadow: 0 0 0 3px oklch(from var(--input-error) l c h / 0.12);
+  }
+
+  .newsletter-status {
+    position: relative;
+    font-weight: var(--font-weight-semibold);
+    color: var(--blue-300);
+  }
+
+  .newsletter-status:empty {
+    display: none;
+  }
+
+  .newsletter-status.is-error {
+    color: var(--input-error);
+  }
+
   .fine-print {
     font-size: var(--font-01);
     color: var(--neutral-400);
+  }
+
+  .fine-print-link {
+    color: var(--neutral-500);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .fine-print-link:hover {
+    color: var(--blue-200);
+  }
+
+  .fine-print-link:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 2px;
+    border-radius: var(--br-01);
   }
 
   .visually-hidden {
@@ -238,3 +287,43 @@ import Button from '@components/Button.astro'
     }
   }
 </style>
+
+<script>
+  // Progressive enhancement: submit to Netlify Forms via fetch and confirm
+  // inline. Without JS the form falls back to a normal POST that lands on
+  // /newsletter/thanks. (Netlify only processes forms on deployed sites,
+  // so locally this always shows the error state.)
+  const form = document.querySelector('.newsletter-input') as HTMLFormElement
+  const status = document.querySelector('.newsletter-status') as HTMLElement
+  const button = form.querySelector(
+    'button[type="submit"]',
+  ) as HTMLButtonElement
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault()
+    const original = button.textContent
+    button.disabled = true
+    button.textContent = 'Subscribing…'
+    status.classList.remove('is-error')
+    status.textContent = ''
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(
+          new FormData(form) as unknown as URLSearchParams,
+        ).toString(),
+      })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      form.hidden = true
+      status.textContent = "You're in! Watch your inbox for updates from Dana."
+    } catch {
+      button.disabled = false
+      button.textContent = original
+      status.classList.add('is-error')
+      status.textContent =
+        "Something went wrong — your signup didn't send. Please try again."
+    }
+  })
+</script>

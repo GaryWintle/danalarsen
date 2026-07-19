@@ -97,7 +97,7 @@ const subheading =
 
     <p class="privacy-note">
       Your message goes privately to Dana's team — it's never shared, and you
-      won't be added to any mailing list.
+      won't be added to any mailing list. <a href="/privacy">Privacy policy</a>
     </p>
   </form>
 </div>
@@ -237,6 +237,22 @@ const subheading =
     color: var(--neutral-500);
     text-align: center;
     text-wrap: balance;
+  }
+
+  .privacy-note a {
+    color: var(--neutral-500);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .privacy-note a:hover {
+    color: var(--blue-200);
+  }
+
+  .privacy-note a:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 2px;
+    border-radius: var(--br-01);
   }
 
   @media (max-width: 40rem) {

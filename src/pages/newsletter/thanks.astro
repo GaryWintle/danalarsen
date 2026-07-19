@@ -1,0 +1,97 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Nav from '@components/Nav.astro'
+import Footer from '@components/Footer.astro'
+import Button from '@components/Button.astro'
+---
+
+<Layout
+  title="You're Subscribed | Dana Larsen"
+  description="You're signed up for Dana Larsen's newsletter."
+  url="https://www.danalarsen.com/newsletter/thanks"
+  noindex={true}
+>
+  <Nav />
+  <main id="main-content" class="thanks-page">
+    <div class="thanks-card">
+      <div class="checkmark" aria-hidden="true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h1>You're in!</h1>
+      <p>
+        Thanks for joining. Watch your inbox for updates from Dana on the
+        fight against the war on drugs. Unsubscribe anytime.
+      </p>
+      <div class="thanks-actions">
+        <Button color="primary" href="/">Back to Home</Button>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .thanks-page {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    padding-block: var(--section-block);
+    padding-inline: var(--section-inline);
+    min-height: 70vh;
+  }
+
+  .thanks-card {
+    width: min(100%, 36rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-04);
+    background: var(--bg-surface);
+    border-radius: var(--br-02);
+    box-shadow: var(--shadow-mid);
+    padding: var(--layout-02) var(--layout-01);
+    text-align: center;
+  }
+
+  .checkmark {
+    display: grid;
+    place-items: center;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    color: var(--neutral-100);
+    background: var(--blue-200);
+    box-shadow: var(--button-secondary-shadow);
+  }
+
+  h1 {
+    color: var(--text-title);
+    font-size: var(--font-05);
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+  }
+
+  p {
+    max-width: 45ch;
+  }
+
+  .thanks-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--sp-04);
+    margin-block-start: var(--sp-03);
+  }
+</style>

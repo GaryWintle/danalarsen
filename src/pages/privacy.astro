@@ -1,0 +1,154 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Nav from '@components/Nav.astro'
+import Footer from '@components/Footer.astro'
+---
+
+<Layout
+  title="Privacy | Dana Larsen"
+  description="How danalarsen.com handles your information: no trackers, no cookies, and form submissions read only by Dana's team."
+  url="https://www.danalarsen.com/privacy"
+>
+  <Nav />
+  <main id="main-content" class="privacy-page">
+    <header class="page-header">
+      <h1>Privacy</h1>
+      <p class="page-subtitle">
+        This site is built to leave you alone: no ad trackers, no analytics,
+        and no cookies on any public page.
+      </p>
+    </header>
+
+    <div class="privacy-content">
+      <section>
+        <h2>What this site collects</h2>
+        <p>
+          Nothing automatic. The only personal information this site receives
+          is what you choose to type into the contact form or the newsletter
+          signup.
+        </p>
+      </section>
+
+      <section>
+        <h2>The contact form</h2>
+        <p>
+          What you submit — your name, email, organization, subject, and
+          message — goes privately to Dana's team and is used only to respond
+          to you. It is never sold, shared, or added to any mailing list.
+        </p>
+      </section>
+
+      <section>
+        <h2>The newsletter</h2>
+        <p>
+          Your email address is used only to send Dana's updates. Every email
+          includes an unsubscribe link, and unsubscribing removes your
+          address.
+        </p>
+      </section>
+
+      <section>
+        <h2>Hosting</h2>
+        <p>
+          The site is hosted by <a
+            href="https://www.netlify.com/privacy/"
+            rel="noopener noreferrer"
+            target="_blank">Netlify</a
+          >, which stores form submissions and keeps standard server logs for
+          security and operations. The content editor at /admin, used only by
+          the site team, sets its own login cookies.
+        </p>
+      </section>
+
+      <section>
+        <h2>Links to other sites</h2>
+        <p>
+          Links to Dana's projects, news coverage, and social profiles lead to
+          sites with their own privacy practices.
+        </p>
+      </section>
+
+      <section>
+        <h2>Questions</h2>
+        <p>
+          Ask anytime through the <a href="/contact">contact form</a>.
+        </p>
+      </section>
+
+      <p class="updated">Last updated: July 20, 2026</p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .privacy-page {
+    width: min(100%, 50rem);
+    padding-inline: var(--section-inline);
+    padding-block-start: calc(var(--section-block) + 4.375rem);
+    padding-block-end: var(--section-block);
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-02);
+    align-items: flex-start;
+  }
+
+  .page-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-03);
+  }
+
+  h1 {
+    color: var(--text-title);
+    font-size: var(--font-05);
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+  }
+
+  .page-subtitle {
+    font-size: var(--font-03);
+    max-width: 55ch;
+  }
+
+  .privacy-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-06);
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-02);
+  }
+
+  h2 {
+    font-size: var(--font-04);
+  }
+
+  p {
+    max-width: 65ch;
+  }
+
+  a {
+    color: var(--blue-200);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  a:hover {
+    color: var(--blue-300);
+  }
+
+  a:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 2px;
+    border-radius: var(--br-01);
+  }
+
+  .updated {
+    font-size: var(--font-01);
+    color: var(--neutral-500);
+  }
+</style>
