@@ -50,7 +50,7 @@ Everything below is verified against the actual code/build — file references i
 | H6 | Newsletter `aria-labelledby="newsletter-title"` points at a **class, not an id** — broken reference. Also: "**Subscibe** Today!" typo. | `src/sections/Newsletter.astro:23,45` |
 | H7 | ProjectCard `aria-labelledby="project-title-{title}"` is a literal string (not interpolated) with no matching id; `role="article"` on a div; button's aria-label says "opens in new tab" but there's **no `target="_blank"`**. | `src/components/ProjectCard.astro:7,15-24` |
 | H8 | Hero buttons' aria-labels ("Learn more about Dana Larsen's advocacy work") don't contain their visible text ("About Dana") — WCAG 2.5.3 *Label in Name* failure for voice-control users. Just drop the aria-labels; visible text is fine. | `src/sections/Hero.astro:48-59` |
-| H9 | `sitemap.xml` is hand-written and lists only the homepage; `robots.txt` points at `https://danalarsen.com/sitemap.xml` while canonicals use `https://www.danalarsen.com` (www/non-www mismatch). Replace with `@astrojs/sitemap` + `site` in `astro.config.mjs`, and pick one canonical host (redirect the other in Netlify). | `public/sitemap.xml`, `public/robots.txt` |
+| H9 | ~~Hand-written single-page sitemap; robots/canonical host mismatch~~ **Fixed 2026-07-20:** `@astrojs/sitemap` + `site` in config, hand-written file deleted, robots.txt → www sitemap-index, apex→www 301s in netlify.toml, `<link rel="sitemap">` in head. | `astro.config.mjs`, `public/robots.txt`, `netlify.toml` |
 | H10 | Tailwind 4 is a **dead dependency**: `@tailwindcss/vite` is installed but never added to `astro.config.mjs`, no `@import 'tailwindcss'` anywhere, and `tailwind.config.mjs` is stale v3-format. Remove it (you're not using utilities) or wire it up for real. CLAUDE.md's "Tailwind CSS 4" claim is currently false. | `package.json`, `astro.config.mjs`, `tailwind.config.mjs` |
 | H11 | No 404 page (`src/pages/404.astro`). | — |
 | H12 | `background-attachment: fixed` on the About backdrop — ignored/janky on iOS Safari and a scroll-performance cost. | `src/sections/About.astro:69` |
@@ -184,7 +184,7 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 
 - [ ] **6.1** Rebuild JSON-LD as frontmatter object + `set:html` (C2); fill real `sameAs` URLs (Wikipedia, X, Facebook, Instagram); per-page types
 - [ ] **6.2** Design & generate real OG image (1200×630), drop in `public/images/` (C3)
-- [ ] **6.3** `site` in astro.config + `@astrojs/sitemap`; delete hand-written sitemap; align robots.txt; pick canonical host + Netlify redirect (H9)
+- [x] **6.3** *(done 2026-07-20)* `site: 'https://www.danalarsen.com'` + `@astrojs/sitemap` in astro.config (filter excludes `/contact/thanks`); hand-written `public/sitemap.xml` deleted; robots.txt → `https://www.danalarsen.com/sitemap-index.xml`; `<link rel="sitemap">` in Layout head; apex→www 301s in netlify.toml. Verified: generated sitemap lists exactly `/`, `/contact/`, `/news/`. **After deploy: set `www.danalarsen.com` as the primary domain in Netlify (Domain management), and submit the sitemap in Google Search Console.**
 - [ ] **6.4** Favicon set: `.ico` fallback, `apple-touch-icon`, manifest (M3); viewport `initial-scale=1` (M2)
 - [ ] **6.5** Decide analytics (privacy-first) or remove GTM dns-prefetch (M1)
 

@@ -5,6 +5,21 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Canonical host is www — 301 the apex domain so search engines and
+# shared links converge on one host. (Also set www.danalarsen.com as the
+# primary domain in the Netlify dashboard under Domain management.)
+[[redirects]]
+  from = "https://danalarsen.com/*"
+  to = "https://www.danalarsen.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://danalarsen.com/*"
+  to = "https://www.danalarsen.com/:splat"
+  status = 301
+  force = true
+
 # Security headers. Content-Security-Policy is deliberately deferred
 # (see SITE-AUDIT.md 7.4) — it needs testing against inline styles/scripts
 # before it can ship without breaking the site.
