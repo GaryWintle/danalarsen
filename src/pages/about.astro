@@ -1,0 +1,714 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Nav from '@components/Nav.astro'
+import Footer from '@components/Footer.astro'
+import BackToTop from '@components/BackToTop.astro'
+import Button from '@components/Button.astro'
+
+// TODO: dates and era titles are placeholders — verify every one with Dana
+// before launch, and replace the lorem copy + gray image blocks.
+const eras = [
+  {
+    id: 'cannabis-culture',
+    years: '1994–2004',
+    ghost: '1994',
+    label: 'Editor of Cannabis Culture Magazine',
+    title: 'Editor of Cannabis Culture Magazine',
+  },
+  {
+    id: 'marijuana-party',
+    years: '2000',
+    ghost: '2000',
+    label: 'Canadian Marijuana Party candidate',
+    title: 'Runs for the Canadian Marijuana Party',
+  },
+  {
+    id: 'bc-marijuana-party',
+    years: '2001',
+    ghost: '2001',
+    label: 'Co-founds the BC Marijuana Party',
+    title: 'Co-founds the BC Marijuana Party',
+  },
+  {
+    id: 'dispensary',
+    years: '2008',
+    ghost: '2008',
+    label: 'The Medicinal Cannabis Dispensary',
+    title: 'Opens The Medicinal Cannabis Dispensary',
+  },
+  {
+    id: 'sensible-bc',
+    years: '2013',
+    ghost: '2013',
+    label: 'Sensible BC campaign',
+    title: 'Leads the Sensible BC referendum campaign',
+  },
+  {
+    id: 'drug-testing',
+    years: '2019',
+    ghost: '2019',
+    label: 'Get Your Drugs Tested',
+    title: 'Launches Get Your Drugs Tested',
+  },
+  {
+    id: 'mushroom-dispensary',
+    years: '2019–',
+    ghost: '2019',
+    label: 'The Medicinal Mushroom Dispensary',
+    title: 'Opens The Medicinal Mushroom Dispensary',
+  },
+  {
+    id: 'today',
+    years: 'Today',
+    ghost: 'Now',
+    label: 'The fight continues',
+    title: 'The fight continues',
+  },
+]
+
+const fillerCopy = [
+  'Lorem ipsum dolor sit amet consectetur. Fames nec semper duis viverra. Viverra volutpat nascetur est quis enim sit. Nulla dignissim duis porta sodales iaculis tellus hendrerit, lobortis tortor elementum pellentesque diam varius faucibus et id ipsum.',
+  'Non nam aenean nullam lorem. Sociis et eget euismod mauris donec integer eget egestas. Gravida turpis nunc eget felis magna sapien amet, egestas sodales eget id aliquam id suspendisse.',
+]
+---
+
+<Layout
+  title="About Dana Larsen | Canadian Drug Policy Reform Activist"
+  description="Three decades of drug policy activism: from editing Cannabis Culture Magazine to founding dispensaries, drug-testing services, and reform campaigns across Canada."
+  url="https://www.danalarsen.com/about"
+>
+  <Nav />
+  <main id="main-content" class="about-page">
+    <header class="page-header">
+      <p class="kicker">About</p>
+      <h1>Dana Larsen</h1>
+    </header>
+
+    <div class="page-body">
+      <div class="media-placeholder hero-media" role="img" aria-label="Placeholder for a photo of Dana Larsen">
+        <span>Photo placeholder</span>
+      </div>
+
+      <p class="statement">
+        Dana Larsen is one of Canada’s most well-known advocates for cannabis
+        reform and an end to the global war on drugs.
+      </p>
+
+      <section id="career" class="career" aria-label="Career history">
+        <div class="era-list">
+          {
+            eras.map((era) => (
+              <article class="era" id={era.id} data-years={era.years}>
+                <span class="era-ghost" aria-hidden="true">
+                  {era.ghost}
+                </span>
+                <div class="media-placeholder era-media" role="img" aria-label={`Placeholder for a photo: ${era.title}`}>
+                  <span>Photo placeholder</span>
+                </div>
+                <h2>{era.title}</h2>
+                <p class="era-years" aria-hidden="true">
+                  <span>{era.years}</span>
+                </p>
+                {fillerCopy.map((para) => (
+                  <p>{para}</p>
+                ))}
+              </article>
+            ))
+          }
+        </div>
+
+        <nav class="timeline-rail" aria-label="Career timeline">
+          <p class="rail-title">Dana’s Career Timeline</p>
+          <div class="rail-track" aria-hidden="true">
+            <div class="rail-fill"></div>
+          </div>
+          <ol class="rail-list">
+            {
+              eras.map((era, i) => (
+                <li>
+                  <a
+                    class="rail-link"
+                    href={`#${era.id}`}
+                    aria-current={i === 0 ? 'location' : undefined}
+                  >
+                    <span class="rail-years">{era.years}</span>
+                    <span class="rail-label">{era.label}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        </nav>
+      </section>
+
+      <section class="photo-band" aria-label="Photos of Dana in the field">
+        <div class="media-placeholder band-media" role="img" aria-label="Placeholder for a protest photo">
+          <span>Photo placeholder</span>
+        </div>
+        <blockquote class="band-quote">
+          <p>
+            “Lorem ipsum dolor sit amet consectetur. Fames nec semper duis
+            viverra, volutpat nascetur est quis enim sit.”
+          </p>
+        </blockquote>
+        <div class="media-placeholder band-media" role="img" aria-label="Placeholder for a portrait photo">
+          <span>Photo placeholder</span>
+        </div>
+      </section>
+    </div>
+
+    <section class="about-cta" aria-labelledby="about-cta-heading">
+      <div class="cta-inner">
+        <h2 id="about-cta-heading">
+          Put Dana on your stage — or in your story.
+        </h2>
+        <p>
+          Booking an event or working on a piece about drug policy? Every
+          message is read.
+        </p>
+        <div class="cta-actions">
+          <Button color="primary" href="/contact">Contact Dana</Button>
+          <Button color="secondary" href="/news">See Dana in the Media</Button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <BackToTop />
+</Layout>
+
+<style>
+  .about-page {
+    padding-block-start: calc(var(--section-block) - 2rem);
+  }
+
+  .page-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-02);
+    padding-block: var(--layout-02) var(--layout-01);
+    text-align: center;
+  }
+
+  .kicker {
+    font-family: var(--font-body);
+    font-size: var(--font-01);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--neutral-500);
+  }
+
+  .page-header h1 {
+    color: var(--text-title);
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    letter-spacing: -1px;
+    line-height: 1.1;
+  }
+
+  .page-body {
+    width: min(100%, var(--section-width));
+    padding-inline: var(--section-inline);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Gray placeholder blocks stand in for photos while the shape settles */
+  .media-placeholder {
+    display: grid;
+    place-items: center;
+    background: var(--neutral-300);
+    border: 1px dashed var(--neutral-400);
+    border-radius: var(--br-02);
+  }
+
+  .media-placeholder span {
+    font-family: var(--font-body);
+    font-size: var(--font-01);
+    color: var(--neutral-500);
+  }
+
+  .hero-media {
+    aspect-ratio: 21 / 9;
+    width: 100%;
+  }
+
+  .statement {
+    font-family: var(--font-header);
+    color: var(--text-title);
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    text-wrap: balance;
+    max-width: 22ch;
+    padding-block: var(--layout-03);
+  }
+
+  /* ---------------- Career timeline ---------------- */
+
+  .career {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 16rem;
+    gap: var(--layout-03);
+    align-items: start;
+  }
+
+  .era-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-block);
+    min-width: 0;
+  }
+
+  .era {
+    position: relative;
+    scroll-margin-top: 7rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-04);
+  }
+
+  .era-ghost {
+    position: absolute;
+    top: -0.35em;
+    right: 0;
+    z-index: -1;
+    font-family: var(--font-header);
+    font-size: clamp(5rem, 12vw, 9rem);
+    line-height: 1;
+    color: var(--neutral-300);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .era-media {
+    aspect-ratio: 4 / 3;
+    width: min(100%, 28rem);
+  }
+
+  .era h2 {
+    font-size: clamp(1.4375rem, 2.5vw, 1.75rem);
+    margin-block-start: var(--sp-02);
+  }
+
+  /* Date framed by short rules, echoing the mockup's badge */
+  .era-years {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-03);
+    font-family: var(--font-body);
+    font-size: var(--font-01);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 1px;
+    color: var(--blue-200);
+  }
+
+  .era-years::before,
+  .era-years::after {
+    content: '';
+    height: 1px;
+    width: 3.5rem;
+    background: var(--blue-200);
+    opacity: 0.5;
+  }
+
+  .era > p:not(.era-years) {
+    max-width: 60ch;
+  }
+
+  /* Soft rise-in on first reveal. The hidden state is only ever applied by
+     the script (and only to below-fold blocks), so content stays visible
+     without JS. Removed entirely under reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .era.will-reveal {
+      opacity: 0;
+      translate: 0 1.5rem;
+      transition:
+        opacity 600ms ease-out,
+        translate 600ms ease-out;
+    }
+
+    .era.will-reveal.in-view {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+
+  /* ---------------- Sticky rail ---------------- */
+
+  .timeline-rail {
+    position: sticky;
+    top: 7rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--sp-04);
+    padding-block: var(--sp-02);
+  }
+
+  .rail-title {
+    grid-column: 1 / -1;
+    font-family: var(--font-header);
+    font-style: italic;
+    font-size: var(--font-03);
+    color: var(--text-title);
+    margin-block-end: var(--sp-05);
+  }
+
+  .rail-track {
+    grid-row: 2;
+    grid-column: 1;
+    position: relative;
+    width: 2px;
+    background: var(--neutral-300);
+    border-radius: 1px;
+  }
+
+  .rail-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--orange-200);
+    border-radius: inherit;
+    transform: scaleY(var(--progress, 0));
+    transform-origin: top;
+  }
+
+  .rail-list {
+    grid-row: 2;
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-05);
+  }
+
+  .rail-link {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    text-decoration: none;
+  }
+
+  /* Node dot sits on the track to the left of the label column. The
+     bg-page ring lifts it cleanly off the fill line. */
+  .rail-link::before {
+    content: '';
+    position: absolute;
+    top: 0.3125rem;
+    left: calc(-1 * var(--sp-04) - 5px);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--neutral-400);
+    box-shadow: 0 0 0 3px var(--bg-page);
+    transition:
+      background-color 250ms ease,
+      scale 250ms ease;
+  }
+
+  .rail-link.passed::before {
+    background: var(--orange-200);
+  }
+
+  .rail-link.passed .rail-years {
+    color: var(--neutral-600);
+  }
+
+  .rail-years {
+    font-family: var(--font-body);
+    font-size: var(--font-01);
+    font-weight: var(--font-weight-semibold);
+    color: var(--neutral-500);
+    transition: color 250ms ease;
+  }
+
+  .rail-label {
+    font-family: var(--font-body);
+    font-size: var(--font-01);
+    line-height: 1.35;
+    color: var(--neutral-400);
+    transition: color 250ms ease;
+  }
+
+  .rail-link:hover .rail-years,
+  .rail-link:hover .rail-label {
+    color: var(--blue-200);
+  }
+
+  .rail-link:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 4px;
+    border-radius: var(--br-01);
+  }
+
+  .rail-link[aria-current='location'] .rail-years {
+    color: var(--orange-200);
+  }
+
+  .rail-link[aria-current='location'] .rail-label {
+    color: var(--neutral-600);
+  }
+
+  .rail-link[aria-current='location']::before {
+    background: var(--orange-200);
+    scale: 1.4;
+  }
+
+  /* ---------------- Photo band ---------------- */
+
+  .photo-band {
+    display: grid;
+    grid-template-columns: 1.2fr 0.9fr 1.2fr;
+    gap: var(--layout-01);
+    align-items: center;
+    padding-block: var(--section-block);
+  }
+
+  .band-media {
+    aspect-ratio: 3 / 4;
+  }
+
+  .band-media:last-of-type {
+    margin-block-start: var(--layout-03);
+  }
+
+  .band-quote p {
+    font-family: var(--font-header);
+    font-style: italic;
+    font-size: var(--font-04);
+    line-height: 1.4;
+    color: var(--text-title);
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  /* ---------------- Closing CTA ---------------- */
+
+  .about-cta {
+    width: 100%;
+    background: linear-gradient(
+      oklch(from var(--blue-300) 45% c h),
+      var(--blue-300)
+    );
+    display: grid;
+    place-items: center;
+    padding-block: var(--layout-03);
+    padding-inline: var(--section-inline);
+  }
+
+  .cta-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-04);
+    text-align: center;
+  }
+
+  .about-cta h2 {
+    color: var(--text-title-ondark);
+  }
+
+  .about-cta p {
+    color: var(--text-body-ondark);
+    max-width: 45ch;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--sp-04);
+    margin-block-start: var(--sp-03);
+  }
+
+  /* ---------------- Mobile ---------------- */
+
+  @media (max-width: 60rem) {
+    .career {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    /* The rail becomes a sticky horizontal year bar above the eras */
+    .timeline-rail {
+      order: -1;
+      top: 0;
+      z-index: 10;
+      grid-template-columns: 1fr;
+      background: oklch(from var(--bg-page) l c h / 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      margin-inline: calc(-1 * var(--section-inline));
+      padding-inline: var(--section-inline);
+      padding-block: var(--sp-03) 0;
+    }
+
+    .rail-title {
+      display: none;
+    }
+
+    .rail-list {
+      grid-row: 1;
+      grid-column: 1;
+      flex-direction: row;
+      gap: var(--sp-05);
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-block-end: var(--sp-03);
+    }
+
+    .rail-list::-webkit-scrollbar {
+      display: none;
+    }
+
+    .rail-link::before {
+      display: none;
+    }
+
+    .rail-link {
+      white-space: nowrap;
+    }
+
+    .rail-label {
+      display: none;
+    }
+
+    .rail-years {
+      font-size: var(--font-02);
+    }
+
+    .rail-track {
+      grid-row: 2;
+      grid-column: 1;
+      width: 100%;
+      height: 2px;
+    }
+
+    .rail-fill {
+      transform: scaleX(var(--progress, 0));
+      transform-origin: left;
+    }
+
+    .era-list {
+      padding-block-start: var(--layout-02);
+      gap: var(--layout-03);
+    }
+
+    .era {
+      scroll-margin-top: 5rem;
+    }
+
+    .era-media {
+      width: 100%;
+    }
+
+    .era-ghost {
+      font-size: 4rem;
+      top: auto;
+      bottom: 100%;
+    }
+
+    .photo-band {
+      grid-template-columns: 1fr;
+      gap: var(--layout-01);
+    }
+
+    .band-quote {
+      order: -1;
+    }
+
+    .band-media:last-of-type {
+      margin-block-start: 0;
+    }
+
+    .band-media {
+      aspect-ratio: 4 / 3;
+    }
+  }
+</style>
+
+<script>
+  const career = document.getElementById('career') as HTMLElement
+  const rail = document.querySelector('.timeline-rail') as HTMLElement
+  const railList = document.querySelector('.rail-list') as HTMLElement
+  const links = [...document.querySelectorAll('.rail-link')] as HTMLAnchorElement[]
+  const eras = [...document.querySelectorAll('.era')] as HTMLElement[]
+  const reduceMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)',
+  ).matches
+
+  // Fill the rail in proportion to reading progress through the section
+  let ticking = false
+  const updateProgress = () => {
+    const rect = career.getBoundingClientRect()
+    const anchor = window.innerHeight * 0.5
+    const progress = Math.min(1, Math.max(0, (anchor - rect.top) / rect.height))
+    rail.style.setProperty('--progress', progress.toFixed(4))
+    ticking = false
+  }
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(updateProgress)
+      }
+    },
+    { passive: true },
+  )
+  updateProgress()
+
+  // Highlight the era currently in the middle of the viewport; eras
+  // already read get the "passed" treatment
+  const setActive = (id: string) => {
+    const activeIndex = links.findIndex((link) => link.hash === `#${id}`)
+    links.forEach((link, i) => {
+      link.classList.toggle('passed', i < activeIndex)
+      if (i === activeIndex) {
+        link.setAttribute('aria-current', 'location')
+        // Keep the active chip visible when the rail is a horizontal bar
+        railList.scrollTo({
+          left:
+            link.offsetLeft - railList.clientWidth / 2 + link.offsetWidth / 2,
+          behavior: reduceMotion ? 'auto' : 'smooth',
+        })
+      } else {
+        link.removeAttribute('aria-current')
+      }
+    })
+  }
+
+  const activeWatcher = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActive(entry.target.id)
+      })
+    },
+    { rootMargin: '-45% 0px -45% 0px' },
+  )
+  eras.forEach((era) => activeWatcher.observe(era))
+
+  // One-time rise-in reveal for blocks below the fold. Blocks already on
+  // screen at load are left untouched so nothing flashes. The huge top
+  // rootMargin means anything the user has jumped past (PgDn, scrollbar
+  // drag) still counts as revealed — content can never stay hidden.
+  const revealWatcher = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view')
+          revealWatcher.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.15, rootMargin: '9999px 0px 0px 0px' },
+  )
+  if (!reduceMotion) {
+    eras.forEach((era) => {
+      if (era.getBoundingClientRect().top > window.innerHeight) {
+        era.classList.add('will-reveal')
+        revealWatcher.observe(era)
+      }
+    })
+  }
+</script>
