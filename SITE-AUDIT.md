@@ -186,7 +186,7 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 - [ ] **6.2** Design & generate real OG image (1200×630), drop in `public/images/` (C3)
 - [x] **6.3** *(done 2026-07-20)* `site: 'https://www.danalarsen.com'` + `@astrojs/sitemap` in astro.config (filter excludes `/contact/thanks`); hand-written `public/sitemap.xml` deleted; robots.txt → `https://www.danalarsen.com/sitemap-index.xml`; `<link rel="sitemap">` in Layout head; apex→www 301s in netlify.toml. Verified: generated sitemap lists exactly `/`, `/contact/`, `/news/`. **After deploy: set `www.danalarsen.com` as the primary domain in Netlify (Domain management), and submit the sitemap in Google Search Console.**
 - [x] **6.4** *(done 2026-07-20)* `favicon.ico` (16/32/48 PNG-in-ICO), `apple-touch-icon.png` (180), manifest icons 192/512 (white leaf on brand `#0087a5`, maskable-safe), `site.webmanifest`, viewport `initial-scale=1`, theme-color `#000` → `#0087a5`. Icons generated from `favicon.svg` via sharp
-- [ ] **6.5** Analytics: GTM dns-prefetch removed (M1 resolved — nothing was using it). *Remaining: pick a privacy-first provider (Gary deciding) and add its snippet + CSP allowance (7.4)*
+- [x] **6.5** *(decided 2026-07-20)* **No analytics for launch** — Gary's call, fits the privacy posture. Dead GTM dns-prefetch removed (M1). If revisited post-launch, prefer a cookieless provider (Plausible/GoatCounter/Netlify Analytics) and remember to allow it in the CSP when 7.4 lands
 
 ### Phase 7 — Performance, fonts, hardening, cleanup
 
