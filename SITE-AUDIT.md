@@ -28,7 +28,7 @@ Everything below is verified against the actual code/build — file references i
 | # | Finding | Where |
 | --- | ------- | ----- |
 | C1 | `--button-secondary-shadow` declaration is mangled and **swallows `--image-border`**, so `--image-border` resolves to nothing. Card borders, news-thumbnail borders, and the newsletter input border silently vanish. (This is the uncommitted change in your working tree.) | `src/styles/variables.css:72-77` |
-| C2 | JSON-LD ships with **literal `{siteUrl}`, `{pageUrl}`, `{OFFICIAL_TWITTER_URL}` placeholders** — Astro doesn't interpolate inside a plain `<script>` tag. Google sees garbage; you get zero entity/knowledge-panel benefit. Needs to be built as an object in frontmatter and injected via `set:html={JSON.stringify(schema)}`. | `src/layouts/Layout.astro:88-178` |
+| C2 | ~~JSON-LD shipped literal `{placeholder}` text~~ **Fixed 2026-07-20:** schema built as a frontmatter object, injected via `set:html={JSON.stringify(schema)}`. Real `sameAs` (Wikipedia/X/Facebook/Instagram), per-page types via `schemaType` prop (ProfilePage/AboutPage/ContactPage/CollectionPage), fake SearchAction removed, Person image URL fixed, publisher now references the Person node. Verified parseable on all 5 pages. | `src/layouts/Layout.astro` |
 | C3 | `og:image` points to `/images/og-default-1200x630.jpg`, which **does not exist** (marked `// replace`). Every social share of the site renders without an image. | `src/layouts/Layout.astro:14` |
 | C4 | Newsletter form posts to `/api/subscribe` — **no such endpoint exists** (static build, no adapter). Submitting = 404. Needs a real backend (Netlify form or ESP endpoint — see §4). | `src/sections/Newsletter.astro:24` |
 | C5 | `/contact` desktop layout is broken: the card **and the footer are squeezed into the left ~60% of the viewport**. Root cause is `body { position: absolute }` shrink-wrapping to content width. | `src/styles/global.css:35-42`, verified via screenshot |
@@ -182,11 +182,11 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 
 ### Phase 6 — SEO & meta
 
-- [ ] **6.1** Rebuild JSON-LD as frontmatter object + `set:html` (C2); fill real `sameAs` URLs (Wikipedia, X, Facebook, Instagram); per-page types
+- [x] **6.1** *(done 2026-07-20)* JSON-LD rebuilt as frontmatter object + `set:html` (C2 fixed — see findings table). **Note: sameAs URLs mirror the site's own social links (x/facebook/instagram .com/danalarsen) — confirm those are Dana's real handles.**
 - [ ] **6.2** Design & generate real OG image (1200×630), drop in `public/images/` (C3)
 - [x] **6.3** *(done 2026-07-20)* `site: 'https://www.danalarsen.com'` + `@astrojs/sitemap` in astro.config (filter excludes `/contact/thanks`); hand-written `public/sitemap.xml` deleted; robots.txt → `https://www.danalarsen.com/sitemap-index.xml`; `<link rel="sitemap">` in Layout head; apex→www 301s in netlify.toml. Verified: generated sitemap lists exactly `/`, `/contact/`, `/news/`. **After deploy: set `www.danalarsen.com` as the primary domain in Netlify (Domain management), and submit the sitemap in Google Search Console.**
-- [ ] **6.4** Favicon set: `.ico` fallback, `apple-touch-icon`, manifest (M3); viewport `initial-scale=1` (M2)
-- [ ] **6.5** Decide analytics (privacy-first) or remove GTM dns-prefetch (M1)
+- [x] **6.4** *(done 2026-07-20)* `favicon.ico` (16/32/48 PNG-in-ICO), `apple-touch-icon.png` (180), manifest icons 192/512 (white leaf on brand `#0087a5`, maskable-safe), `site.webmanifest`, viewport `initial-scale=1`, theme-color `#000` → `#0087a5`. Icons generated from `favicon.svg` via sharp
+- [ ] **6.5** Analytics: GTM dns-prefetch removed (M1 resolved — nothing was using it). *Remaining: pick a privacy-first provider (Gary deciding) and add its snippet + CSP allowance (7.4)*
 
 ### Phase 7 — Performance, fonts, hardening, cleanup
 

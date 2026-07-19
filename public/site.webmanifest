@@ -1,0 +1,29 @@
+{
+  "name": "Dana Larsen",
+  "short_name": "Dana Larsen",
+  "description": "Official site for Dana Larsen — Vancouver-based drug policy reform activist.",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "minimal-ui",
+  "theme_color": "#0087a5",
+  "background_color": "#eef2f5"
+}

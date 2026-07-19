@@ -14,12 +14,106 @@ const pageUrl = Astro.props.url ?? siteUrl
 const robots = Astro.props.noindex ? 'noindex, nofollow' : 'index, follow'
 const ogImage =
   Astro.props.ogImage ?? `${siteUrl}/images/og-default-1200x630.jpg` // replace
+
+// Schema.org type for this page's WebPage node — pages pass e.g.
+// 'ProfilePage' (home), 'AboutPage', 'ContactPage', 'CollectionPage' (news)
+const schemaType = Astro.props.schemaType ?? 'WebPage'
+
+const socialProfiles = [
+  'https://en.wikipedia.org/wiki/Dana_Larsen',
+  'https://x.com/danalarsen',
+  'https://facebook.com/danalarsen',
+  'https://instagram.com/danalarsen',
+]
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: siteUrl,
+      name: 'Dana Larsen',
+      description:
+        'Official site for Dana Larsen — Vancouver-based drug policy reform activist.',
+      publisher: { '@id': `${siteUrl}/#person` },
+      inLanguage: 'en-CA',
+    },
+    {
+      '@type': schemaType,
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: title,
+      description: desc,
+      inLanguage: 'en-CA',
+      isPartOf: { '@id': `${siteUrl}/#website` },
+      ...(schemaType === 'ProfilePage' || schemaType === 'AboutPage'
+        ? { mainEntity: { '@id': `${siteUrl}/#person` } }
+        : {}),
+    },
+    {
+      '@type': 'Person',
+      '@id': `${siteUrl}/#person`,
+      name: 'Dana Larsen',
+      alternateName: 'Dana Albert Larsen',
+      description:
+        'Canadian author, Vancouver-based activist and drug policy reform advocate, founder of community harm reduction services and retail operations.',
+      url: siteUrl,
+      image: `${siteUrl}/images/danalarsen-profile.webp`,
+      jobTitle: 'Drug Policy Reform Advocate',
+      gender: 'Male',
+      birthDate: '1971',
+      nationality: { '@type': 'Country', name: 'Canada' },
+      knowsLanguage: ['English', 'French'],
+      knowsAbout: [
+        'Drug policy reform',
+        'Cannabis legalization',
+        'Harm reduction',
+        'Psychedelics advocacy',
+        'Community health',
+      ],
+      sameAs: socialProfiles,
+      founderOf: [
+        {
+          '@type': 'Organization',
+          name: 'Pothead Books',
+          url: 'https://potheadbooks.com/',
+        },
+        {
+          '@type': 'Organization',
+          name: 'The Medicinal Cannabis Dispensary',
+          url: 'https://cannabisdispensary.ca/',
+        },
+        {
+          '@type': 'Organization',
+          name: 'Get Your Drugs Tested',
+          url: 'https://getyourdrugstested.com/',
+        },
+        {
+          '@type': 'Organization',
+          name: 'Coca Leaf Cafe',
+          url: 'https://cocaleafcafe.com/',
+        },
+        {
+          '@type': 'Organization',
+          name: 'The Medicinal Mushroom Dispensary',
+          url: 'https://mushroomdispensary.com/',
+        },
+        {
+          '@type': 'Organization',
+          name: 'Microdose Cafe',
+          url: 'https://microdosecafe.ca/',
+        },
+      ],
+    },
+  ],
+}
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Device block customization -->
     <meta name="mobile-web-app-capable" content="yes" />
@@ -27,7 +121,7 @@ const ogImage =
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#0087a5" />
     <title>{title}</title>
 
     <meta name="description" content={desc} />
@@ -81,106 +175,17 @@ const ogImage =
       type="font/woff2"
       crossorigin="anonymous"
     />
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.svg" />
+    <!-- Icons & manifest -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Sitemap -->
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Structured data: WebSite + WebPage + Person -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "WebSite",
-            "@id": "{siteUrl}#website",
-            "url": "{siteUrl}",
-            "name": "Dana Larsen",
-            "description": "Official site for Dana Larsen — Vancouver-based drug policy reform activist.",
-            "publisher": {
-              "@type": "Organization",
-              "name": "Dana Larsen"
-            },
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "{siteUrl}/?s={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
-          },
-          {
-            "@type": "WebPage",
-            "@id": "{pageUrl}#webpage",
-            "url": "{pageUrl}",
-            "name": "{title}",
-            "description": "{desc}",
-            "inLanguage": "en-CA",
-            "isPartOf": { "@id": "{siteUrl}#website" },
-            "mainEntity": { "@id": "{siteUrl}#person" }
-          },
-          {
-            "@type": "Person",
-            "@id": "{siteUrl}#person",
-            "name": "Dana Larsen",
-            "alternateName": "Dana Albert Larsen",
-            "description": "Canadian author, Vancouver-based activist and drug policy reform advocate, founder of community harm reduction services and retail operations.",
-            "url": "{siteUrl}",
-            "image": "{siteUrl}/images/danalarsen-profile",
-            "gender": "Male",
-            "birthDate": "1971",
-            "nationality": "CA",
-            "knowsLanguage": ["English", "French"],
-            "knowsAbout": [
-              "Drug policy reform",
-              "Cannabis legalization",
-              "Harm reduction",
-              "Psychedelics advocacy",
-              "Community health"
-            ],
-            "sameAs": [
-              "https://en.wikipedia.org/wiki/Dana_Larsen",
-              "{OFFICIAL_TWITTER_URL}",
-              "{OFFICIAL_FACEBOOK_URL}",
-              "{OFFICIAL_INSTAGRAM_URL}"
-            ],
-            "founderOf": [
-              {
-                "@type": "Organization",
-                "name": "Pothead Books",
-                "url": "https://potheadbooks.com/"
-              },
-              {
-                "@type": "Organization",
-                "name": "The Medicinal Cannabis Dispensary",
-                "url": "https://cannabisdispensary.ca/"
-              },
-              {
-                "@type": "Organization",
-                "name": "Get Your Drugs Tested",
-                "url": "https://getyourdrugstested.com/"
-              },
-              {
-                "@type": "Organization",
-                "name": "Coca Leaf Cafe",
-                "url": "https://cocaleafcafe.com/"
-              },
-              {
-                "@type": "Organization",
-                "name": "The Medicinal Mushroom Dispensary",
-                "url": "https://mushroomdispensary.com/"
-              },
-              {
-                "@type": "Organization",
-                "name": "Microdose Cafe",
-                "url": "https://microdosecafe.ca/"
-              }
-            ]
-          }
-        ]
-      }
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
