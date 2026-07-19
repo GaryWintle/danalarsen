@@ -41,6 +41,8 @@ import X from '@graphics/socials/x-base.svg?raw'
     place-items: center;
     width: 100%;
     background-color: var(--blue-300);
+    /* body is a flex column; on short pages this pins the footer to the bottom */
+    margin-block-start: auto;
   }
   .footer-container {
     display: grid;

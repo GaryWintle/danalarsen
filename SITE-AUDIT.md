@@ -26,7 +26,7 @@ Everything below is verified against the actual code/build — file references i
 ### 🔴 Critical — broken in production right now
 
 | # | Finding | Where |
-|---|---------|-------|
+| --- | ------- | ----- |
 | C1 | `--button-secondary-shadow` declaration is mangled and **swallows `--image-border`**, so `--image-border` resolves to nothing. Card borders, news-thumbnail borders, and the newsletter input border silently vanish. (This is the uncommitted change in your working tree.) | `src/styles/variables.css:72-77` |
 | C2 | JSON-LD ships with **literal `{siteUrl}`, `{pageUrl}`, `{OFFICIAL_TWITTER_URL}` placeholders** — Astro doesn't interpolate inside a plain `<script>` tag. Google sees garbage; you get zero entity/knowledge-panel benefit. Needs to be built as an object in frontmatter and injected via `set:html={JSON.stringify(schema)}`. | `src/layouts/Layout.astro:88-178` |
 | C3 | `og:image` points to `/images/og-default-1200x630.jpg`, which **does not exist** (marked `// replace`). Every social share of the site renders without an image. | `src/layouts/Layout.astro:14` |
@@ -41,9 +41,9 @@ Everything below is verified against the actual code/build — file references i
 ### 🟠 High — wrong, but not visibly on fire
 
 | # | Finding | Where |
-|---|---------|-------|
+| --- | ------- | ----- |
 | H1 | ~~`--font-body: 'Inter'` but **Inter is never loaded**~~ **Fixed 2026-07-19:** self-hosted via `@fontsource-variable/inter` (variable wght 100–900, latin subset 48 KB), token updated to `'Inter Variable'`. | `src/styles/variables.css:98`, `src/layouts/Layout.astro:2` |
-| H2 | Homepage `<title>` is `"DanaLarsen | …"` — missing space, and inconsistent with the Layout default ("Dana Larsen — Vancouver drug policy reform activist"). | `src/pages/index.astro:51` |
+| H2 | ~~Homepage `<title>` missing the space in "DanaLarsen"~~ **Fixed 2026-07-19** (by Gary, in-IDE). | `src/pages/index.astro:51` |
 | H3 | On the homepage, `<main id="main-content">` (inside TwoColWrapper) only wraps Projects + sidebar. **Hero, About, and Newsletter live outside `<main>`** — wrong landmark structure, and the skip link skips past nothing useful. | `src/components/TwoColWrapper.astro:5`, `src/pages/index.astro:52-77` |
 | H4 | `/news` renders `<Footer />` **after `</Layout>`**, i.e. outside `<html>`. Browsers re-parent it, but it's invalid HTML. | `src/pages/news.astro:67` |
 | H5 | About image is a raw `<img>` with no width/height: it collapses to ~2px then expands to ~600px on load — a **massive CLS**. (Verified live: rect height 2 → 609.) Same pattern in NewsBlock thumbnails. | `src/sections/About.astro:38-43`, `src/components/NewsBlock.astro:28` |
@@ -55,8 +55,8 @@ Everything below is verified against the actual code/build — file references i
 | H11 | No 404 page (`src/pages/404.astro`). | — |
 | H12 | `background-attachment: fixed` on the About backdrop — ignored/janky on iOS Safari and a scroll-performance cost. | `src/sections/About.astro:69` |
 | H13 | `@font-face` weight mapping is tangled: CD-Semibold registered as weight **400** (comment says "Black"), CD-Roman.woff2 shipped but never registered, CD-Light-Italic preloaded for a single italic word. Worth one deliberate pass. | `src/styles/global.css:1-27`, `src/layouts/Layout.astro:61-81` |
-| H14 | Contact page has no `<h1>` (card heading is an `<h2>`). Every page needs exactly one h1. | `src/components/ContactForm.astro:11` |
-| H15 | Contact form (Netlify) has no honeypot (`netlify-honeypot`), no success redirect/state (users land on Netlify's generic success page), and the Subject `<select>` has `appearance: none` with **no replacement chevron** — it reads as a text input (verified in screenshot). | `src/components/ContactForm.astro:15,29` |
+| H14 | ~~Contact page has no `<h1>`~~ **Fixed 2026-07-20:** card heading is the page h1 (scoped styles keep the previous look). | `src/components/ContactForm.astro` |
+| H15 | ~~No honeypot, no success state, chevron-less select~~ **Fixed 2026-07-20:** honeypot + hidden `form-name`, `action="/contact/thanks"` success page (noindex), SVG chevron on the select, `:user-invalid` error styling, autocomplete attrs, maxlengths, optional Organization/Outlet field, response-time + privacy microcopy. Needs one live test after deploy. | `src/components/ContactForm.astro`, `src/pages/contact/thanks.astro` |
 
 ### 🟡 Medium — hygiene & polish
 
@@ -176,7 +176,7 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 
 ### Phase 5 — Forms that actually work
 
-- [ ] **5.1** Contact form: honeypot, success state/redirect (`/contact/thanks` or inline), select chevron, `user-invalid` error styling — then **verify on a Netlify deploy** (forms only work there)
+- [x] **5.1** *(code done 2026-07-20; deploy verification pending)* Honeypot (`bot-field`, offscreen), hidden `form-name` (enables future AJAX), `action="/contact/thanks"` → dedicated success page (noindex, trackable conversion URL, sets reply expectations, links home + /news), optional Organization/Outlet field for media/booking triage, `autocomplete` on all identity fields, select chevron + placeholder color, `:user-invalid` styling via new `--input-error` token, maxlengths, marketer copy (response-time promise in header; "never shared, no mailing list" note at submit). Footer now pins to viewport bottom on short pages. **After deploy: enable a Netlify form notification (dashboard → Forms → Notifications) and send one live test — forms don't run locally.**
 - [ ] **5.2** Newsletter: pick ESP (double opt-in), wire the form (or switch it to a second Netlify form as an interim), success/error feedback
 - [ ] **5.3** Add privacy page; link from both forms + footer
 
@@ -193,7 +193,7 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 - [ ] **7.1** Fix About/NewsBlock image CLS — use `<Image>` or explicit width/height (H5)
 - [ ] **7.2** Font pass: ~~decide Inter vs system stack (H1)~~ *(done — Inter Variable via Fontsource, 2026-07-19)*; fix CD weight mapping (H13); trim preloads
 - [ ] **7.3** Drop `background-attachment: fixed` (H12); reduced-motion guards for smooth scroll + hero underline (M9)
-- [ ] **7.4** Security headers in `netlify.toml` (§4)
+- [ ] **7.4** Security headers in `netlify.toml` (§4) — *partially done 2026-07-20: X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy shipped. Remaining: Content-Security-Policy (needs testing against Astro's inline styles/scripts before enabling)*
 - [ ] **7.5** Remove Tailwind (or wire it) + stale config (H10); update CLAUDE.md
 - [ ] **7.6** Delete junk files (M5) + dead code (M4) + `UI-UX-REVIEW.md`
 - [ ] **7.7** Final pass: Lighthouse (aim 95+ across the board), axe, full-page screenshots both viewports, real-device check

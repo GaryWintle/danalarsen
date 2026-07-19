@@ -3,44 +3,102 @@ import Button from '@components/Button.astro'
 
 // Edit these to change the form heading and intro text
 const heading = 'Get in Touch'
-const subheading = 'Have a question or want to book Dana for a speaking engagement? Fill out the form below.'
+const subheading =
+  'Booking a speaking engagement, working on a story, or have a question for Dana? Send a message — every one is read, and you can expect a reply within two business days.'
 ---
 
 <div class="contact-form-wrapper">
   <div class="contact-form-header">
-    <h2>{heading}</h2>
+    <h1>{heading}</h1>
     <p>{subheading}</p>
   </div>
 
-  <form class="contact-form" name="contact" method="POST" data-netlify="true">
+  <form
+    class="contact-form"
+    name="contact"
+    method="POST"
+    action="/contact/thanks"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+  >
+    <input type="hidden" name="form-name" value="contact" />
+
+    <p class="bot-field" aria-hidden="true">
+      <label>
+        Leave this field empty
+        <input name="bot-field" tabindex="-1" autocomplete="off" />
+      </label>
+    </p>
+
     <div class="field-row">
       <div class="field">
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your full name" required />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your full name"
+          autocomplete="name"
+          maxlength="100"
+          required
+        />
       </div>
       <div class="field">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="your@email.com"
+          autocomplete="email"
+          required
+        />
       </div>
     </div>
 
-    <div class="field">
-      <label for="subject">Subject</label>
-      <select id="subject" name="subject" required>
-        <option value="" disabled selected>Select a reason for contact</option>
-        <option value="speaking">Speaking Engagement</option>
-        <option value="media">Media Inquiry</option>
-        <option value="general">General Question</option>
-        <option value="other">Other</option>
-      </select>
+    <div class="field-row">
+      <div class="field">
+        <label for="organization"
+          >Organization / Outlet <span class="optional">(optional)</span></label
+        >
+        <input
+          type="text"
+          id="organization"
+          name="organization"
+          placeholder="Company, publication, or group"
+          autocomplete="organization"
+          maxlength="150"
+        />
+      </div>
+      <div class="field">
+        <label for="subject">Subject</label>
+        <select id="subject" name="subject" required>
+          <option value="" disabled selected>Select a reason for contact</option>
+          <option value="speaking">Speaking Engagement</option>
+          <option value="media">Media Inquiry</option>
+          <option value="general">General Question</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
     </div>
 
     <div class="field">
       <label for="message">Message</label>
-      <textarea id="message" name="message" rows="6" placeholder="Your message..." required></textarea>
+      <textarea
+        id="message"
+        name="message"
+        rows="6"
+        maxlength="5000"
+        placeholder="What can Dana help with? If you're booking an event, include dates, location, and audience."
+        required></textarea>
     </div>
 
     <Button color="primary" type="submit">Send Message</Button>
+
+    <p class="privacy-note">
+      Your message goes privately to Dana's team — it's never shared, and you
+      won't be added to any mailing list.
+    </p>
   </form>
 </div>
 
@@ -61,8 +119,11 @@ const subheading = 'Have a question or want to book Dana for a speaking engageme
     gap: var(--sp-03);
   }
 
-  .contact-form-header h2 {
+  .contact-form-header h1 {
     color: var(--text-title-ondark);
+    font-size: var(--font-05);
+    letter-spacing: -0.5px;
+    line-height: 1.15;
   }
 
   .contact-form-header p {
@@ -75,6 +136,15 @@ const subheading = 'Have a question or want to book Dana for a speaking engageme
     flex-direction: column;
     gap: var(--sp-05);
     padding: var(--layout-02) var(--layout-03);
+  }
+
+  /* Honeypot: visually removed but present for bots that parse HTML */
+  .bot-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
   }
 
   .field-row {
@@ -98,6 +168,13 @@ const subheading = 'Have a question or want to book Dana for a speaking engageme
     text-transform: uppercase;
   }
 
+  .optional {
+    font-weight: var(--font-weight-normal);
+    color: var(--neutral-500);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
   input,
   select,
   textarea {
@@ -109,8 +186,24 @@ const subheading = 'Have a question or want to book Dana for a speaking engageme
     border-radius: var(--br-02);
     padding: var(--sp-04) var(--sp-05);
     width: 100%;
-    transition: border-color 200ms ease, box-shadow 200ms ease;
+    transition:
+      border-color 200ms ease,
+      box-shadow 200ms ease;
     appearance: none;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23526175' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--sp-04) center;
+    background-size: 1rem;
+    padding-inline-end: calc(var(--sp-05) + 1.25rem);
+    cursor: pointer;
+  }
+
+  /* Placeholder state for the select before a choice is made */
+  select:has(option[value='']:checked) {
+    color: var(--neutral-400);
   }
 
   input::placeholder,
@@ -118,17 +211,32 @@ const subheading = 'Have a question or want to book Dana for a speaking engageme
     color: var(--neutral-400);
   }
 
-  input:focus,
-  select:focus,
-  textarea:focus {
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
     outline: none;
     border-color: var(--blue-200);
     box-shadow: 0 0 0 3px oklch(from var(--blue-200) l c h / 0.15);
   }
 
+  /* Only flag fields the visitor has actually interacted with */
+  input:user-invalid,
+  select:user-invalid,
+  textarea:user-invalid {
+    border-color: var(--input-error);
+    box-shadow: 0 0 0 3px oklch(from var(--input-error) l c h / 0.12);
+  }
+
   textarea {
     resize: vertical;
     min-height: 7.5rem;
+  }
+
+  .privacy-note {
+    font-size: var(--font-01);
+    color: var(--neutral-500);
+    text-align: center;
+    text-wrap: balance;
   }
 
   @media (max-width: 40rem) {

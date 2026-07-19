@@ -27,6 +27,9 @@
   /* Accessibility */
   --focus-ring: 2px solid oklch(from var(--blue-100) l c h / 0.4);
 
+  /* Forms */
+  --input-error: oklch(52% 0.19 27);
+
   /* PRIMITIVE TOKENS */
 
   /* Primary Brand Colors */
