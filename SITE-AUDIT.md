@@ -133,13 +133,15 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 ### Phase 0 — Stop the bleeding (quick, high-value fixes)
 
 - [x] **0.1** Repair `variables.css` C1 mangle: restore `--button-secondary-shadow`'s second shadow line, resurrect `--image-border` *(done 2026-07-19 — restored from git; the whole working-tree diff was the accident. Rename to `--border-default` deferred to 3b)*
-- [ ] **0.2** Fix homepage title: `Dana Larsen | Canadian Drug Policy Reform Activist`
-- [ ] **0.3** Fix "Subscibe" typo + `aria-labelledby` → `aria-label="Newsletter signup"` on the form (or give the h2 an id)
-- [ ] **0.4** Pass `url` to Layout from `news.astro` (canonical fix); move `<Footer />` inside `<Layout>`
-- [ ] **0.5** Nav/Footer links → `/#projects`, `/#about` (work from any page)
-- [ ] **0.6** Coca Leaf Cafe URL label/href mismatch — confirm which TLD is real, align both
-- [ ] **0.7** Remove hero buttons' aria-labels (H8); fix ProjectCard aria/target mess (H7)
-- [ ] **0.8** Footer year → `{new Date().getFullYear()}`
+- [x] **0.2** Fix homepage title *(fixed by Gary in-IDE, 2026-07-19)*
+- [x] **0.3** "Subscribe" typo fixed; h2 given `id="newsletter-title"` so the form's `aria-labelledby` resolves; dropped the redundant submit-button aria-label
+- [x] **0.4** `/news` canonical now `https://www.danalarsen.com/news`; `<Footer />` moved inside `<Layout>`
+- [x] **0.5** Nav (desktop + drawer) and footer links → `/#projects`, `/#about`, `/#newsletter`; added missing `id="newsletter"` anchor to the Newsletter section (the drawer link was dead on every page). Verified cross-page: About link from `/news` lands on `/#about`
+- [x] **0.6** Verified live: `.ca` 301s to `.com` — href aligned to `https://cocaleafcafe.com/`. All six project URLs checked, all resolve
+- [x] **0.7** Hero button aria-labels removed (visible text is the accessible name); ProjectCard: dropped `role="article"` + broken `aria-labelledby`, added `target="_blank"` to match the "(opens in new tab)" label, label now contains the visible text
+- [x] **0.8** Footer year → `{new Date().getFullYear()}` *(freezes at build time — fine, since CMS commits trigger Netlify rebuilds regularly)*
+
+*Phase 0 complete 2026-07-19. Findings C1, C6, C8-partial (TLD only — blurbs still placeholder, see 4.3), C9, H2, H4, H6, H7, H8 resolved.*
 
 ### Phase 1 — The rem refactor (§3a) ✅ *(done 2026-07-19)*
 

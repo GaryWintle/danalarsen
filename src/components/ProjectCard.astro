@@ -4,7 +4,7 @@ import Button from '@components/Button.astro'
 const { src, title, text, url, href } = Astro.props
 ---
 
-<div class="card" role="article" aria-labelledby="project-title-{title}">
+<div class="card">
   <div class="card-image-container">
     <Image src={src} alt={title} loading="lazy" />
     <div class="card-text-container">
@@ -14,11 +14,12 @@ const { src, title, text, url, href } = Astro.props
       </p>
       <Button
         href={href}
+        target="_blank"
         rel="noopener noreferrer"
         color="secondary"
         class="card-button"
         showExternalIcon={true}
-        aria-label={`Visit ${title} website (opens in new tab)`}
+        aria-label={`${url} (opens in new tab)`}
       >
         {url}
       </Button>

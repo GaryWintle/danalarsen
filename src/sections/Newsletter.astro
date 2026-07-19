@@ -4,7 +4,7 @@ import weedLeaf from '@graphics/Icons/leaf.svg?raw'
 import Button from '@components/Button.astro'
 ---
 
-<section class="newsletter">
+<section id="newsletter" class="newsletter">
   <div class="newsletter-container">
     <div class="leaf-clip">
       <!-- overflow: hidden lives here -->
@@ -12,7 +12,7 @@ import Button from '@components/Button.astro'
     </div>
     <div class="dana-icon" set:html={danaIcon} />
     <div class="newsletter-text-content">
-      <h2 class="newsletter-title">Join the Revolution!</h2>
+      <h2 id="newsletter-title" class="newsletter-title">Join the Revolution!</h2>
       <p>
         Sign up for in-depth, informative drug war related updates and join Dana
         in the fight against the war on drugs.
@@ -41,9 +41,7 @@ import Button from '@components/Button.astro'
         aria-describedby="newsletter-privacy"
       />
 
-      <Button type="submit" aria-label="Subscribe to Dana Larsen's newsletter"
-        >Subscibe Today!</Button
-      >
+      <Button type="submit">Subscribe Today!</Button>
     </form>
     <p id="newsletter-privacy" class="fine-print">
       Fully private. No spam. Unsub anytime.
