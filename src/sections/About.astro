@@ -1,14 +1,9 @@
 ---
-import { getImage } from 'astro:assets'
+import { getImage, Image } from 'astro:assets'
 import Button from '@components/Button.astro'
 import aboutImage from '@images/danalarsen-about.webp'
 
 const optimizedBackground = await getImage({ src: aboutImage, format: 'webp' })
-const optimizedPhoto = await getImage({
-  src: aboutImage,
-  format: 'webp',
-  width: 700,
-})
 ---
 
 <section
@@ -35,8 +30,10 @@ const optimizedPhoto = await getImage({
         </div>
       </div>
     </div>
-    <img
-      src={optimizedPhoto.src}
+    <Image
+      src={aboutImage}
+      width={700}
+      format="webp"
       alt="Dana Larsen"
       class="about-image"
       loading="lazy"
@@ -66,7 +63,6 @@ const optimizedPhoto = await getImage({
     inset: 0 0 0 -100vw;
     background: var(--about-bg);
     background-size: cover;
-    background-attachment: fixed;
     z-index: -1;
     opacity: 0.06;
   }
@@ -90,7 +86,6 @@ const optimizedPhoto = await getImage({
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(7, 1fr);
-    /* align-items: center; */
   }
 
   .about-card {
@@ -109,7 +104,6 @@ const optimizedPhoto = await getImage({
   }
 
   .about-image {
-    /* grid-area: 2 / 4 / 7 / 8; */
     grid-area: 1 / 1 / 8 / 5;
     width: 100%;
     max-height: 100%;
@@ -145,7 +139,6 @@ const optimizedPhoto = await getImage({
 
   @media (max-width: 75rem) {
     .about-image {
-      /* grid-area: 2 / 4 / 7 / 8; */
       grid-area: 1 / 1 / 8 / 6;
     }
 

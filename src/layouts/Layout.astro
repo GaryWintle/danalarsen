@@ -128,6 +128,19 @@ const schema = {
     <link rel="canonical" href={pageUrl} />
     <meta name="robots" content={robots} />
 
+    {
+      /* CSP as a meta tag (not a Netlify header) so the Decap CMS at /admin,
+         which needs external scripts, stays unaffected. frame-ancestors can't
+         be set via meta — the X-Frame-Options header in netlify.toml covers
+         it. PROD-only so dev tooling (HMR, toolbar) keeps working. */
+      import.meta.env.PROD && (
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
+        />
+      )
+    }
+
     <!-- Open Graph -->
     <meta property="og:locale" content="en_CA" />
     <meta property="og:type" content="profile" />

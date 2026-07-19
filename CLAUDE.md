@@ -13,8 +13,9 @@ npm run preview  # Preview production build locally
 ## Tech Stack
 
 - **Astro 5** - Static site generator with component-based architecture
-- **Tailwind CSS 4** - Utility classes alongside scoped component styles
+- **Scoped component styles + design tokens** - No CSS framework; styling lives in each component's `<style>` block on top of `src/styles/variables.css`
 - **TypeScript** - Strict mode enabled
+- **@fontsource-variable/inter** - Self-hosted body font ('Inter Variable'); CD display face self-hosted in `public/fonts/`
 
 ## Architecture
 

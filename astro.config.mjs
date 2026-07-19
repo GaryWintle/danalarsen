@@ -12,6 +12,11 @@ export default defineConfig({
     }),
   ],
   vite: {
+    build: {
+      // Never inline scripts/styles into the HTML — the CSP (Layout.astro)
+      // is 'self'-only, so inlined scripts would be blocked
+      assetsInlineLimit: 0,
+    },
     server: {
       allowedHosts: ['.ngrok-free.dev', '.ngrok-free.app', '.ngrok.io'],
     },

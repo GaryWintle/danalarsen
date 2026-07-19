@@ -108,12 +108,6 @@ import Button from '@components/Button.astro'
     display: block;
   }
 
-  .newsletter-container::after {
-    content: '';
-    /* position: absolute; */
-    background-image: url(/favicon.svg);
-  }
-
   .newsletter-text-content,
   .newsletter-input,
   .fine-print,
@@ -152,6 +146,14 @@ import Button from '@components/Button.astro'
 
   .dana-icon::after {
     animation-delay: 4s;
+  }
+
+  /* The rings only exist as animation — hide them entirely without it */
+  @media (prefers-reduced-motion: reduce) {
+    .dana-icon::before,
+    .dana-icon::after {
+      display: none;
+    }
   }
 
   @keyframes broadcast {

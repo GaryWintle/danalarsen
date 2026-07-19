@@ -1,34 +1,37 @@
+/* CD display face — the weight mapping is deliberate:
+   400 → Semibold file (the "regular" display weight site-wide)
+   700 → Black file (h1/h2 and anything bold)
+   400 italic → Light Italic file (accents like the hero's "End") */
 @font-face {
   font-family: 'CD';
-  src:
-    url('/fonts/CD-Black.woff2') format('woff2'),
-    url('/fonts/CD-Black.woff') format('woff');
-  font-weight: 700; /* Black */
+  src: url('/fonts/CD-Black.woff2') format('woff2');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'CD';
-  src:
-    url('/fonts/CD-Semibold.woff2') format('woff2'),
-    url('/fonts/CD-Semibold.woff') format('woff');
-  font-weight: 400; /* Black */
+  src: url('/fonts/CD-Semibold.woff2') format('woff2');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'CD';
-  src:
-    url('/fonts/CD-Light-Italic.woff2') format('woff2'),
-    url('/fonts/CD-Light-Italic.woff') format('woff');
-  font-weight: 400; /* Italic */
+  src: url('/fonts/CD-Light-Italic.woff2') format('woff2');
+  font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 
 html {
-  scroll-behavior: smooth;
   overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {

@@ -20,9 +20,9 @@
   status = 301
   force = true
 
-# Security headers. Content-Security-Policy is deliberately deferred
-# (see SITE-AUDIT.md 7.4) — it needs testing against inline styles/scripts
-# before it can ship without breaking the site.
+# Security headers. Content-Security-Policy ships as a meta tag in
+# Layout.astro instead of here, so the Decap CMS at /admin (external
+# scripts + auth gateways) stays unaffected.
 [[headers]]
   for = "/*"
   [headers.values]

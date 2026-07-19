@@ -22,10 +22,9 @@ const isExternal = href.startsWith('http')
     class="news-link"
     rel={isExternal ? 'noopener noreferrer' : undefined}
     target={isExternal ? '_blank' : undefined}
-    aria-label={`Read article: ${newsHeadline} from ${newsSource}`}
   >
     <div class="news-image">
-      <img src={newsImage} alt={newsHeadline} loading="lazy" decoding="async" />
+      <img src={newsImage} alt="" loading="lazy" decoding="async" />
     </div>
     <div class="text-container">
       <h3 class="news-headline">{newsHeadline}</h3>

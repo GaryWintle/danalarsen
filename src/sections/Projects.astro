@@ -1,9 +1,4 @@
 ---
-import { Image } from 'astro:assets'
-
-//Hero Image
-import ImageMain from '@images/project-photos/projects-main.jpg'
-
 // Card Images
 import PotheadBooks from '@images/project-photos/projects-potheadbooks.png'
 import CannabisDispensary from '@images/project-photos/projects-cannabisdispensary.png'
@@ -68,10 +63,6 @@ const projectCards = [
       websites.
     </p>
   </div>
-  <!-- <div class="project-swiper">
-    <Image src={ImageMain} alt="Pothead Books" loading="lazy" />
-  </div> -->
-
   <!-- Project Cards -->
 
   <div class="wrapper">
@@ -94,20 +85,6 @@ const projectCards = [
     padding-block-end: var(--layout-01);
   }
 
-  .project-swiper {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    border: var(--image-border);
-    border-radius: var(--br-02);
-    margin-block: var(--layout-01);
-  }
-  .project-swiper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
   .wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(18.75rem, 100%), 1fr));
@@ -115,12 +92,6 @@ const projectCards = [
     column-gap: clamp(1rem, 2vw, 1.75rem);
   }
 
-  /* .wrapper:hover :global(.card:not(:hover)) {
-    filter: grayscale(35%);
-    filter: brightness(0.96);
-    opacity: 0.85;
-    transition: opacity 300ms ease;
-  } */
 
   @media (max-width: 48rem) {
     .projects-section {

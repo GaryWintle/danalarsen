@@ -156,7 +156,7 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 
 - [ ] **2.1** Add missing semantic slots (`--surface-dark`, `--text-link`, `--accent`, `--border-default`, input tokens, overlay tokens); consolidate duplicates; fix `__hover` naming
 - [ ] **2.2** Migrate components off primitive tokens, file-by-file
-- [ ] **2.3** Contrast audit (axe / Lighthouse) once tokens settle; fix fine-print + placeholder contrast (M10)
+- [ ] **2.3** Contrast audit once tokens settle; fix fine-print + placeholder contrast (M10). **Lighthouse-confirmed failures (2026-07-20)** to resolve with the token pass: white text on `--orange-200` (primary buttons), `.news-headline` h3 blue-300 on white at 1rem, `.view-all-link` blue-200 on white, footer links + copyright (white on blue-300 at 0.875rem), about-page rail labels (`--neutral-400`). All need ≥4.5:1 — darken the token or bump size/weight
 
 ### Phase 3 — Layout & landmark structure
 
@@ -188,15 +188,15 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 - [x] **6.4** *(done 2026-07-20)* `favicon.ico` (16/32/48 PNG-in-ICO), `apple-touch-icon.png` (180), manifest icons 192/512 (white leaf on brand `#0087a5`, maskable-safe), `site.webmanifest`, viewport `initial-scale=1`, theme-color `#000` → `#0087a5`. Icons generated from `favicon.svg` via sharp
 - [x] **6.5** *(decided 2026-07-20)* **No analytics for launch** — Gary's call, fits the privacy posture. Dead GTM dns-prefetch removed (M1). If revisited post-launch, prefer a cookieless provider (Plausible/GoatCounter/Netlify Analytics) and remember to allow it in the CSP when 7.4 lands
 
-### Phase 7 — Performance, fonts, hardening, cleanup
+### Phase 7 — Performance, fonts, hardening, cleanup ✅ *(done 2026-07-20, except contrast → 2.3)*
 
-- [ ] **7.1** Fix About/NewsBlock image CLS — use `<Image>` or explicit width/height (H5)
-- [ ] **7.2** Font pass: ~~decide Inter vs system stack (H1)~~ *(done — Inter Variable via Fontsource, 2026-07-19)*; fix CD weight mapping (H13); trim preloads
-- [ ] **7.3** Drop `background-attachment: fixed` (H12); reduced-motion guards for smooth scroll + hero underline (M9)
-- [ ] **7.4** Security headers in `netlify.toml` (§4) — *partially done 2026-07-20: X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy shipped. Remaining: Content-Security-Policy (needs testing against Astro's inline styles/scripts before enabling)*
-- [ ] **7.5** Remove Tailwind (or wire it) + stale config (H10); update CLAUDE.md
-- [ ] **7.6** Delete junk files (M5) + dead code (M4) + `UI-UX-REVIEW.md`
-- [ ] **7.7** Final pass: Lighthouse (aim 95+ across the board), axe, full-page screenshots both viewports, real-device check
+- [x] **7.1** About image now `<Image>` with width/height (CLS 0 measured, was ~600px shift); NewsBlock thumbnails were already reserved by their fixed-size container — their alt is now empty (decorative inside a link that carries the headline)
+- [x] **7.2** CD weight mapping documented as deliberate (400 = Semibold "regular display", 700 = Black); unused CD-Roman + all legacy `.woff` deleted (woff2-only); all three preloads kept — 20 KB each and all render above-fold text
+- [x] **7.3** `background-attachment: fixed` removed (backdrop now consistent incl. iOS); reduced-motion guards on smooth scroll (CSS + BackToTop JS), hero underline, newsletter broadcast rings
+- [x] **7.4** CSP shipped as a **PROD-only meta tag in Layout** ('self' everything; style-src +unsafe-inline for Astro's scoped styles; img-src +data: for the select chevron) — meta, not header, so Decap `/admin` keeps its external scripts; `frame-ancestors` covered by the X-Frame-Options header. `assetsInlineLimit: 0` forces all scripts external (inlined ones were CSP-blocked — caught on the preview build). Verified zero violations + all scripts functional on the built site
+- [x] **7.5** Tailwind uninstalled, stale `tailwind.config.mjs` deleted, CLAUDE.md tech-stack corrected
+- [x] **7.6** ~4 MB of junk purged (image 6.png, unused hero PNG, old about photo, column-thumbnails dir, Dropbox/Zone.Identifier strays, duplicate potheadbooks.jpg, xmp sidecars, verify-*.png, UI-UX-REVIEW.md); dead code removed (unused imports, commented swiper + hover blocks, newsletter ::after — which was silently adding 48px of phantom flex spacing — unused `--text-hero`, debug comments)
+- [x] **7.7** Lighthouse on the production build: **home 97 perf / 96 a11y / 100 best-practices / 100 SEO; about 99 / 92 / 100. CLS 0, TBT 0ms.** Removed news/column link aria-labels (label-in-name mismatches — natural link text is the correct name). Only remaining audit: color-contrast → documented in 2.3. **Gary: re-run Lighthouse on the live deploy + one real-device pass (`npm run mobile` ngrok script)**
 
 ---
 

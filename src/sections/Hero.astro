@@ -1,6 +1,5 @@
 ---
 import { getImage } from 'astro:assets'
-import Nav from '@components/Nav.astro'
 import Button from '@components/Button.astro'
 import HeroDivider from '@graphics/hero-divider.svg?raw'
 import heroDesktop from '@images/dl-hero-desktop.webp'
@@ -155,6 +154,13 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
 
   @keyframes underline-reveal {
     to {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .underline-animate::after {
+      animation: none;
       transform: scaleX(1);
     }
   }
