@@ -4,58 +4,72 @@ import Nav from '@components/Nav.astro'
 import Footer from '@components/Footer.astro'
 import BackToTop from '@components/BackToTop.astro'
 import Button from '@components/Button.astro'
+import TimelineEra from '@components/TimelineEra.astro'
 
-// TODO: dates and era titles are placeholders — verify every one with Dana
-// before launch, and replace the lorem copy + gray image blocks.
+const fillerCopy = [
+  'Lorem ipsum dolor sit amet consectetur. Fames nec semper duis viverra. Viverra volutpat nascetur est quis enim sit. Nulla dignissim duis porta sodales iaculis tellus hendrerit, lobortis tortor elementum pellentesque diam varius faucibus et id ipsum.',
+  'Non nam aenean nullam lorem. Sociis et eget euismod mauris donec integer eget egestas. Gravida turpis nunc eget felis magna sapien amet, egestas sodales eget id aliquam id suspendisse.',
+]
+
+// The single source of truth for the timeline: each entry renders one
+// <TimelineEra> block AND one rail entry, so they can never drift apart.
+//   id     — anchor (rail links to #id)
+//   years  — date badge in the block AND the rail ("sub-title")
+//   label  — short rail text (block title used if you omit it)
+//   title  — era heading
+//   body   — paragraphs for the block (swap fillerCopy for real copy)
+//   image  — optional: import a photo above and set image/imageAlt here
+// TODO: dates and titles are placeholders — verify every one with Dana
+// before launch.
 const eras = [
   {
     id: 'cannabis-culture',
     years: '1994–2004',
-    ghost: '1994',
     label: 'Editor of Cannabis Culture Magazine',
     title: 'Editor of Cannabis Culture Magazine',
+    body: fillerCopy,
   },
   {
     id: 'marijuana-party',
     years: '2000',
-    ghost: '2000',
     label: 'Canadian Marijuana Party candidate',
     title: 'Runs for the Canadian Marijuana Party',
+    body: fillerCopy,
   },
   {
     id: 'bc-marijuana-party',
     years: '2001',
-    ghost: '2001',
     label: 'Co-founds the BC Marijuana Party',
     title: 'Co-founds the BC Marijuana Party',
+    body: fillerCopy,
   },
   {
     id: 'dispensary',
     years: '2008',
-    ghost: '2008',
     label: 'The Medicinal Cannabis Dispensary',
     title: 'Opens The Medicinal Cannabis Dispensary',
+    body: fillerCopy,
   },
   {
     id: 'sensible-bc',
     years: '2013',
-    ghost: '2013',
     label: 'Sensible BC campaign',
     title: 'Leads the Sensible BC referendum campaign',
+    body: fillerCopy,
   },
   {
     id: 'drug-testing',
     years: '2019',
-    ghost: '2019',
     label: 'Get Your Drugs Tested',
     title: 'Launches Get Your Drugs Tested',
+    body: fillerCopy,
   },
   {
     id: 'mushroom-dispensary',
     years: '2019–',
-    ghost: '2019',
     label: 'The Medicinal Mushroom Dispensary',
     title: 'Opens The Medicinal Mushroom Dispensary',
+    body: fillerCopy,
   },
   {
     id: 'today',
@@ -63,12 +77,8 @@ const eras = [
     ghost: 'Now',
     label: 'The fight continues',
     title: 'The fight continues',
+    body: fillerCopy,
   },
-]
-
-const fillerCopy = [
-  'Lorem ipsum dolor sit amet consectetur. Fames nec semper duis viverra. Viverra volutpat nascetur est quis enim sit. Nulla dignissim duis porta sodales iaculis tellus hendrerit, lobortis tortor elementum pellentesque diam varius faucibus et id ipsum.',
-  'Non nam aenean nullam lorem. Sociis et eget euismod mauris donec integer eget egestas. Gravida turpis nunc eget felis magna sapien amet, egestas sodales eget id aliquam id suspendisse.',
 ]
 ---
 
@@ -98,21 +108,16 @@ const fillerCopy = [
         <div class="era-list">
           {
             eras.map((era) => (
-              <article class="era" id={era.id} data-years={era.years}>
-                <span class="era-ghost" aria-hidden="true">
-                  {era.ghost}
-                </span>
-                <div class="media-placeholder era-media" role="img" aria-label={`Placeholder for a photo: ${era.title}`}>
-                  <span>Photo placeholder</span>
-                </div>
-                <h2>{era.title}</h2>
-                <p class="era-years" aria-hidden="true">
-                  <span>{era.years}</span>
-                </p>
-                {fillerCopy.map((para) => (
+              <TimelineEra
+                id={era.id}
+                years={era.years}
+                ghost={era.ghost}
+                title={era.title}
+              >
+                {era.body.map((para) => (
                   <p>{para}</p>
                 ))}
-              </article>
+              </TimelineEra>
             ))
           }
         </div>
@@ -259,80 +264,6 @@ const fillerCopy = [
     flex-direction: column;
     gap: var(--section-block);
     min-width: 0;
-  }
-
-  .era {
-    position: relative;
-    scroll-margin-top: 7rem;
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-04);
-  }
-
-  .era-ghost {
-    position: absolute;
-    top: -0.35em;
-    right: 0;
-    z-index: -1;
-    font-family: var(--font-header);
-    font-size: clamp(5rem, 12vw, 9rem);
-    line-height: 1;
-    color: var(--neutral-300);
-    user-select: none;
-    pointer-events: none;
-  }
-
-  .era-media {
-    aspect-ratio: 4 / 3;
-    width: min(100%, 28rem);
-  }
-
-  .era h2 {
-    font-size: clamp(1.4375rem, 2.5vw, 1.75rem);
-    margin-block-start: var(--sp-02);
-  }
-
-  /* Date framed by short rules, echoing the mockup's badge */
-  .era-years {
-    display: flex;
-    align-items: center;
-    gap: var(--sp-03);
-    font-family: var(--font-body);
-    font-size: var(--font-01);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: 1px;
-    color: var(--blue-200);
-  }
-
-  .era-years::before,
-  .era-years::after {
-    content: '';
-    height: 1px;
-    width: 3.5rem;
-    background: var(--blue-200);
-    opacity: 0.5;
-  }
-
-  .era > p:not(.era-years) {
-    max-width: 60ch;
-  }
-
-  /* Soft rise-in on first reveal. The hidden state is only ever applied by
-     the script (and only to below-fold blocks), so content stays visible
-     without JS. Removed entirely under reduced motion. */
-  @media (prefers-reduced-motion: no-preference) {
-    .era.will-reveal {
-      opacity: 0;
-      translate: 0 1.5rem;
-      transition:
-        opacity 600ms ease-out,
-        translate 600ms ease-out;
-    }
-
-    .era.will-reveal.in-view {
-      opacity: 1;
-      translate: 0 0;
-    }
   }
 
   /* ---------------- Sticky rail ---------------- */
@@ -592,20 +523,6 @@ const fillerCopy = [
     .era-list {
       padding-block-start: var(--layout-02);
       gap: var(--layout-03);
-    }
-
-    .era {
-      scroll-margin-top: 5rem;
-    }
-
-    .era-media {
-      width: 100%;
-    }
-
-    .era-ghost {
-      font-size: 4rem;
-      top: auto;
-      bottom: 100%;
     }
 
     .photo-band {

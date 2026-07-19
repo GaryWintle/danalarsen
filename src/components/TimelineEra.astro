@@ -1,0 +1,167 @@
+---
+import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
+
+interface Props {
+  /** Anchor id — must match the era's entry in the timeline rail */
+  id: string
+  /** Era heading */
+  title: string
+  /** Date badge under the heading, e.g. "1994–2004" */
+  years: string
+  /** Large watermark year; defaults to the first 4-digit year in `years` */
+  ghost?: string
+  /** Era photo — omit to render a gray placeholder block */
+  image?: ImageMetadata
+  imageAlt?: string
+}
+
+const { id, title, years, image, imageAlt } = Astro.props
+const ghost = Astro.props.ghost ?? years.match(/\d{4}/)?.[0] ?? years
+---
+
+<article class="era" id={id}>
+  <span class="era-ghost" aria-hidden="true">{ghost}</span>
+
+  {
+    image ? (
+      <Image
+        class="era-media"
+        src={image}
+        alt={imageAlt ?? ''}
+        width={896}
+        loading="lazy"
+      />
+    ) : (
+      <div
+        class="era-media media-placeholder"
+        role="img"
+        aria-label={`Placeholder for a photo: ${title}`}
+      >
+        <span>Photo placeholder</span>
+      </div>
+    )
+  }
+
+  <h2>{title}</h2>
+
+  <p class="era-years"><span>{years}</span></p>
+
+  <div class="era-body">
+    <slot />
+  </div>
+</article>
+
+<style>
+  .era {
+    position: relative;
+    scroll-margin-top: 7rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-04);
+  }
+
+  .era-ghost {
+    position: absolute;
+    top: -0.35em;
+    right: 0;
+    z-index: -1;
+    font-family: var(--font-header);
+    font-size: clamp(5rem, 12vw, 9rem);
+    line-height: 1;
+    color: var(--neutral-300);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .era-media {
+    aspect-ratio: 4 / 3;
+    width: min(100%, 28rem);
+    object-fit: cover;
+    border-radius: var(--br-02);
+  }
+
+  .media-placeholder {
+    display: grid;
+    place-items: center;
+    background: var(--neutral-300);
+    border: 1px dashed var(--neutral-400);
+  }
+
+  .media-placeholder span {
+    font-family: var(--font-body);
+    font-size: var(--font-01);
+    color: var(--neutral-500);
+  }
+
+  h2 {
+    font-size: clamp(1.4375rem, 2.5vw, 1.75rem);
+    margin-block-start: var(--sp-02);
+  }
+
+  /* Date framed by short rules */
+  .era-years {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-03);
+    font-family: var(--font-body);
+    font-size: var(--font-01);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 1px;
+    color: var(--blue-200);
+  }
+
+  .era-years::before,
+  .era-years::after {
+    content: '';
+    height: 1px;
+    width: 3.5rem;
+    background: var(--blue-200);
+    opacity: 0.5;
+  }
+
+  .era-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-04);
+  }
+
+  /* Body copy is slotted from the page, so it needs :global */
+  .era-body :global(p) {
+    max-width: 60ch;
+  }
+
+  /* Soft rise-in on first reveal. The hidden state is only ever applied by
+     the page script (and only to below-fold blocks), so content stays
+     visible without JS. Removed entirely under reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .era.will-reveal {
+      opacity: 0;
+      translate: 0 1.5rem;
+      transition:
+        opacity 600ms ease-out,
+        translate 600ms ease-out;
+    }
+
+    .era.will-reveal.in-view {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+
+  @media (max-width: 60rem) {
+    .era {
+      scroll-margin-top: 5rem;
+    }
+
+    .era-media {
+      width: 100%;
+    }
+
+    .era-ghost {
+      font-size: 4rem;
+      top: auto;
+      bottom: 100%;
+    }
+  }
+</style>
