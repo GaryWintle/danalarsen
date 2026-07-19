@@ -161,9 +161,9 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 ### Phase 3 — Layout & landmark structure
 
 - [x] **3.1** Remove `body { position: absolute }` *(done 2026-07-19 — body is now a normal full-width flex column with `min-height: 100vh`; nav got `inset-inline: 0; margin-inline: auto` so it centers past 1512px. `/contact` desktop fixed (C5); homepage/news pixel-identical at 390/1440; at 1920px everything now centers properly where the old layout left-anchored. Removed the redundant mobile body re-declaration.)*
-- [ ] **3.2** Restructure homepage so `<main id="main-content">` wraps Hero→Newsletter (move main out of TwoColWrapper); tidy TwoColWrapper markup (M7)
+- [x] **3.2** *(done 2026-07-19)* `<main id="main-content">` now lives in `index.astro` wrapping Hero→Newsletter (fixes H3); global `main` is `width: 100%` with width constraints local to each page (TwoColWrapper carries `var(--max-width)` itself) so hero/About stay full-bleed at ultrawide. TwoColWrapper tidied (M7): no more main-in-component, style-in-markup, or section-in-section; dead no-op rules removed
 - [ ] **3.3** Nav visibility on light pages (C10): give Nav a variant (dark text / solid background) for non-hero pages, or a scroll-aware background
-- [ ] **3.4** Standardize breakpoints (M8)
+- [x] **3.4** *(done 2026-07-19)* Standardized on four rem media queries — 40rem/640, 48rem/768, 60rem/960, 75rem/1200 — documented at the top of `variables.css`. Mappings: 402→40rem (no-op), 640→40rem, 738→48rem, 768→48rem, 834→60rem (sidebar now stacks ≤960 — coherent with hero's tablet flip), 950→60rem, 1170→75rem; deleted Hero's redundant 1024px block and NewsBlock's empty media query. Hero's `<source media="1024px">` image-switch attributes left as-is (content decision, not a CSS breakpoint)
 - [ ] **3.5** Re-screenshot everything
 
 ### Phase 4 — Pages & content

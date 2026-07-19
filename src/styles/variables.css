@@ -1,3 +1,8 @@
+/* Breakpoints — custom properties can't be used in media queries, so these
+   are documented here and written as literals wherever @media is used:
+   40rem = 640px (phone) · 48rem = 768px (tablet) ·
+   60rem = 960px (small desktop / stacked layouts) · 75rem = 1200px (desktop) */
+
 :root {
   /* SEMANTIC TOKENS */
 

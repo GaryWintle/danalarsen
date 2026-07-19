@@ -50,29 +50,31 @@ const latestColumns = [...columnItems]
 
 <Layout title="Dana Larsen | Canadian Drug Policy Reform Activist">
   <Nav />
-  <Hero />
-  <TwoColWrapper>
-    <Projects />
+  <main id="main-content">
+    <Hero />
+    <TwoColWrapper>
+      <Projects />
 
-    <SidebarBlock
-      slot="news"
-      title="Dana in the News"
-      icon={newsIcon}
-      viewAllHref="/news"
-    >
-      {latestNews.map((item) => <NewsBlock {...item} />)}
-    </SidebarBlock>
-    <SidebarBlock
-      slot="columns"
-      title="Dana's Columns"
-      icon={columnsIcon}
-      viewAllHref="/news"
-    >
-      {latestColumns.map((item) => <ColumnBlock {...item.data} />)}
-    </SidebarBlock>
-  </TwoColWrapper>
-  <About />
-  <Newsletter />
+      <SidebarBlock
+        slot="news"
+        title="Dana in the News"
+        icon={newsIcon}
+        viewAllHref="/news"
+      >
+        {latestNews.map((item) => <NewsBlock {...item} />)}
+      </SidebarBlock>
+      <SidebarBlock
+        slot="columns"
+        title="Dana's Columns"
+        icon={columnsIcon}
+        viewAllHref="/news"
+      >
+        {latestColumns.map((item) => <ColumnBlock {...item.data} />)}
+      </SidebarBlock>
+    </TwoColWrapper>
+    <About />
+    <Newsletter />
+  </main>
   <Footer />
   <BackToTop />
 </Layout>

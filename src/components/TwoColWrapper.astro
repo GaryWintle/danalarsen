@@ -2,62 +2,55 @@
 
 ---
 
-<main id="main-content">
-  <section class="two-column-wrapper">
-    <section class="projects-section">
-      <slot />
-    </section>
+<div class="two-column-wrapper">
+  <div class="projects-column">
+    <slot />
+  </div>
 
-    <!-- Sidebar -->
-    <aside class="sidebar-section">
-      <slot name="news" />
-      <slot name="columns" />
-    </aside>
-  </section>
+  <!-- Sidebar -->
+  <aside class="sidebar-section">
+    <slot name="news" />
+    <slot name="columns" />
+  </aside>
+</div>
 
-  <style>
+<style>
+  .two-column-wrapper {
+    width: var(--max-width);
+    display: grid;
+    grid-template-columns: 3fr 25rem;
+    grid-template-rows: auto;
+    grid-template-areas:
+      'projects news'
+      'projects news';
+  }
+
+  .projects-column {
+    grid-area: projects;
+  }
+
+  .sidebar-section {
+    grid-area: news;
+    padding-block-start: calc(var(--section-block) - 24px);
+    padding-inline: var(--section-inline);
+  }
+
+  @media (max-width: 60rem) {
     .two-column-wrapper {
-      display: grid;
-      grid-template-columns: 3fr 25rem;
-      grid-template-rows: auto;
+      grid-template-columns: 1fr 18.75rem;
       grid-template-areas:
-        'projects news'
-        'projects news';
-      /* gap: var(--section-inline); */
+        'news news'
+        'projects projects';
     }
-    .projects-section {
-      grid-area: projects;
-    }
+  }
 
-    .sidebar-section {
-      grid-area: news;
-      padding-block-start: calc(var(--section-block) - 24px);
-      padding-inline: var(--section-inline);
+  @media (max-width: 40rem) {
+    .two-column-wrapper {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'news'
+        'news'
+        'projects';
     }
-
-    @media (max-width: 834px) {
-      .two-column-wrapper {
-        grid-template-columns: 1fr 18.75rem;
-        grid-template-areas:
-          'news news'
-          'projects projects';
-      }
-      .sidebar-section {
-        background-color: transparent;
-        border-left: none;
-      }
-      .sidebar-sticky {
-        position: static;
-      }
-    }
-    @media (max-width: 402px) {
-      .two-column-wrapper {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          'news'
-          'news'
-          'projects';
-      }
-    }
-  </style>
-</main>
+  }
+</style>
