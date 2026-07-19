@@ -160,7 +160,7 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 
 ### Phase 3 — Layout & landmark structure
 
-- [ ] **3.1** Remove `body { position: absolute }`; normal flow + centered main — **fixes broken `/contact` desktop** (C5)
+- [x] **3.1** Remove `body { position: absolute }` *(done 2026-07-19 — body is now a normal full-width flex column with `min-height: 100vh`; nav got `inset-inline: 0; margin-inline: auto` so it centers past 1512px. `/contact` desktop fixed (C5); homepage/news pixel-identical at 390/1440; at 1920px everything now centers properly where the old layout left-anchored. Removed the redundant mobile body re-declaration.)*
 - [ ] **3.2** Restructure homepage so `<main id="main-content">` wraps Hero→Newsletter (move main out of TwoColWrapper); tidy TwoColWrapper markup (M7)
 - [ ] **3.3** Nav visibility on light pages (C10): give Nav a variant (dark text / solid background) for non-hero pages, or a scroll-aware background
 - [ ] **3.4** Standardize breakpoints (M8)

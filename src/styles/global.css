@@ -33,7 +33,7 @@ html {
 
 body {
   background-color: var(--bg-page);
-  position: absolute;
+  min-height: 100vh;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -126,11 +126,6 @@ a {
 /* Mobile Phone */
 
 @media (max-width: 768px) {
-  body {
-    background-color: var(--bg-page);
-    overflow-x: hidden;
-  }
-
   h1 {
     font-size: clamp(2.375rem, calc(6vw + 0.625rem), 3.75rem);
     letter-spacing: -0.5px;
