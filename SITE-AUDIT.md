@@ -1,0 +1,201 @@
+# danalarsen.com — Site Audit & Launch Checklist
+
+**Date:** July 19, 2026
+**Scope:** Full code read-through + rendered verification (desktop 1440px & mobile 390px, dev server + production build)
+**Supersedes:** `UI-UX-REVIEW.md` (Jan 2026 — most of its findings are now fixed or stale; safe to delete)
+
+---
+
+## 1. Executive Summary
+
+The site is in **good shape visually and architecturally**. The design system (oklch tokens, fluid type, scoped styles), the component structure, the mobile drawer, focus states, and the Decap CMS pipeline for news/columns are all solid. The production build is lean (~2.6 MB total, largest image 200 KB).
+
+What stands between "portfolio in progress" and "credible public-figure site" falls into four buckets:
+
+1. **Broken things that ship today** — mangled CSS token file, structured data with literal `{placeholder}` text, a 404ing OG image, a newsletter form that posts into the void, a visibly broken `/contact` layout on desktop.
+2. **Structural debt you already named** — the `62.5%` rem crutch, incomplete semantic-token adoption, the fragile `body { position: absolute }` layout.
+3. **Missing content/pages** — About page, real project blurbs, real About copy, 404 page.
+4. **Public-figure table stakes** — working contact + newsletter (owned audience!), per-page SEO, security headers, privacy posture.
+
+Everything below is verified against the actual code/build — file references included.
+
+---
+
+## 2. Verified Findings
+
+### 🔴 Critical — broken in production right now
+
+| # | Finding | Where |
+|---|---------|-------|
+| C1 | `--button-secondary-shadow` declaration is mangled and **swallows `--image-border`**, so `--image-border` resolves to nothing. Card borders, news-thumbnail borders, and the newsletter input border silently vanish. (This is the uncommitted change in your working tree.) | `src/styles/variables.css:72-77` |
+| C2 | JSON-LD ships with **literal `{siteUrl}`, `{pageUrl}`, `{OFFICIAL_TWITTER_URL}` placeholders** — Astro doesn't interpolate inside a plain `<script>` tag. Google sees garbage; you get zero entity/knowledge-panel benefit. Needs to be built as an object in frontmatter and injected via `set:html={JSON.stringify(schema)}`. | `src/layouts/Layout.astro:88-178` |
+| C3 | `og:image` points to `/images/og-default-1200x630.jpg`, which **does not exist** (marked `// replace`). Every social share of the site renders without an image. | `src/layouts/Layout.astro:14` |
+| C4 | Newsletter form posts to `/api/subscribe` — **no such endpoint exists** (static build, no adapter). Submitting = 404. Needs a real backend (Netlify form or ESP endpoint — see §4). | `src/sections/Newsletter.astro:24` |
+| C5 | `/contact` desktop layout is broken: the card **and the footer are squeezed into the left ~60% of the viewport**. Root cause is `body { position: absolute }` shrink-wrapping to content width. | `src/styles/global.css:35-42`, verified via screenshot |
+| C6 | `/news` canonical URL points to the **homepage** (`url` prop never passed), telling Google not to index the news page. | `src/pages/news.astro:41-44` |
+| C7 | About section is **lorem ipsum**, and its button links to `/about`, which doesn't exist (404). Hero's "About Dana" scrolls to this placeholder. | `src/sections/About.astro:27-34` |
+| C8 | All six project cards share the same placeholder blurb ("A smooth, low-dose mushroom shot…"). Coca Leaf Cafe's label says `cocaleafcafe.com` but links to `cocaleafcafe.ca`. | `src/sections/Projects.astro:17-60` |
+| C9 | Nav & footer links `#projects` / `#about` are **dead on `/contact` and `/news`** (they resolve to `/contact#projects` etc.). Must be `/#projects`, `/#about`. | `src/components/Nav.astro:15-16,76-79`, `src/components/Footer.astro:13-14` |
+| C10 | Nav is white-on-transparent, positioned for the dark hero — on `/contact` and `/news` the links and the script part of the logo are **near-invisible on the light background**. | `src/components/Nav.astro:147-157`, verified via screenshot |
+
+### 🟠 High — wrong, but not visibly on fire
+
+| # | Finding | Where |
+|---|---------|-------|
+| H1 | `--font-body: 'Inter'` but **Inter is never loaded** (no `@font-face`, no import). All body text silently falls back to `system-ui`. Decide: actually ship Inter (variable, subset, self-hosted) or embrace the system stack and rename the token. | `src/styles/variables.css:98`, `src/styles/global.css` |
+| H2 | Homepage `<title>` is `"DanaLarsen | …"` — missing space, and inconsistent with the Layout default ("Dana Larsen — Vancouver drug policy reform activist"). | `src/pages/index.astro:51` |
+| H3 | On the homepage, `<main id="main-content">` (inside TwoColWrapper) only wraps Projects + sidebar. **Hero, About, and Newsletter live outside `<main>`** — wrong landmark structure, and the skip link skips past nothing useful. | `src/components/TwoColWrapper.astro:5`, `src/pages/index.astro:52-77` |
+| H4 | `/news` renders `<Footer />` **after `</Layout>`**, i.e. outside `<html>`. Browsers re-parent it, but it's invalid HTML. | `src/pages/news.astro:67` |
+| H5 | About image is a raw `<img>` with no width/height: it collapses to ~2px then expands to ~600px on load — a **massive CLS**. (Verified live: rect height 2 → 609.) Same pattern in NewsBlock thumbnails. | `src/sections/About.astro:38-43`, `src/components/NewsBlock.astro:28` |
+| H6 | Newsletter `aria-labelledby="newsletter-title"` points at a **class, not an id** — broken reference. Also: "**Subscibe** Today!" typo. | `src/sections/Newsletter.astro:23,45` |
+| H7 | ProjectCard `aria-labelledby="project-title-{title}"` is a literal string (not interpolated) with no matching id; `role="article"` on a div; button's aria-label says "opens in new tab" but there's **no `target="_blank"`**. | `src/components/ProjectCard.astro:7,15-24` |
+| H8 | Hero buttons' aria-labels ("Learn more about Dana Larsen's advocacy work") don't contain their visible text ("About Dana") — WCAG 2.5.3 *Label in Name* failure for voice-control users. Just drop the aria-labels; visible text is fine. | `src/sections/Hero.astro:48-59` |
+| H9 | `sitemap.xml` is hand-written and lists only the homepage; `robots.txt` points at `https://danalarsen.com/sitemap.xml` while canonicals use `https://www.danalarsen.com` (www/non-www mismatch). Replace with `@astrojs/sitemap` + `site` in `astro.config.mjs`, and pick one canonical host (redirect the other in Netlify). | `public/sitemap.xml`, `public/robots.txt` |
+| H10 | Tailwind 4 is a **dead dependency**: `@tailwindcss/vite` is installed but never added to `astro.config.mjs`, no `@import 'tailwindcss'` anywhere, and `tailwind.config.mjs` is stale v3-format. Remove it (you're not using utilities) or wire it up for real. CLAUDE.md's "Tailwind CSS 4" claim is currently false. | `package.json`, `astro.config.mjs`, `tailwind.config.mjs` |
+| H11 | No 404 page (`src/pages/404.astro`). | — |
+| H12 | `background-attachment: fixed` on the About backdrop — ignored/janky on iOS Safari and a scroll-performance cost. | `src/sections/About.astro:69` |
+| H13 | `@font-face` weight mapping is tangled: CD-Semibold registered as weight **400** (comment says "Black"), CD-Roman.woff2 shipped but never registered, CD-Light-Italic preloaded for a single italic word. Worth one deliberate pass. | `src/styles/global.css:1-27`, `src/layouts/Layout.astro:61-81` |
+| H14 | Contact page has no `<h1>` (card heading is an `<h2>`). Every page needs exactly one h1. | `src/components/ContactForm.astro:11` |
+| H15 | Contact form (Netlify) has no honeypot (`netlify-honeypot`), no success redirect/state (users land on Netlify's generic success page), and the Subject `<select>` has `appearance: none` with **no replacement chevron** — it reads as a text input (verified in screenshot). | `src/components/ContactForm.astro:15,29` |
+
+### 🟡 Medium — hygiene & polish
+
+- **M1** — `dns-prefetch` to googletagmanager.com but no analytics installed. Either remove, or (better for this audience — see §4) add a cookieless, privacy-first analytics tool. `src/layouts/Layout.astro:82`
+- **M2** — Viewport meta lacks `initial-scale=1`. `src/layouts/Layout.astro:20`
+- **M3** — Favicon is SVG-only: no `favicon.ico` fallback, no `apple-touch-icon`, no web manifest / `theme-color` pair for light+dark.
+- **M4** — Dead code: `.newsletter-container::after` favicon leftover (`Newsletter.astro:99-103`), commented-out swiper block + unused `Image`/`ImageMain` imports (`Projects.astro`), unused `Nav` import (`Hero.astro:3`), `--text-hero` token defined but unused.
+- **M5** — Junk files shipped or committed: `public/images/image 6.png` (772 KB, ships to prod), `src/assets/images/dl-hero-mobile.png` (2.7 MB, unused — the .webp is used), `dana-about-old.webp`, `project-photos/Unconfirmed 984100.crdownload:com.dropbox.attrs`, `projects-main.jpg:Zone.Identifier`, duplicate `projects-potheadbooks.{jpg,png}`, root-level `verify-*.png` + audit screenshots, stale `UI-UX-REVIEW.md`.
+- **M6** — `reset.css` sets `outline: none` on all form controls globally, then components re-add `:focus-visible` one by one. It works today but is a booby trap; prefer removing the global `outline: none` and styling `:focus-visible` at the reset level.
+- **M7** — TwoColWrapper: `<style>` tag sits *inside* `<main>` markup; `section > section` nesting with unlabeled outer section. Harmless but messy.
+- **M8** — Breakpoint zoo: `402px, 640px, 738px, 768px, 834px, 950px, 1024px, 1170px, 60rem` across files. Standardize on 3–4 named breakpoints during the token pass.
+- **M9** — `scroll-behavior: smooth` and BackToTop's smooth `scrollTo` don't check `prefers-reduced-motion` (hero underline animation doesn't either).
+- **M10** — Contrast spot-checks worth running once tokens settle: `--neutral-400` fine print/placeholder on white (likely ~2.4:1, fails), `blue-100` hero highlight over photo. Run axe/Lighthouse after the token migration rather than hand-fixing now.
+- **M11** — `mobile` npm script points to `~/bin/ngrok` (machine-specific); fine, just noting it won't work elsewhere.
+- **M12** — Footer copyright is hardcoded "2025" → use `new Date().getFullYear()`.
+
+### ✅ Verified non-issues (don't chase these)
+
+- The "blank" project card images and "missing" About photo in my first screenshots were **dev-server lazy-load races** — all images load fine (and in the prod build they're static). The dark "pill" mid-page was the Astro dev toolbar.
+- Skip link, mobile drawer (focus management, Escape, backdrop), focus-visible states, Button-as-link polymorphism, `fetchOgImage` fallback logic, news/columns CMS pipeline — all in good working order.
+- Old review's "62.5% trick is a strength" — you've outgrown it; ignore that doc.
+
+---
+
+## 3. The Two Refactors You Named
+
+### 3a. Killing `font-size: 62.5%`
+
+Right now `1rem = 10px`. Removing the hack means **every rem value in the repo shrinks by ÷1.6** (e.g. `1.6rem → 1rem`, `--sp-06: 3.2rem → 2rem`, `--max-width: 151.3rem → 94.5rem`).
+
+Gotchas to respect during conversion:
+
+- **Media queries in rem never used the 62.5% base** (they resolve against the initial 16px). `@media (max-width: 60rem)` already means 960px — *don't* convert those. Px media queries are unaffected.
+- `clamp()` middle terms in `vw` are unaffected; only the rem bounds convert.
+- Values that *look* like px-derived magic (`151.3rem`, `-25px`, `7rem` offsets) are the moment to round to sane numbers, not preserve them.
+- Do it as **one atomic commit** with a full visual before/after sweep (both viewports, all three pages) — a missed value shows up as a 1.6× size error, which is easy to spot if you look.
+
+### 3b. Semantic tokens everywhere
+
+`variables.css` already has the right two-layer shape (primitives → semantic). The gaps:
+
+- Components still reach into primitives directly: `--blue-100/200/300`, `--neutral-…` appear all over `Hero`, `Nav`, `BackToTop`, `Newsletter`, `Footer`, card hover gradients, etc.
+- Missing semantic slots you'll want: `--surface-dark` (footer/drawer/contact-header blue-300), `--text-link` / `--text-link-hover`, `--accent` (blue-100 highlights), `--border-default` (rename of `--image-border`), `--input-bg/border/placeholder`, `--overlay-*` for the photo gradients.
+- Consolidate `--news-sidebar-divider` / `--news-divider` (duplicates) into `--border-default`.
+- Naming nit: `--button-primary__hover` (BEM-ish `__`) vs everything else — pick one convention (`--button-primary-hover`).
+- Fluid-vs-static split (`--sp-*` static, `--layout-*` fluid) is good — keep it, document it in a short comment header.
+
+Do **3a before 3b** (converting values once is enough), then migrate components to semantic tokens file-by-file.
+
+---
+
+## 4. Best Practices: Sites for Public / Political Figures
+
+What separates a good portfolio from an effective platform for an activist:
+
+**Own your audience.** Social accounts get suspended — drug-policy content especially. The newsletter is the single most valuable feature on this site, and it currently 404s. Wire it to an ESP with **double opt-in** (Buttondown and EmailOctopus are cheap and neutral; Mailchimp works), keep the "no spam, unsub anytime" promise visible, and never gate it behind analytics scripts.
+
+**Be findable as an entity, not just a site.** Dana has a Wikipedia page — the `sameAs` array in Person JSON-LD linking Wikipedia + real social profiles is exactly how Google builds the knowledge panel. That's why C2 matters more here than on a normal portfolio. Add per-page JSON-LD (`ContactPage`, `CollectionPage` for news) and a real 1200×630 OG image with his face and name — shares on X/Facebook are how this audience travels.
+
+**Make press contact frictionless.** Journalists on deadline decide in seconds. The contact form's "Media Inquiry" subject is good; go further with a small **Press/Media section** on the About page (or `/press`): downloadable headshots, a 50-word and 200-word boilerplate bio, and the booking route. The news/columns archive you already built is genuinely great for this — it's proof of media relevance.
+
+**Protect visitors.** Some of this site's visitors are vulnerable people looking up drug testing services. That means: no invasive tracking (prefer cookieless analytics — Plausible/Fathom/Netlify — over GA4; then the GTM dns-prefetch goes away), a short plain-language **privacy page**, and HTTPS with real **security headers** in `netlify.toml` (`Content-Security-Policy`, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy`). A defaced or spoofed activist site is a real attack vector; headers are cheap insurance. Also confirm the Decap `/admin` auth (DecapBridge) has 2FA on the underlying accounts.
+
+**Credibility details.** Accurate, active canonical host (pick www or apex, 301 the other), no lorem ipsum anywhere, a 404 page that routes people home, dates on everything, and an accessibility bar of WCAG 2.2 AA — inclusive access is on-message for a harm-reduction advocate.
+
+**Performance is mostly done.** 2.6 MB total, AVIF/WebP hero, font preloads — this is already better than most political sites. Just fix the CLS (H5), drop the junk PNG (M5), and keep the budget: hero image ≤ 200 KB, everything else lazy.
+
+---
+
+## 5. Working Checklist
+
+Ordered so we can move through it together. Each phase is a coherent chunk with a visual verify at the end.
+
+### Phase 0 — Stop the bleeding (quick, high-value fixes)
+
+- [x] **0.1** Repair `variables.css` C1 mangle: restore `--button-secondary-shadow`'s second shadow line, resurrect `--image-border` *(done 2026-07-19 — restored from git; the whole working-tree diff was the accident. Rename to `--border-default` deferred to 3b)*
+- [ ] **0.2** Fix homepage title: `Dana Larsen | Canadian Drug Policy Reform Activist`
+- [ ] **0.3** Fix "Subscibe" typo + `aria-labelledby` → `aria-label="Newsletter signup"` on the form (or give the h2 an id)
+- [ ] **0.4** Pass `url` to Layout from `news.astro` (canonical fix); move `<Footer />` inside `<Layout>`
+- [ ] **0.5** Nav/Footer links → `/#projects`, `/#about` (work from any page)
+- [ ] **0.6** Coca Leaf Cafe URL label/href mismatch — confirm which TLD is real, align both
+- [ ] **0.7** Remove hero buttons' aria-labels (H8); fix ProjectCard aria/target mess (H7)
+- [ ] **0.8** Footer year → `{new Date().getFullYear()}`
+
+### Phase 1 — The rem refactor (§3a) ✅ *(done 2026-07-19)*
+
+- [x] **1.1** Delete `font-size: 62.5%`; convert all rem values in `variables.css` (÷1.6, round to sane numbers)
+- [x] **1.2** Convert component styles file-by-file (Hero, Nav, Footer, Button, cards, sections, pages) — *skip rem media queries*
+- [x] **1.3** Full visual sweep at 390px and 1440px, all three pages, against before-screenshots — page heights within 2–4px of before; computed sizes identical (h1 80px, body 16px, logo 120px)
+- [x] **1.4** Commit as one atomic change
+
+*Conversion notes: exact ÷1.6 preserved everywhere except deliberate micro-rounding: `--max-width` 151.3rem→94.5rem (1513→1512px), nav-link padding 7.5px→8px + underline offset 2.5px→2px, skip-link padding 7.5/15px→8/16px, sub-pixel letter-spacings rewritten in px (0.02rem→0.2px etc.). Rem media queries (`60rem` in news.astro) intentionally untouched — they always resolved against 16px.*
+
+### Phase 2 — Semantic token migration (§3b)
+
+- [ ] **2.1** Add missing semantic slots (`--surface-dark`, `--text-link`, `--accent`, `--border-default`, input tokens, overlay tokens); consolidate duplicates; fix `__hover` naming
+- [ ] **2.2** Migrate components off primitive tokens, file-by-file
+- [ ] **2.3** Contrast audit (axe / Lighthouse) once tokens settle; fix fine-print + placeholder contrast (M10)
+
+### Phase 3 — Layout & landmark structure
+
+- [ ] **3.1** Remove `body { position: absolute }`; normal flow + centered main — **fixes broken `/contact` desktop** (C5)
+- [ ] **3.2** Restructure homepage so `<main id="main-content">` wraps Hero→Newsletter (move main out of TwoColWrapper); tidy TwoColWrapper markup (M7)
+- [ ] **3.3** Nav visibility on light pages (C10): give Nav a variant (dark text / solid background) for non-hero pages, or a scroll-aware background
+- [ ] **3.4** Standardize breakpoints (M8)
+- [ ] **3.5** Re-screenshot everything
+
+### Phase 4 — Pages & content
+
+- [ ] **4.1** Build `/about` page — real bio (Dana's story, decades of activism, the founded orgs), timeline or milestones, photos, and a small press/media block (headshots + boilerplate + booking CTA)
+- [ ] **4.2** Replace About-section lorem ipsum with a 2–3 sentence hook that leads to `/about`
+- [ ] **4.3** Write six real project card blurbs
+- [ ] **4.4** Build `404.astro`
+- [ ] **4.5** Contact page h1 (H14)
+
+### Phase 5 — Forms that actually work
+
+- [ ] **5.1** Contact form: honeypot, success state/redirect (`/contact/thanks` or inline), select chevron, `user-invalid` error styling — then **verify on a Netlify deploy** (forms only work there)
+- [ ] **5.2** Newsletter: pick ESP (double opt-in), wire the form (or switch it to a second Netlify form as an interim), success/error feedback
+- [ ] **5.3** Add privacy page; link from both forms + footer
+
+### Phase 6 — SEO & meta
+
+- [ ] **6.1** Rebuild JSON-LD as frontmatter object + `set:html` (C2); fill real `sameAs` URLs (Wikipedia, X, Facebook, Instagram); per-page types
+- [ ] **6.2** Design & generate real OG image (1200×630), drop in `public/images/` (C3)
+- [ ] **6.3** `site` in astro.config + `@astrojs/sitemap`; delete hand-written sitemap; align robots.txt; pick canonical host + Netlify redirect (H9)
+- [ ] **6.4** Favicon set: `.ico` fallback, `apple-touch-icon`, manifest (M3); viewport `initial-scale=1` (M2)
+- [ ] **6.5** Decide analytics (privacy-first) or remove GTM dns-prefetch (M1)
+
+### Phase 7 — Performance, fonts, hardening, cleanup
+
+- [ ] **7.1** Fix About/NewsBlock image CLS — use `<Image>` or explicit width/height (H5)
+- [ ] **7.2** Font pass: decide Inter vs system stack (H1); fix CD weight mapping (H13); trim preloads
+- [ ] **7.3** Drop `background-attachment: fixed` (H12); reduced-motion guards for smooth scroll + hero underline (M9)
+- [ ] **7.4** Security headers in `netlify.toml` (§4)
+- [ ] **7.5** Remove Tailwind (or wire it) + stale config (H10); update CLAUDE.md
+- [ ] **7.6** Delete junk files (M5) + dead code (M4) + `UI-UX-REVIEW.md`
+- [ ] **7.7** Final pass: Lighthouse (aim 95+ across the board), axe, full-page screenshots both viewports, real-device check
+
+---
+
+*Generated by Claude Code after full code read-through, rendered inspection (Playwright), and production build verification.*
