@@ -42,7 +42,7 @@ Everything below is verified against the actual code/build — file references i
 
 | # | Finding | Where |
 |---|---------|-------|
-| H1 | `--font-body: 'Inter'` but **Inter is never loaded** (no `@font-face`, no import). All body text silently falls back to `system-ui`. Decide: actually ship Inter (variable, subset, self-hosted) or embrace the system stack and rename the token. | `src/styles/variables.css:98`, `src/styles/global.css` |
+| H1 | ~~`--font-body: 'Inter'` but **Inter is never loaded**~~ **Fixed 2026-07-19:** self-hosted via `@fontsource-variable/inter` (variable wght 100–900, latin subset 48 KB), token updated to `'Inter Variable'`. | `src/styles/variables.css:98`, `src/layouts/Layout.astro:2` |
 | H2 | Homepage `<title>` is `"DanaLarsen | …"` — missing space, and inconsistent with the Layout default ("Dana Larsen — Vancouver drug policy reform activist"). | `src/pages/index.astro:51` |
 | H3 | On the homepage, `<main id="main-content">` (inside TwoColWrapper) only wraps Projects + sidebar. **Hero, About, and Newsletter live outside `<main>`** — wrong landmark structure, and the skip link skips past nothing useful. | `src/components/TwoColWrapper.astro:5`, `src/pages/index.astro:52-77` |
 | H4 | `/news` renders `<Footer />` **after `</Layout>`**, i.e. outside `<html>`. Browsers re-parent it, but it's invalid HTML. | `src/pages/news.astro:67` |
@@ -189,7 +189,7 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 ### Phase 7 — Performance, fonts, hardening, cleanup
 
 - [ ] **7.1** Fix About/NewsBlock image CLS — use `<Image>` or explicit width/height (H5)
-- [ ] **7.2** Font pass: decide Inter vs system stack (H1); fix CD weight mapping (H13); trim preloads
+- [ ] **7.2** Font pass: ~~decide Inter vs system stack (H1)~~ *(done — Inter Variable via Fontsource, 2026-07-19)*; fix CD weight mapping (H13); trim preloads
 - [ ] **7.3** Drop `background-attachment: fixed` (H12); reduced-motion guards for smooth scroll + hero underline (M9)
 - [ ] **7.4** Security headers in `netlify.toml` (§4)
 - [ ] **7.5** Remove Tailwind (or wire it) + stale config (H10); update CLAUDE.md
