@@ -27,7 +27,6 @@
 }
 
 html {
-  font-size: 62.5%;
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
@@ -62,7 +61,7 @@ main {
 h1 {
   font-family: var(--font-header);
   color: var(--text-title-ondark);
-  font-size: clamp(5.2rem, calc(6vw + 1rem), 8rem);
+  font-size: clamp(3.25rem, calc(6vw + 0.625rem), 5rem);
   letter-spacing: -1px;
   line-height: 113%;
   text-wrap: balance;
@@ -133,7 +132,7 @@ a {
   }
 
   h1 {
-    font-size: clamp(3.8rem, calc(6vw + 1rem), 6rem);
+    font-size: clamp(2.375rem, calc(6vw + 0.625rem), 3.75rem);
     letter-spacing: -0.5px;
     line-height: 116%;
     /* text-wrap: balance; */

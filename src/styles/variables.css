@@ -82,30 +82,30 @@
   --news-divider: 1px solid var(--neutral-300);
 
   /* Spacing */
-  --sp-01: 0.4rem;
-  --sp-02: 0.8rem;
-  --sp-03: 1.2rem;
-  --sp-04: 1.6rem;
-  --sp-05: 2.4rem;
-  --sp-06: 3.2rem;
-  --layout-01: clamp(2.8rem, 4vw, 3.2rem);
-  --layout-02: clamp(4.2rem, 4.5vw, 4.8rem);
-  --layout-03: clamp(5.5rem, 5vw, 7.4rem);
-  --section-block: clamp(10rem, 8vw, 15rem);
-  --section-inline: clamp(3.2rem, 4.5vw, 4.2rem);
-  --section-width: min(100%, 108rem);
-  --max-width: min(100%, 151.3rem);
+  --sp-01: 0.25rem;
+  --sp-02: 0.5rem;
+  --sp-03: 0.75rem;
+  --sp-04: 1rem;
+  --sp-05: 1.5rem;
+  --sp-06: 2rem;
+  --layout-01: clamp(1.75rem, 4vw, 2rem);
+  --layout-02: clamp(2.625rem, 4.5vw, 3rem);
+  --layout-03: clamp(3.4375rem, 5vw, 4.625rem);
+  --section-block: clamp(6.25rem, 8vw, 9.375rem);
+  --section-inline: clamp(2rem, 4.5vw, 2.625rem);
+  --section-width: min(100%, 67.5rem);
+  --max-width: min(100%, 94.5rem);
 
   /* Typography */
   --font-header: 'CD', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
 
   /* Font sizes */
-  --font-01: 1.4rem;
-  --font-02: 1.6rem;
-  --font-03: 1.8rem;
-  --font-04: clamp(2.3rem, 3vw, 2.4rem);
-  --font-05: clamp(2.5rem, 4vw, 4rem);
+  --font-01: 0.875rem;
+  --font-02: 1rem;
+  --font-03: 1.125rem;
+  --font-04: clamp(1.4375rem, 3vw, 1.5rem);
+  --font-05: clamp(1.5625rem, 4vw, 2.5rem);
 
   /* Font weights */
   --font-weight-normal: 400;
@@ -118,7 +118,7 @@
   --line-height-loose: 1.75;
 
   /* Rounded Corners */
-  --br-01: 0.4rem;
-  --br-02: 0.8rem;
-  --br-03: 1.2rem;
+  --br-01: 0.25rem;
+  --br-02: 0.5rem;
+  --br-03: 0.75rem;
 }
