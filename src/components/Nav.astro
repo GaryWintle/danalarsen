@@ -176,9 +176,10 @@ const { variant = 'ondark' } = Astro.props
     z-index: 5;
   }
 
-  /* onlight: dark script + links, teal icons, warm hover underline */
+  /* onlight: dark script + links, darker leaf + icons, warm underline */
   nav.onlight {
     --logo-ink: var(--text-strong);
+    --logo-leaf: var(--text-link);
     --social-ink: var(--text-link);
     --nav-ink: var(--text-strong);
     --nav-underline: var(--accent-warm);
