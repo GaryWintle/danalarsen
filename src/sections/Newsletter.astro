@@ -95,6 +95,11 @@ import Button from '@components/Button.astro'
   }
 
   .weed-leaf {
+    /* themed so the watermark stays equally quiet in both modes — the
+       SVG's hardcoded hex was a fixed light cyan that would brighten
+       against a dark card instead of staying a soft accent */
+    --leaf-tint: var(--text-link);
+
     position: absolute;
     bottom: -15%;
     right: -10%;

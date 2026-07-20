@@ -113,6 +113,16 @@ const schema = {
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- id lets theme-init.js / ThemeToggle keep this in sync with the
+         effective theme (override or system) — a plain media-attribute
+         pair can't do that, since it can only see the OS state, not an
+         explicit in-page override. Light is the correct default here:
+         it's what a no-JS visitor gets, matching color-scheme's default.
+         Must appear before theme-init.js so that script can find it. -->
+    <meta name="theme-color" id="theme-color-meta" content="#0087a5" />
+    <!-- Blocking on purpose: applies a saved theme override before first
+         paint. See public/theme-init.js for why this can't be inline. -->
+    <script is:inline src="/theme-init.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Device block customization -->
@@ -121,7 +131,6 @@ const schema = {
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <meta name="theme-color" content="#0087a5" />
     <title>{title}</title>
 
     <meta name="description" content={desc} />

@@ -114,6 +114,11 @@ const desktopWebp = await getImage({ src: heroDesktop, format: 'webp' })
   }
 
   .hero-divider {
+    /* The wave's fill must always match the page background below it —
+       hook it to the themed token, not the raw (unthemed) primitive the
+       SVG falls back to. */
+    --divider-base: var(--bg-page);
+
     position: absolute;
     bottom: -25px;
     left: 50%;

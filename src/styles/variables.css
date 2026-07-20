@@ -22,61 +22,90 @@
    60rem = 960px (small desktop / stacked layouts) · 75rem = 1200px (desktop) */
 
 :root {
+  /* Default: light. The cascade below (after this block) upgrades this
+     to dark for system preference and/or the user's saved toggle choice.
+     Browsers without light-dark() support just stay light — every themed
+     token's plain first declaration (see below) is their fallback. */
+  color-scheme: light;
+
   /* ==================== PRIMITIVES ==================== */
 
   /* Brand orange ramp */
   --orange-100: oklch(80% 0.15 65);
   --orange-200: oklch(
     67% 0.17 48
-  ); /* vivid — decorative only, fails under white text */
-  --orange-300: oklch(64% 0.17 37); /* graphics on light bg (3.2:1) */
-  --orange-400: oklch(59% 0.18 40); /* text-safe: 4.9:1 under white */
+  ); /* vivid — decorative on light; text-safe on dark surfaces (5.5:1) */
+  --orange-300: oklch(64% 0.17 37); /* graphics: 3.2:1 light / 4.9:1 dark */
+  --orange-400: oklch(
+    55% 0.18 40
+  ); /* text-safe: 4.65:1 on bg-page, 4.93:1 under white */
 
   /* Brand blue ramp */
   --blue-100: oklch(84% 0.18 190); /* bright cyan — highlights on dark only */
-  --blue-200: oklch(67% 0.13 210); /* mid teal — decorative tints, glows */
+  --blue-200: oklch(
+    67% 0.13 210
+  ); /* mid teal — decorative on light; titles/links on dark (6.3:1) */
   --blue-300: oklch(
-    52% 0.14 217
-  ); /* text-safe: 4.5:1 on page bg, 4.8:1 under white */
+    51% 0.14 217
+  ); /* text-safe: 4.5:1 on light page, 4.8:1 under white */
   --blue-400: oklch(47% 0.11 220); /* dark surface: white text gets 6:1 */
 
-  /* Neutral / gray-blue scale */
+  /* Neutral / gray-blue scale (100–600 light-mode, 700–800 dark-mode) */
   --neutral-100: oklch(98% 0 237);
   --neutral-200: oklch(96% 0.006 240);
   --neutral-300: oklch(92% 0.015 227);
   --neutral-400: oklch(
     76% 0.025 237
-  ); /* decorative only — fails as text (2:1) */
-  --neutral-450: oklch(53% 0.02 237); /* quietest text-safe gray */
+  ); /* fails as text on light (2:1); muted text on dark (7:1) */
+  --neutral-450: oklch(53% 0.02 237); /* quietest text-safe gray on light */
   --neutral-500: oklch(47% 0.025 237);
   --neutral-600: oklch(32% 0.027 242);
+  --neutral-700: oklch(27% 0.025 240); /* dark-mode card surface */
+  --neutral-800: oklch(21% 0.02 240); /* dark-mode page */
 
   /* ==================== SEMANTIC ==================== */
+  /* Themed tokens are declared twice: a plain light value first (the
+     fallback for browsers without light-dark(), ~pre-2024), then a
+     light-dark(light, dark) pair. Which side applies is driven purely
+     by `color-scheme` — the theme toggle just flips that. */
 
   /* Surfaces */
   --bg-page: var(--neutral-200);
+  --bg-page: light-dark(var(--neutral-200), var(--neutral-800));
   --bg-surface: var(--neutral-100);
-  --surface-dark: var(--blue-400); /* footer, drawer, CTA bands, form headers */
+  --bg-surface: light-dark(var(--neutral-100), var(--neutral-700));
+  --surface-dark: var(--blue-400); /* footer, drawer, CTA bands — both themes */
+  /* Barely-there structural tint: ghost watermarks, rail track,
+     placeholder blocks — slightly offset from the page in each theme */
+  --surface-tint: var(--neutral-300);
+  --surface-tint: light-dark(var(--neutral-300), var(--neutral-700));
 
-  /* Text on light surfaces */
+  /* Text on themed surfaces */
   --text-title: var(--blue-300);
+  --text-title: light-dark(var(--blue-300), var(--blue-200));
   --text-body: var(--neutral-500);
+  --text-body: light-dark(var(--neutral-500), var(--neutral-300));
   --text-strong: var(--neutral-600); /* form labels, values, emphasized meta */
+  --text-strong: light-dark(var(--neutral-600), var(--neutral-200));
   --text-muted: var(--neutral-450); /* fine print, placeholders, dimmed items */
+  --text-muted: light-dark(var(--neutral-450), var(--neutral-400));
 
-  /* Text on dark surfaces */
+  /* Text on the always-dark surfaces (footer, drawer, CTA bands) */
   --text-title-ondark: var(--neutral-100);
   --text-body-ondark: var(--neutral-200);
 
   /* Links */
   --text-link: var(--blue-300);
+  --text-link: light-dark(var(--blue-300), var(--blue-200));
   --text-link-hover: var(--blue-400);
+  --text-link-hover: light-dark(var(--blue-400), var(--blue-100));
 
   /* Accents */
   --accent: var(--blue-100); /* bright highlight — dark surfaces only */
-  --accent-warm: var(--orange-400); /* orange text & active markers on light */
+  --accent-warm: var(--orange-400); /* orange text & active markers */
+  --accent-warm: light-dark(var(--orange-400), var(--orange-200));
 
-  /* Buttons */
+  /* Buttons — identical in both themes (self-contained contrast) */
   --button-primary: var(--orange-400);
   --button-primary-hover: oklch(from var(--orange-400) calc(l - 0.05) c h);
   --button-secondary: var(--blue-300);
@@ -85,11 +114,16 @@
 
   /* Forms */
   --input-bg: var(--neutral-200);
+  --input-bg: light-dark(var(--neutral-200), var(--neutral-800));
   --input-focus: var(--blue-300);
+  --input-focus: light-dark(var(--blue-300), var(--blue-200));
   --input-error: oklch(52% 0.19 27);
+  --input-error: light-dark(oklch(52% 0.19 27), oklch(65% 0.19 27));
 
   /* Borders */
-  --border-default: 1px solid var(--neutral-300);
+  --border-color: var(--neutral-300);
+  --border-color: light-dark(var(--neutral-300), var(--neutral-600));
+  --border-default: 1px solid var(--border-color);
 
   /* Accessibility — currentColor adapts to any surface automatically */
   --focus-ring: 2px solid currentColor;
@@ -101,26 +135,85 @@
     transparent 20%
   );
 
-  /* Shadows */
+  /* Shadows — tinted brand-blue on light (barely-there, matches the site's
+     soft aesthetic). On dark, blue-300 is LIGHTER than the page, so the
+     same tint would read as a glow instead of a shadow: dark mode swaps
+     to black, at higher alpha so it still reads against an already-dark
+     page. Elevation there leans on --bg-surface being lighter than
+     --bg-page as the primary cue; the shadow reinforces it. */
   --shadow-shallow:
-    0 1px 2px oklch(from var(--blue-300) l c h / 0.01),
-    0 3px 5px oklch(from var(--blue-300) l c h / 0.02),
-    0 4px 15px oklch(from var(--blue-300) l c h / 0.04);
+    0 1px 2px
+      light-dark(
+        oklch(from var(--blue-300) l c h / 0.01),
+        oklch(0% 0 0 / 0.16)
+      ),
+    0 3px 5px
+      light-dark(
+        oklch(from var(--blue-300) l c h / 0.02),
+        oklch(0% 0 0 / 0.22)
+      ),
+    0 4px 15px
+      light-dark(
+        oklch(from var(--blue-300) l c h / 0.04),
+        oklch(0% 0 0 / 0.28)
+      );
 
   --shadow-drop-mid: drop-shadow(
-      0 2px 4px oklch(from var(--blue-300) l c h / 0.02)
+      0 2px 4px
+        light-dark(
+          oklch(from var(--blue-300) l c h / 0.02),
+          oklch(0% 0 0 / 0.2)
+        )
     )
-    drop-shadow(0 6px 8px oklch(from var(--blue-300) l c h / 0.03))
-    drop-shadow(0 10px 20px oklch(from var(--blue-300) l c h / 0.04));
+    drop-shadow(
+      0 6px 8px
+        light-dark(
+          oklch(from var(--blue-300) l c h / 0.03),
+          oklch(0% 0 0 / 0.26)
+        )
+    )
+    drop-shadow(
+      0 10px 20px
+        light-dark(
+          oklch(from var(--blue-300) l c h / 0.04),
+          oklch(0% 0 0 / 0.32)
+        )
+    );
 
   --shadow-mid:
-    0 2px 4px oklch(from var(--blue-300) l c h / 0.02),
-    0 6px 8px oklch(from var(--blue-300) l c h / 0.03),
-    0 10px 20px oklch(from var(--blue-300) l c h / 0.04);
+    0 2px 4px
+      light-dark(
+        oklch(from var(--blue-300) l c h / 0.02),
+        oklch(0% 0 0 / 0.2)
+      ),
+    0 6px 8px
+      light-dark(
+        oklch(from var(--blue-300) l c h / 0.03),
+        oklch(0% 0 0 / 0.26)
+      ),
+    0 10px 20px
+      light-dark(
+        oklch(from var(--blue-300) l c h / 0.04),
+        oklch(0% 0 0 / 0.32)
+      );
   --shadow-deep:
-    0 2px 3px oklch(from var(--blue-300) l c h / 0.04),
-    0 7px 12px oklch(from var(--blue-300) l c h / 0.05),
-    0 12px 35px oklch(from var(--blue-300) l c h / 0.08);
+    0 2px 3px
+      light-dark(
+        oklch(from var(--blue-300) l c h / 0.04),
+        oklch(0% 0 0 / 0.3)
+      ),
+    0 7px 12px
+      light-dark(
+        oklch(from var(--blue-300) l c h / 0.05),
+        oklch(0% 0 0 / 0.36)
+      ),
+    0 12px 35px
+      light-dark(
+        oklch(from var(--blue-300) l c h / 0.08),
+        oklch(0% 0 0 / 0.44)
+      );
+  /* Button shadows stay fixed — buttons are the same two brand colors,
+     with their own baked-in contrast, in both themes. */
   --button-primary-shadow:
     inset 0 1px 1px oklch(from var(--orange-100) l c h / 0.4),
     0 2px 3px oklch(from var(--orange-300) l c h / 0.1);
@@ -168,4 +261,28 @@
   --br-01: 0.25rem;
   --br-02: 0.5rem;
   --br-03: 0.75rem;
+}
+
+/* ============================================================
+   THEME RESOLUTION — the only place `color-scheme` gets set.
+   Every light-dark() pair in :root reads this to decide which side wins.
+
+   Priority, low to high:
+   1. color-scheme: light   (the :root default above)
+   2. system preference     (prefers-color-scheme: dark, if no override)
+   3. saved user override   (html[data-theme] — set by theme-init.js
+                              before first paint, and by ThemeToggle on click)
+
+   Both rules below are pure CSS and re-evaluate live: if the user's OS
+   theme changes while the page is open and they haven't explicitly
+   toggled, the site follows automatically — no JS involved.
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
 }

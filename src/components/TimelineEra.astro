@@ -69,7 +69,7 @@ const ghost = Astro.props.ghost ?? years.match(/\d{4}/)?.[0] ?? years
     font-family: var(--font-header);
     font-size: clamp(5rem, 12vw, 9rem);
     line-height: 1;
-    color: var(--neutral-300);
+    color: var(--surface-tint);
     user-select: none;
     pointer-events: none;
   }
@@ -84,8 +84,8 @@ const ghost = Astro.props.ghost ?? years.match(/\d{4}/)?.[0] ?? years
   .media-placeholder {
     display: grid;
     place-items: center;
-    background: var(--neutral-300);
-    border: 1px dashed var(--neutral-400);
+    background: var(--surface-tint);
+    border: 1px dashed var(--border-color);
   }
 
   .media-placeholder span {

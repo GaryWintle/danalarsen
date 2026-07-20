@@ -3,6 +3,7 @@ import Logo from '@graphics/dl-logo.svg?raw'
 import Facebook from '@graphics/socials/facebook-base.svg?raw'
 import Instagram from '@graphics/socials/instagram-base.svg?raw'
 import X from '@graphics/socials/x-base.svg?raw'
+import ThemeToggle from '@components/ThemeToggle.astro'
 
 interface Props {
   /** 'ondark' (default) overlays the dark hero; 'onlight' is for pages
@@ -50,6 +51,7 @@ const { variant = 'ondark' } = Astro.props
         >
       </li>
     </ul>
+    <ThemeToggle />
   </div>
 
   <button
@@ -110,7 +112,9 @@ const { variant = 'ondark' } = Astro.props
     >
       <div set:html={Logo} />
     </a>
-    <button class="drawer-close" aria-label="Close menu">
+    <div class="drawer-header-actions">
+      <ThemeToggle />
+      <button class="drawer-close" aria-label="Close menu">
       <svg
         width="24"
         height="24"
@@ -135,7 +139,8 @@ const { variant = 'ondark' } = Astro.props
           stroke-width="2"
           stroke-linecap="round"></line>
       </svg>
-    </button>
+      </button>
+    </div>
   </div>
 
   <ul class="drawer-links">
@@ -375,6 +380,18 @@ const { variant = 'ondark' } = Astro.props
     justify-content: space-between;
     align-items: center;
     padding-block: 0;
+  }
+
+  .drawer-header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-03);
+  }
+
+  /* The drawer sits outside <nav>, so it doesn't inherit the variant's
+     --social-ink — pin it to the drawer's own (always-dark) ink instead. */
+  .drawer-header-actions .theme-toggle {
+    color: var(--text-title-ondark);
   }
 
   .drawer-logo {

@@ -1,0 +1,234 @@
+---
+// No props — self-contained. Safe to render more than once per page
+// (desktop nav + mobile drawer both use it); the script below finds
+// every instance and keeps them in sync.
+---
+
+<button
+  class="theme-toggle"
+  type="button"
+  data-theme-toggle
+  aria-label="Switch to dark mode"
+>
+  <svg
+    class="icon icon-sun"
+    viewBox="0 0 24 24"
+    fill="none"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"
+    ></circle>
+    <line
+      x1="12"
+      y1="2"
+      x2="12"
+      y2="4.5"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"></line>
+    <line
+      x1="12"
+      y1="19.5"
+      x2="12"
+      y2="22"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"></line>
+    <line
+      x1="4.22"
+      y1="4.22"
+      x2="5.94"
+      y2="5.94"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"></line>
+    <line
+      x1="18.06"
+      y1="18.06"
+      x2="19.78"
+      y2="19.78"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"></line>
+    <line
+      x1="2"
+      y1="12"
+      x2="4.5"
+      y2="12"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"></line>
+    <line
+      x1="19.5"
+      y1="12"
+      x2="22"
+      y2="12"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"></line>
+    <line
+      x1="4.22"
+      y1="19.78"
+      x2="5.94"
+      y2="18.06"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"></line>
+    <line
+      x1="18.06"
+      y1="5.94"
+      x2="19.78"
+      y2="4.22"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"></line>
+  </svg>
+  <svg
+    class="icon icon-moon"
+    viewBox="0 0 24 24"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"
+      fill="currentColor"></path>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    color: var(--social-ink);
+    cursor: pointer;
+    transition: opacity 200ms ease;
+  }
+
+  .theme-toggle:hover {
+    opacity: 0.75;
+  }
+
+  .theme-toggle:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 3px;
+  }
+
+  .icon {
+    position: absolute;
+    width: 1.125rem;
+    height: 1.125rem;
+    transition:
+      opacity 300ms ease,
+      rotate 300ms ease,
+      scale 300ms ease;
+  }
+
+  .icon-moon {
+    opacity: 0;
+    rotate: -70deg;
+    scale: 0.5;
+  }
+
+  /* Dark is active when the user explicitly chose it... */
+  :global(:root[data-theme='dark']) .icon-sun {
+    opacity: 0;
+    rotate: 70deg;
+    scale: 0.5;
+  }
+  :global(:root[data-theme='dark']) .icon-moon {
+    opacity: 1;
+    rotate: 0deg;
+    scale: 1;
+  }
+
+  /* ...or when the system prefers it and nothing overrides that —
+     mirrors the exact cascade in variables.css so the icon always
+     matches the theme that's actually rendering. */
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .icon-sun {
+      opacity: 0;
+      rotate: 70deg;
+      scale: 0.5;
+    }
+    :global(:root:not([data-theme='light'])) .icon-moon {
+      opacity: 1;
+      rotate: 0deg;
+      scale: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .icon {
+      transition: opacity 150ms ease;
+      rotate: 0deg;
+      scale: 1;
+    }
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>(
+    '[data-theme-toggle]',
+  )
+
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)')
+
+  // Mirrors theme-init.js — the meta tag has no CSS equivalent, so it
+  // needs updating here too whenever the user actively toggles.
+  const DARK_COLOR = '#101a21'
+  const LIGHT_COLOR = '#0087a5'
+  const themeColorMeta = document.getElementById('theme-color-meta')
+
+  const effectiveTheme = (): 'light' | 'dark' => {
+    const saved = document.documentElement.getAttribute('data-theme')
+    if (saved === 'light' || saved === 'dark') return saved
+    return prefersDark.matches ? 'dark' : 'light'
+  }
+
+  const syncLabels = () => {
+    const next = effectiveTheme() === 'dark' ? 'light' : 'dark'
+    buttons.forEach((btn) => {
+      btn.setAttribute('aria-label', `Switch to ${next} mode`)
+    })
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const next = effectiveTheme() === 'dark' ? 'light' : 'dark'
+      document.documentElement.setAttribute('data-theme', next)
+      try {
+        localStorage.setItem('theme', next)
+      } catch {
+        // Storage blocked — the choice just won't persist across visits.
+      }
+      themeColorMeta?.setAttribute(
+        'content',
+        next === 'dark' ? DARK_COLOR : LIGHT_COLOR,
+      )
+      syncLabels()
+    })
+  })
+
+  // Keep the label correct if the user changes their OS theme with no
+  // saved override in play (the icon itself re-renders via CSS alone).
+  prefersDark.addEventListener('change', (e) => {
+    let saved: string | null = null
+    try {
+      saved = localStorage.getItem('theme')
+    } catch {
+      // Storage blocked — treat as "no override," same as theme-init.js.
+    }
+    if (saved) return
+    syncLabels()
+    themeColorMeta?.setAttribute('content', e.matches ? DARK_COLOR : LIGHT_COLOR)
+  })
+
+  syncLabels()
+</script>

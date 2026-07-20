@@ -235,7 +235,6 @@ const eras = [
     display: flex;
     flex-direction: column;
   }
-
   .hero-media {
     aspect-ratio: 21 / 9;
     width: 100%;
@@ -255,8 +254,8 @@ const eras = [
   .media-placeholder {
     display: grid;
     place-items: center;
-    background: var(--neutral-300);
-    border: 1px dashed var(--neutral-400);
+    background: var(--surface-tint);
+    border: 1px dashed var(--border-color);
     border-radius: var(--br-02);
   }
 
@@ -276,8 +275,6 @@ const eras = [
     max-width: 22ch;
     padding-block: var(--layout-03);
   }
-
-  .about-image
 
   /* ---------------- Career timeline ---------------- */
 
@@ -320,7 +317,7 @@ const eras = [
     grid-column: 1;
     position: relative;
     width: 2px;
-    background: var(--neutral-300);
+    background: var(--border-color);
     border-radius: 1px;
   }
 
@@ -359,7 +356,7 @@ const eras = [
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--neutral-450);
+    background: var(--border-color);
     box-shadow: 0 0 0 3px var(--bg-page);
     transition:
       background-color 250ms ease,
