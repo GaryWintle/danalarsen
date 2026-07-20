@@ -1,0 +1,86 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Nav from '@components/Nav.astro'
+import Footer from '@components/Footer.astro'
+import Button from '@components/Button.astro'
+---
+
+<Layout
+  title="Page Not Found | Dana Larsen"
+  description="That page doesn't exist — but everything worth finding is still here."
+  noindex={true}
+>
+  <Nav />
+  <main id="main-content" class="notfound-page">
+    <div class="notfound-inner">
+      <span class="ghost-code" aria-hidden="true">404</span>
+      <h1>This page went up in smoke.</h1>
+      <p>
+        The address may have changed, or the link was mistyped. Nothing else
+        is broken — everything worth finding is still here.
+      </p>
+      <div class="notfound-actions">
+        <Button color="primary" href="/">Back to Home</Button>
+        <Button color="secondary" href="/news">See Dana in the Media</Button>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .notfound-page {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    padding-block: var(--section-block);
+    padding-inline: var(--section-inline);
+    min-height: 70vh;
+  }
+
+  .notfound-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-04);
+    text-align: center;
+    padding-block-start: var(--layout-03);
+  }
+
+  /* Ghost number, echoing the timeline's watermark years.
+     Deliberate primitive: decorative, no one reads it. */
+  .ghost-code {
+    position: absolute;
+    top: -0.18em;
+    left: 50%;
+    translate: -50% 0;
+    z-index: -1;
+    font-family: var(--font-header);
+    font-size: clamp(7rem, 22vw, 14rem);
+    line-height: 1;
+    color: var(--neutral-300);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  h1 {
+    color: var(--text-title);
+    font-size: var(--font-05);
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  p {
+    max-width: 45ch;
+  }
+
+  .notfound-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--sp-04);
+    margin-block-start: var(--sp-05);
+  }
+</style>

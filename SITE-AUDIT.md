@@ -171,7 +171,7 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 - [ ] **4.1** Build `/about` page — *structure shipped 2026-07-20 from Gary's Figma concept:* scrollytelling career timeline with a sticky rail (desktop: vertical spine with orange progress fill + passed/active node states; mobile: sticky horizontal year bar with progress underline), 8 era blocks with ghost-year watermarks and rise-in reveals (reduced-motion safe, content never JS-gated), photo band + pull-quote, closing CTA to /contact and /news. Vanilla IntersectionObserver — no GSAP, no scroll-jacking (deliberate). **Remaining: verify all era dates/titles with Dana, replace lorem copy + gray placeholders with real photos, consider a press-kit block.** Also fixed site-wide: `body` overflow-x `hidden`→`clip` (hidden silently broke `position: sticky` everywhere)
 - [ ] **4.2** Replace About-section lorem ipsum with a 2–3 sentence hook that leads to `/about`
 - [ ] **4.3** Write six real project card blurbs
-- [ ] **4.4** Build `404.astro`
+- [x] **4.4** *(done 2026-07-20)* `404.astro` — ghost-number motif from the timeline, on-brand copy ("This page went up in smoke."), routes to home + media page. noindex, excluded from sitemap, serves with a real HTTP 404 status (verified on preview; Netlify uses `dist/404.html` the same way)
 - [ ] **4.5** Contact page h1 (H14)
 
 ### Phase 5 — Forms that actually work
