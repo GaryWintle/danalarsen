@@ -31,3 +31,9 @@ Unconfirmed *.crdownload*
 
 # Playwright MCP logs
 .playwright-mcp/
+
+# Lighthouse CLI on WSL sometimes resolves its Chrome temp-profile path
+# literally instead of translating it, dropping a Windows-style
+# "C:\Users\..." directory (a full Chrome profile — thousands of files)
+# into the repo root. Ignore defensively; delete on sight if it appears.
+C:*
