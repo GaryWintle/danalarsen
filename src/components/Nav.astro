@@ -3,9 +3,17 @@ import Logo from '@graphics/dl-logo.svg?raw'
 import Facebook from '@graphics/socials/facebook-base.svg?raw'
 import Instagram from '@graphics/socials/instagram-base.svg?raw'
 import X from '@graphics/socials/x-base.svg?raw'
+
+interface Props {
+  /** 'ondark' (default) overlays the dark hero; 'onlight' is for pages
+      with a light background — dark logo script, dark links, teal icons */
+  variant?: 'ondark' | 'onlight'
+}
+
+const { variant = 'ondark' } = Astro.props
 ---
 
-<nav aria-label="Primary navigation">
+<nav class:list={[variant]} aria-label="Primary navigation">
   <a href="/" class="logo-link" aria-label="Dana Larsen - Return to homepage">
     <div class="logo" set:html={Logo} /></a
   >
@@ -148,6 +156,13 @@ import X from '@graphics/socials/x-base.svg?raw'
 
 <style>
   nav {
+    /* Variant contract — the inlined logo/social SVGs read these vars.
+       ondark (default): white script, bright cyan accents for the hero. */
+    --logo-ink: var(--text-title-ondark);
+    --social-ink: var(--accent);
+    --nav-ink: var(--text-title-ondark);
+    --nav-underline: var(--accent);
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -159,6 +174,14 @@ import X from '@graphics/socials/x-base.svg?raw'
     padding-inline-start: calc(var(--section-inline) / 2);
     padding-block: var(--sp-04);
     z-index: 5;
+  }
+
+  /* onlight: dark script + links, teal icons, warm hover underline */
+  nav.onlight {
+    --logo-ink: var(--text-strong);
+    --social-ink: var(--text-link);
+    --nav-ink: var(--text-strong);
+    --nav-underline: var(--accent-warm);
   }
   .navigation {
     display: flex;
@@ -182,7 +205,7 @@ import X from '@graphics/socials/x-base.svg?raw'
     margin: -0.5rem -0.3125rem;
     font-family: var(--font-body);
     font-size: var(--font-02);
-    color: var(--text-title-ondark);
+    color: var(--nav-ink);
     letter-spacing: 0.2px;
     text-decoration: none;
     font-weight: var(--font-weight-semibold);
@@ -197,7 +220,7 @@ import X from '@graphics/socials/x-base.svg?raw'
     bottom: 0.125rem;
 
     height: 2px;
-    background-color: var(--accent);
+    background-color: var(--nav-underline);
 
     transform: scaleX(0);
     transform-origin: left;
@@ -221,7 +244,7 @@ import X from '@graphics/socials/x-base.svg?raw'
     display: none;
     background: none;
     border: none;
-    color: var(--accent);
+    color: var(--social-ink);
     cursor: pointer;
     padding: var(--sp-02);
     margin: calc(var(--sp-02) * -1);

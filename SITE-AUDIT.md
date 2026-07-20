@@ -37,7 +37,7 @@ Everything below is verified against the actual code/build — file references i
 | C7 | About section is **lorem ipsum**, and its button links to `/about`, which doesn't exist (404). Hero's "About Dana" scrolls to this placeholder. | `src/sections/About.astro:27-34` |
 | C8 | All six project cards share the same placeholder blurb ("A smooth, low-dose mushroom shot…"). Coca Leaf Cafe's label says `cocaleafcafe.com` but links to `cocaleafcafe.ca`. | `src/sections/Projects.astro:17-60` |
 | C9 | Nav & footer links `#projects` / `#about` are **dead on `/contact` and `/news`** (they resolve to `/contact#projects` etc.). Must be `/#projects`, `/#about`. | `src/components/Nav.astro:15-16,76-79`, `src/components/Footer.astro:13-14` |
-| C10 | Nav is white-on-transparent, positioned for the dark hero — on `/contact` and `/news` the links and the script part of the logo are **near-invisible on the light background**. | `src/components/Nav.astro:147-157`, verified via screenshot |
+| C10 | ~~Nav near-invisible on light pages~~ **Fixed 2026-07-20:** Nav has an `onlight` variant (dark logo script, dark links, teal icons, warm hover underline) per Gary's Figma. SVGs expose `--logo-ink`/`--logo-leaf`/`--social-ink` custom-property hooks with the original values as fallbacks, so Footer and the drawer needed zero changes. All light pages pass `variant="onlight"`. | `src/components/Nav.astro`, `src/assets/graphics/` |
 
 ### 🟠 High — wrong, but not visibly on fire
 
@@ -163,7 +163,7 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 
 - [x] **3.1** Remove `body { position: absolute }` *(done 2026-07-19 — body is now a normal full-width flex column with `min-height: 100vh`; nav got `inset-inline: 0; margin-inline: auto` so it centers past 1512px. `/contact` desktop fixed (C5); homepage/news pixel-identical at 390/1440; at 1920px everything now centers properly where the old layout left-anchored. Removed the redundant mobile body re-declaration.)*
 - [x] **3.2** *(done 2026-07-19)* `<main id="main-content">` now lives in `index.astro` wrapping Hero→Newsletter (fixes H3); global `main` is `width: 100%` with width constraints local to each page (TwoColWrapper carries `var(--max-width)` itself) so hero/About stay full-bleed at ultrawide. TwoColWrapper tidied (M7): no more main-in-component, style-in-markup, or section-in-section; dead no-op rules removed
-- [ ] **3.3** Nav visibility on light pages (C10): give Nav a variant (dark text / solid background) for non-hero pages, or a scroll-aware background
+- [x] **3.3** *(done 2026-07-20, from Gary's Figma)* Nav `variant="onlight"` — see C10 in the findings table for the mechanism
 - [x] **3.4** *(done 2026-07-19)* Standardized on four rem media queries — 40rem/640, 48rem/768, 60rem/960, 75rem/1200 — documented at the top of `variables.css`. Mappings: 402→40rem (no-op), 640→40rem, 738→48rem, 768→48rem, 834→60rem (sidebar now stacks ≤960 — coherent with hero's tablet flip), 950→60rem, 1170→75rem; deleted Hero's redundant 1024px block and NewsBlock's empty media query. Hero's `<source media="1024px">` image-switch attributes left as-is (content decision, not a CSS breakpoint)
 - [ ] **3.5** Re-screenshot everything
 
