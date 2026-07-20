@@ -2,7 +2,8 @@
 
 **Date:** July 19, 2026
 **Scope:** Full code read-through + rendered verification (desktop 1440px & mobile 390px, dev server + production build)
-**Supersedes:** `UI-UX-REVIEW.md` (Jan 2026 — most of its findings are now fixed or stale; safe to delete)
+**Supersedes:** `UI-UX-REVIEW.md` (Jan 2026 — deleted)
+**Companion:** `CONTENT-PLAYBOOK.md` — the guide for the remaining content work (OG image, copy, photos, press kit) and the portfolio case-study angle
 
 ---
 
