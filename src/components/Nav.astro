@@ -21,7 +21,7 @@ const { variant = 'ondark' } = Astro.props
   <div class="navigation">
     <ul class="links">
       <li><a class="nav-link" href="/#projects">Projects</a></li>
-      <li><a class="nav-link" href="/#about">About</a></li>
+      <li><a class="nav-link" href="/about">About</a></li>
       <li><a class="nav-link" href="/contact">Contact</a></li>
     </ul>
     <ul class="links social-group">
@@ -58,31 +58,89 @@ const { variant = 'ondark' } = Astro.props
     aria-expanded="false"
     aria-controls="mobile-drawer"
   >
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      <line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <line
+        x1="3"
+        y1="6"
+        x2="21"
+        y2="6"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"></line>
+      <line
+        x1="3"
+        y1="12"
+        x2="21"
+        y2="12"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"></line>
+      <line
+        x1="3"
+        y1="18"
+        x2="21"
+        y2="18"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"></line>
     </svg>
   </button>
 </nav>
 
 <!-- Mobile Drawer -->
-<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true" role="dialog" aria-label="Navigation menu" inert>
+<div
+  class="mobile-drawer"
+  id="mobile-drawer"
+  aria-hidden="true"
+  role="dialog"
+  aria-label="Navigation menu"
+  inert
+>
   <div class="drawer-header">
-    <a href="/" class="drawer-logo" aria-label="Dana Larsen - Return to homepage">
+    <a
+      href="/"
+      class="drawer-logo"
+      aria-label="Dana Larsen - Return to homepage"
+    >
       <div set:html={Logo} />
     </a>
     <button class="drawer-close" aria-label="Close menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+      >
+        <line
+          x1="4"
+          y1="4"
+          x2="20"
+          y2="20"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"></line>
+        <line
+          x1="20"
+          y1="4"
+          x2="4"
+          y2="20"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"></line>
       </svg>
     </button>
   </div>
 
   <ul class="drawer-links">
     <li><a class="drawer-link" href="/#projects">Projects</a></li>
-    <li><a class="drawer-link" href="/#about">About</a></li>
+    <li><a class="drawer-link" href="/about">About</a></li>
     <li><a class="drawer-link" href="/contact">Contact</a></li>
     <li><a class="drawer-link" href="/#newsletter">Newsletter</a></li>
   </ul>
@@ -91,17 +149,32 @@ const { variant = 'ondark' } = Astro.props
     <p class="drawer-follow">Follow Dana</p>
     <ul class="drawer-socials">
       <li>
-        <a href="https://facebook.com/danalarsen" aria-label="Follow Dana Larsen on Facebook" rel="noopener noreferrer" target="_blank">
+        <a
+          href="https://facebook.com/danalarsen"
+          aria-label="Follow Dana Larsen on Facebook"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           <div set:html={Facebook} />
         </a>
       </li>
       <li>
-        <a href="https://instagram.com/danalarsen" aria-label="Follow Dana Larsen on Instagram" rel="noopener noreferrer" target="_blank">
+        <a
+          href="https://instagram.com/danalarsen"
+          aria-label="Follow Dana Larsen on Instagram"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           <div set:html={Instagram} />
         </a>
       </li>
       <li>
-        <a href="https://x.com/danalarsen" aria-label="Follow Dana Larsen on X (formerly Twitter)" rel="noopener noreferrer" target="_blank">
+        <a
+          href="https://x.com/danalarsen"
+          aria-label="Follow Dana Larsen on X (formerly Twitter)"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           <div set:html={X} />
         </a>
       </li>
@@ -143,7 +216,7 @@ const { variant = 'ondark' } = Astro.props
   closeBtn.addEventListener('click', closeDrawer)
   backdrop.addEventListener('click', closeDrawer)
 
-  drawerLinks.forEach(link => {
+  drawerLinks.forEach((link) => {
     link.addEventListener('click', closeDrawer)
   })
 
@@ -343,7 +416,9 @@ const { variant = 'ondark' } = Astro.props
     padding-block: var(--sp-05);
     border-bottom: 1px solid oklch(from var(--text-title-ondark) l c h / 0.15);
     display: block;
-    transition: color 200ms ease, letter-spacing 200ms ease;
+    transition:
+      color 200ms ease,
+      letter-spacing 200ms ease;
     letter-spacing: -1px;
     line-height: 1.1;
   }

@@ -5,6 +5,8 @@ import Footer from '@components/Footer.astro'
 import BackToTop from '@components/BackToTop.astro'
 import Button from '@components/Button.astro'
 import TimelineEra from '@components/TimelineEra.astro'
+import { Image } from 'astro:assets'
+import aboutImage from '@images/image-about-page-header.png'
 
 const fillerCopy = [
   'Lorem ipsum dolor sit amet consectetur. Fames nec semper duis viverra. Viverra volutpat nascetur est quis enim sit. Nulla dignissim duis porta sodales iaculis tellus hendrerit, lobortis tortor elementum pellentesque diam varius faucibus et id ipsum.',
@@ -96,12 +98,15 @@ const eras = [
     </header>
 
     <div class="page-body">
-      <div
-        class="media-placeholder hero-media"
-        role="img"
-        aria-label="Placeholder for a photo of Dana Larsen"
-      >
-        <span>Photo placeholder</span>
+      <div class="hero-media">
+        <Image
+          src={aboutImage}
+          width={1200}
+          format="webp"
+          alt="Dana Larsen speaking with media outside a Vancouver courthouse"
+          class="about-image-header"
+          loading="eager"
+        />
       </div>
 
       <p class="statement">
@@ -231,6 +236,21 @@ const eras = [
     flex-direction: column;
   }
 
+  .hero-media {
+    aspect-ratio: 21 / 9;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--br-02);
+  }
+
+  .about-image-header {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* faces slightly right-of-center in the source — keep the crop there */
+    object-position: 62% center;
+  }
+
   /* Gray placeholder blocks stand in for photos while the shape settles */
   .media-placeholder {
     display: grid;
@@ -246,11 +266,6 @@ const eras = [
     color: var(--text-strong);
   }
 
-  .hero-media {
-    aspect-ratio: 21 / 9;
-    width: 100%;
-  }
-
   .statement {
     font-family: var(--font-header);
     color: var(--text-title);
@@ -261,6 +276,8 @@ const eras = [
     max-width: 22ch;
     padding-block: var(--layout-03);
   }
+
+  .about-image
 
   /* ---------------- Career timeline ---------------- */
 
