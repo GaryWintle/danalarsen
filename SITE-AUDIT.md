@@ -152,11 +152,11 @@ Ordered so we can move through it together. Each phase is a coherent chunk with 
 
 *Conversion notes: exact ÷1.6 preserved everywhere except deliberate micro-rounding: `--max-width` 151.3rem→94.5rem (1513→1512px), nav-link padding 7.5px→8px + underline offset 2.5px→2px, skip-link padding 7.5/15px→8/16px, sub-pixel letter-spacings rewritten in px (0.02rem→0.2px etc.). Rem media queries (`60rem` in news.astro) intentionally untouched — they always resolved against 16px.*
 
-### Phase 2 — Semantic token migration (§3b)
+### Phase 2 — Semantic token migration (§3b) ✅ *(done 2026-07-20)*
 
-- [ ] **2.1** Add missing semantic slots (`--surface-dark`, `--text-link`, `--accent`, `--border-default`, input tokens, overlay tokens); consolidate duplicates; fix `__hover` naming
-- [ ] **2.2** Migrate components off primitive tokens, file-by-file
-- [ ] **2.3** Contrast audit once tokens settle; fix fine-print + placeholder contrast (M10). **Lighthouse-confirmed failures (2026-07-20)** to resolve with the token pass: white text on `--orange-200` (primary buttons), `.news-headline` h3 blue-300 on white at 1rem, `.view-all-link` blue-200 on white, footer links + copyright (white on blue-300 at 0.875rem), about-page rail labels (`--neutral-400`). All need ≥4.5:1 — darken the token or bump size/weight
+- [x] **2.1** Semantic layer rebuilt: added `--surface-dark`, `--text-link(-hover)`, `--text-strong`, `--text-muted`, `--accent`, `--accent-warm`, `--input-bg/-focus`, `--border-default` (replaces 3 duplicate border tokens); `__hover` → `-hover`; hovers now derived via relative color syntax; `--focus-ring` is `currentColor` (self-adapting on any surface). New primitives: `--orange-300/400`, `--blue-400`, `--neutral-450`
+- [x] **2.2** Every component migrated to semantic tokens; remaining primitives are commented, sanctioned decorative uses only (ProjectCard photo tint, rail graphics, placeholders)
+- [x] **2.3** All contrast failures fixed by measurement (canvas-computed WCAG ratios): `--blue-300` 57%→52% (titles/links/headlines pass 4.5), `--blue-400` dark surfaces (white text 5.96), `--orange-400` buttons (4.89), `--neutral-450` muted text (4.66+), rail graphics on `--orange-300` (3.22 ≥3). About CTA's secondary button became an on-dark text link (a blue button can't contrast against the blue band). Bonus fixes: mobile drawer now `inert` when closed (links were tab-reachable while invisible), placeholder labels darkened. **Lighthouse accessibility: 100 on all five pages.** System + practices documented in `src/styles/README.md`
 
 ### Phase 3 — Layout & landmark structure
 

@@ -46,7 +46,7 @@ const { src, title, text, url, href } = Astro.props
     background-color: var(--bg-surface);
     border-radius: var(--br-02);
     box-shadow: var(--shadow-shallow);
-    border: var(--image-border);
+    border: var(--border-default);
     transition:
       transform 280ms ease-out,
       box-shadow 680ms ease-out;
@@ -75,7 +75,7 @@ const { src, title, text, url, href } = Astro.props
 
   .card:hover :global(.card-button),
   .card:focus-within :global(.card-button) {
-    background-color: var(--button-secondary__hover);
+    background-color: var(--button-secondary-hover);
   }
 
   .card-text-container {
@@ -92,6 +92,8 @@ const { src, title, text, url, href } = Astro.props
     aspect-ratio: 4 / 3;
     position: relative;
   }
+  /* Deliberate primitive: this decorative photo tint wants the vivid
+     mid-teal specifically, not whatever --text-link resolves to */
   .card-image-container::after {
     aspect-ratio: 4 / 3;
     content: '';

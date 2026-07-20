@@ -174,7 +174,9 @@ const eras = [
         </p>
         <div class="cta-actions">
           <Button color="primary" href="/contact">Contact Dana</Button>
-          <Button color="secondary" href="/news">See Dana in the Media</Button>
+          <!-- Text link, not a secondary button: on this dark band a
+               blue button would blend into the background -->
+          <a class="cta-link" href="/news">See Dana in the Media</a>
         </div>
       </div>
     </section>
@@ -203,7 +205,7 @@ const eras = [
     font-weight: var(--font-weight-semibold);
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--neutral-500);
+    color: var(--text-muted);
   }
 
   .page-header h1 {
@@ -232,7 +234,7 @@ const eras = [
   .media-placeholder span {
     font-family: var(--font-body);
     font-size: var(--font-01);
-    color: var(--neutral-500);
+    color: var(--text-strong);
   }
 
   .hero-media {
@@ -299,7 +301,7 @@ const eras = [
   .rail-fill {
     position: absolute;
     inset: 0;
-    background: var(--orange-200);
+    background: var(--orange-300);
     border-radius: inherit;
     transform: scaleY(var(--progress, 0));
     transform-origin: top;
@@ -331,7 +333,7 @@ const eras = [
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--neutral-400);
+    background: var(--neutral-450);
     box-shadow: 0 0 0 3px var(--bg-page);
     transition:
       background-color 250ms ease,
@@ -339,18 +341,18 @@ const eras = [
   }
 
   .rail-link.passed::before {
-    background: var(--orange-200);
+    background: var(--orange-300);
   }
 
   .rail-link.passed .rail-years {
-    color: var(--neutral-600);
+    color: var(--text-strong);
   }
 
   .rail-years {
     font-family: var(--font-body);
     font-size: var(--font-01);
     font-weight: var(--font-weight-semibold);
-    color: var(--neutral-500);
+    color: var(--text-muted);
     transition: color 250ms ease;
   }
 
@@ -358,13 +360,13 @@ const eras = [
     font-family: var(--font-body);
     font-size: var(--font-01);
     line-height: 1.35;
-    color: var(--neutral-400);
+    color: var(--text-muted);
     transition: color 250ms ease;
   }
 
   .rail-link:hover .rail-years,
   .rail-link:hover .rail-label {
-    color: var(--blue-200);
+    color: var(--text-link);
   }
 
   .rail-link:focus-visible {
@@ -374,15 +376,15 @@ const eras = [
   }
 
   .rail-link[aria-current='location'] .rail-years {
-    color: var(--orange-200);
+    color: var(--accent-warm);
   }
 
   .rail-link[aria-current='location'] .rail-label {
-    color: var(--neutral-600);
+    color: var(--text-strong);
   }
 
   .rail-link[aria-current='location']::before {
-    background: var(--orange-200);
+    background: var(--orange-300);
     scale: 1.4;
   }
 
@@ -419,8 +421,8 @@ const eras = [
   .about-cta {
     width: 100%;
     background: linear-gradient(
-      oklch(from var(--blue-300) 45% c h),
-      var(--blue-300)
+      oklch(from var(--surface-dark) calc(l + 0.05) c h),
+      var(--surface-dark)
     );
     display: grid;
     place-items: center;
@@ -449,8 +451,29 @@ const eras = [
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: var(--sp-04);
+    align-items: center;
+    gap: var(--sp-05);
     margin-block-start: var(--sp-03);
+  }
+
+  .cta-link {
+    font-family: var(--font-body);
+    font-size: var(--font-02);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-title-ondark);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    padding: var(--sp-03) var(--sp-02);
+  }
+
+  .cta-link:hover {
+    color: var(--accent);
+  }
+
+  .cta-link:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 4px;
+    border-radius: var(--br-01);
   }
 
   /* ---------------- Mobile ---------------- */

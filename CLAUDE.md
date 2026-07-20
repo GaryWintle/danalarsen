@@ -29,7 +29,7 @@ This is Dana Larsen's portfolio website built as a single-page Astro site.
 
 **Styling System:**
 
-- Design tokens defined in `src/styles/variables.css` using CSS custom properties
+- Two-layer design tokens in `src/styles/variables.css`: primitives (`--blue-300`) → semantic roles (`--text-link`). **Components must use semantic tokens only** — see `src/styles/README.md` for the full guide and the contrast contract (every `--text-*` token passes WCAG AA on its documented surface)
 - Colors use oklch() color space for perceptual uniformity
 - Fluid typography/spacing via clamp() functions
 - Styles are scoped within .astro component `<style>` blocks

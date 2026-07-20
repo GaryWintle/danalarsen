@@ -91,7 +91,7 @@ const ghost = Astro.props.ghost ?? years.match(/\d{4}/)?.[0] ?? years
   .media-placeholder span {
     font-family: var(--font-body);
     font-size: var(--font-01);
-    color: var(--neutral-500);
+    color: var(--text-strong);
   }
 
   h2 {
@@ -108,7 +108,7 @@ const ghost = Astro.props.ghost ?? years.match(/\d{4}/)?.[0] ?? years
     font-size: var(--font-01);
     font-weight: var(--font-weight-semibold);
     letter-spacing: 1px;
-    color: var(--blue-200);
+    color: var(--text-link);
   }
 
   .era-years::before,
@@ -116,7 +116,7 @@ const ghost = Astro.props.ghost ?? years.match(/\d{4}/)?.[0] ?? years
     content: '';
     height: 1px;
     width: 3.5rem;
-    background: var(--blue-200);
+    background: var(--text-link);
     opacity: 0.5;
   }
 

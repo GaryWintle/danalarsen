@@ -59,7 +59,7 @@ import X from '@graphics/socials/x-base.svg?raw'
 </nav>
 
 <!-- Mobile Drawer -->
-<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true" role="dialog" aria-label="Navigation menu">
+<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true" role="dialog" aria-label="Navigation menu" inert>
   <div class="drawer-header">
     <a href="/" class="drawer-logo" aria-label="Dana Larsen - Return to homepage">
       <div set:html={Logo} />
@@ -115,6 +115,8 @@ import X from '@graphics/socials/x-base.svg?raw'
     backdrop.classList.add('is-open')
     toggle.setAttribute('aria-expanded', 'true')
     drawer.setAttribute('aria-hidden', 'false')
+    // inert keeps the closed drawer's links out of the tab order
+    drawer.removeAttribute('inert')
     closeBtn.focus()
     document.body.style.overflow = 'hidden'
   }
@@ -124,6 +126,7 @@ import X from '@graphics/socials/x-base.svg?raw'
     backdrop.classList.remove('is-open')
     toggle.setAttribute('aria-expanded', 'false')
     drawer.setAttribute('aria-hidden', 'true')
+    drawer.setAttribute('inert', '')
     toggle.focus()
     document.body.style.overflow = ''
   }
@@ -179,7 +182,7 @@ import X from '@graphics/socials/x-base.svg?raw'
     margin: -0.5rem -0.3125rem;
     font-family: var(--font-body);
     font-size: var(--font-02);
-    color: var(--button-text);
+    color: var(--text-title-ondark);
     letter-spacing: 0.2px;
     text-decoration: none;
     font-weight: var(--font-weight-semibold);
@@ -194,7 +197,7 @@ import X from '@graphics/socials/x-base.svg?raw'
     bottom: 0.125rem;
 
     height: 2px;
-    background-color: var(--blue-200);
+    background-color: var(--accent);
 
     transform: scaleX(0);
     transform-origin: left;
@@ -218,7 +221,7 @@ import X from '@graphics/socials/x-base.svg?raw'
     display: none;
     background: none;
     border: none;
-    color: var(--blue-100);
+    color: var(--accent);
     cursor: pointer;
     padding: var(--sp-02);
     margin: calc(var(--sp-02) * -1);
@@ -240,7 +243,7 @@ import X from '@graphics/socials/x-base.svg?raw'
     right: 0;
     width: 88%;
     height: 100dvh;
-    background: var(--blue-300);
+    background: var(--surface-dark);
     display: flex;
     flex-direction: column;
     padding: var(--sp-04) var(--section-inline);
@@ -257,7 +260,7 @@ import X from '@graphics/socials/x-base.svg?raw'
   .drawer-backdrop {
     position: fixed;
     inset: 0;
-    background: oklch(from var(--blue-300) 20% c h / 0.6);
+    background: oklch(from var(--surface-dark) 20% c h / 0.6);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     opacity: 0;
@@ -285,7 +288,7 @@ import X from '@graphics/socials/x-base.svg?raw'
   .drawer-close {
     background: none;
     border: none;
-    color: var(--neutral-100);
+    color: var(--text-title-ondark);
     cursor: pointer;
     padding: var(--sp-02);
     margin: calc(var(--sp-02) * -1);
@@ -311,10 +314,10 @@ import X from '@graphics/socials/x-base.svg?raw'
   .drawer-link {
     font-family: var(--font-header);
     font-size: 3rem;
-    color: var(--neutral-100);
+    color: var(--text-title-ondark);
     text-decoration: none;
     padding-block: var(--sp-05);
-    border-bottom: 1px solid oklch(from var(--neutral-100) l c h / 0.15);
+    border-bottom: 1px solid oklch(from var(--text-title-ondark) l c h / 0.15);
     display: block;
     transition: color 200ms ease, letter-spacing 200ms ease;
     letter-spacing: -1px;
@@ -322,7 +325,7 @@ import X from '@graphics/socials/x-base.svg?raw'
   }
   .drawer-link:hover,
   .drawer-link:focus-visible {
-    color: var(--blue-100);
+    color: var(--accent);
     letter-spacing: 1px;
   }
   .drawer-link:focus-visible {
@@ -342,7 +345,7 @@ import X from '@graphics/socials/x-base.svg?raw'
     font-family: var(--font-body);
     font-size: var(--font-01);
     font-weight: var(--font-weight-semibold);
-    color: oklch(from var(--neutral-100) l c h / 0.45);
+    color: oklch(from var(--text-title-ondark) l c h / 0.45);
     letter-spacing: 1px;
     text-transform: uppercase;
   }
@@ -358,7 +361,7 @@ import X from '@graphics/socials/x-base.svg?raw'
     justify-content: center;
     padding: var(--sp-04);
     border-radius: var(--br-02);
-    color: var(--neutral-100);
+    color: var(--text-title-ondark);
     transition: opacity 200ms ease;
   }
 

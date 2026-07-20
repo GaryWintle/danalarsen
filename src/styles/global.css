@@ -53,8 +53,8 @@ main {
 }
 
 ::selection {
-  background-color: var(--orange-200);
-  color: var(--neutral-100);
+  background-color: var(--button-primary);
+  color: var(--button-text);
 }
 
 h1 {
@@ -109,14 +109,14 @@ a {
   hyphens: auto;
 }
 .news-source {
-  color: var(--neutral-500);
+  color: var(--text-muted);
   font-size: var(--font-01);
   font-family: var(--font-body);
   line-height: 1.1;
   font-weight: var(--font-weight-semibold);
 }
 .news-date {
-  color: var(--neutral-500);
+  color: var(--text-muted);
   font-size: var(--font-01);
   font-family: var(--font-body);
   font-weight: var(--font-weight-normal);
@@ -144,14 +144,14 @@ a {
     line-height: 1.1;
   }
   .news-source {
-    color: var(--neutral-500);
+    color: var(--text-muted);
     font-size: var(--font-02);
     font-family: var(--font-body);
     line-height: 1.1;
     font-weight: var(--font-weight-semibold);
   }
   .news-date {
-    color: var(--neutral-500);
+    color: var(--text-muted);
     font-size: var(--font-02);
     font-family: var(--font-body);
     font-weight: var(--font-weight-normal);

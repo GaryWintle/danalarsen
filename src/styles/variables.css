@@ -1,62 +1,101 @@
+/* ============================================================
+   DESIGN TOKENS — two layers, one rule.
+
+   1. PRIMITIVES  — raw values ("paint cans"): --blue-300, --sp-04
+   2. SEMANTIC    — roles ("job titles"):      --text-link, --surface-dark
+
+   THE RULE: components only ever use SEMANTIC tokens. Primitives are
+   referenced in this file (by semantic tokens) and, sparingly, for
+   purely decorative touches where the exact hue IS the point.
+
+   Contrast contract (measured, WCAG AA):
+   · every --text-* token passes ≥4.5:1 on the surface named in its comment
+   · --surface-dark keeps white text ≥4.5:1
+   · graphics/borders aim for ≥3:1
+
+   Full guide: src/styles/README.md
+   ============================================================ */
+
 /* Breakpoints — custom properties can't be used in media queries, so these
    are documented here and written as literals wherever @media is used:
    40rem = 640px (phone) · 48rem = 768px (tablet) ·
    60rem = 960px (small desktop / stacked layouts) · 75rem = 1200px (desktop) */
 
 :root {
-  /* SEMANTIC TOKENS */
+  /* ==================== PRIMITIVES ==================== */
 
-  /* Background */
-  --bg-page: var(--neutral-200);
-  --bg-surface: var(--neutral-100);
-
-  /* Type */
-  --text-title: var(--blue-300);
-  --text-title-ondark: var(--neutral-100);
-  --text-body: var(--neutral-500);
-  --text-body-ondark: var(--neutral-200);
-
-  /* Buttons */
-  --button-primary: var(--orange-200);
-  --button-primary__hover: oklch(from var(--orange-200) 72% 0.19 60);
-  --button-secondary: var(--blue-200);
-  --button-secondary__hover: oklch(from var(--blue-200) 77% 0.15 200);
-  --button-text: var(--neutral-100);
-
-  /* Accessibility */
-  --focus-ring: 2px solid oklch(from var(--blue-100) l c h / 0.4);
-
-  /* Forms */
-  --input-error: oklch(52% 0.19 27);
-
-  /* PRIMITIVE TOKENS */
-
-  /* Primary Brand Colors */
+  /* Brand orange ramp */
   --orange-100: oklch(80% 0.15 65);
-  --orange-200: oklch(67% 0.17 48);
-  --orange-300: oklch(64% 0.17 37);
+  --orange-200: oklch(67% 0.17 48); /* vivid — decorative only, fails under white text */
+  --orange-300: oklch(64% 0.17 37); /* graphics on light bg (3.2:1) */
+  --orange-400: oklch(55% 0.17 45); /* text-safe: 4.9:1 under white */
 
-  /* Secondary Brand Colors */
-  --blue-100: oklch(84% 0.18 190);
-  --blue-200: oklch(67% 0.13 210);
-  --blue-300: oklch(57% 0.12 217);
+  /* Brand blue ramp */
+  --blue-100: oklch(84% 0.18 190); /* bright cyan — highlights on dark only */
+  --blue-200: oklch(67% 0.13 210); /* mid teal — decorative tints, glows */
+  --blue-300: oklch(52% 0.12 217); /* text-safe: 4.5:1 on page bg, 4.8:1 under white */
+  --blue-400: oklch(47% 0.11 220); /* dark surface: white text gets 6:1 */
 
-  /* Neutral / Gray Scale */
+  /* Neutral / gray-blue scale */
   --neutral-100: oklch(98% 0 237);
   --neutral-200: oklch(96% 0.006 240);
   --neutral-300: oklch(92% 0.015 227);
-  --neutral-400: oklch(76% 0.025 237);
+  --neutral-400: oklch(76% 0.025 237); /* decorative only — fails as text (2:1) */
+  --neutral-450: oklch(53% 0.02 237); /* quietest text-safe gray */
   --neutral-500: oklch(47% 0.025 237);
   --neutral-600: oklch(32% 0.027 242);
 
-  /* Transparencies */
+  /* ==================== SEMANTIC ==================== */
+
+  /* Surfaces */
+  --bg-page: var(--neutral-200);
+  --bg-surface: var(--neutral-100);
+  --surface-dark: var(--blue-400); /* footer, drawer, CTA bands, form headers */
+
+  /* Text on light surfaces */
+  --text-title: var(--blue-300);
+  --text-body: var(--neutral-500);
+  --text-strong: var(--neutral-600); /* form labels, values, emphasized meta */
+  --text-muted: var(--neutral-450); /* fine print, placeholders, dimmed items */
+
+  /* Text on dark surfaces */
+  --text-title-ondark: var(--neutral-100);
+  --text-body-ondark: var(--neutral-200);
+
+  /* Links */
+  --text-link: var(--blue-300);
+  --text-link-hover: var(--blue-400);
+
+  /* Accents */
+  --accent: var(--blue-100); /* bright highlight — dark surfaces only */
+  --accent-warm: var(--orange-400); /* orange text & active markers on light */
+
+  /* Buttons */
+  --button-primary: var(--orange-400);
+  --button-primary-hover: oklch(from var(--orange-400) calc(l - 0.05) c h);
+  --button-secondary: var(--blue-300);
+  --button-secondary-hover: oklch(from var(--blue-300) calc(l - 0.05) c h);
+  --button-text: var(--neutral-100);
+
+  /* Forms */
+  --input-bg: var(--neutral-200);
+  --input-focus: var(--blue-300);
+  --input-error: oklch(52% 0.19 27);
+
+  /* Borders */
+  --border-default: 1px solid var(--neutral-300);
+
+  /* Accessibility — currentColor adapts to any surface automatically */
+  --focus-ring: 2px solid currentColor;
+
+  /* Overlays */
   --photo-underglow: linear-gradient(
     to top,
     oklch(from var(--blue-100) l c h / 0.2),
     transparent 20%
   );
 
-  /* Shadows*/
+  /* Shadows */
   --shadow-shallow:
     0 1px 2px oklch(from var(--blue-300) l c h / 0.01),
     0 3px 5px oklch(from var(--blue-300) l c h / 0.02),
@@ -82,11 +121,6 @@
   --button-secondary-shadow:
     inset 0 1px 1px oklch(from var(--blue-100) l c h / 0.4),
     0 2px 3px oklch(from var(--blue-300) l c h / 0.08);
-
-  /* Borders */
-  --image-border: 1px solid var(--neutral-300);
-  --news-sidebar-divider: 1px solid var(--neutral-300);
-  --news-divider: 1px solid var(--neutral-300);
 
   /* Spacing */
   --sp-01: 0.25rem;

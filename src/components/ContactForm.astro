@@ -112,7 +112,7 @@ const subheading =
   }
 
   .contact-form-header {
-    background: var(--blue-300);
+    background: var(--surface-dark);
     padding: var(--layout-02) var(--layout-03);
     display: flex;
     flex-direction: column;
@@ -163,14 +163,14 @@ const subheading =
     font-family: var(--font-body);
     font-size: var(--font-01);
     font-weight: var(--font-weight-semibold);
-    color: var(--neutral-600);
+    color: var(--text-strong);
     letter-spacing: 0.4px;
     text-transform: uppercase;
   }
 
   .optional {
     font-weight: var(--font-weight-normal);
-    color: var(--neutral-500);
+    color: var(--text-muted);
     text-transform: none;
     letter-spacing: 0;
   }
@@ -180,9 +180,9 @@ const subheading =
   textarea {
     font-family: var(--font-body);
     font-size: var(--font-02);
-    color: var(--neutral-600);
-    background: var(--neutral-200);
-    border: 1px solid var(--neutral-300);
+    color: var(--text-strong);
+    background: var(--input-bg);
+    border: var(--border-default);
     border-radius: var(--br-02);
     padding: var(--sp-04) var(--sp-05);
     width: 100%;
@@ -203,20 +203,20 @@ const subheading =
 
   /* Placeholder state for the select before a choice is made */
   select:has(option[value='']:checked) {
-    color: var(--neutral-400);
+    color: var(--text-muted);
   }
 
   input::placeholder,
   textarea::placeholder {
-    color: var(--neutral-400);
+    color: var(--text-muted);
   }
 
   input:focus-visible,
   select:focus-visible,
   textarea:focus-visible {
     outline: none;
-    border-color: var(--blue-200);
-    box-shadow: 0 0 0 3px oklch(from var(--blue-200) l c h / 0.15);
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 3px oklch(from var(--input-focus) l c h / 0.15);
   }
 
   /* Only flag fields the visitor has actually interacted with */
@@ -234,19 +234,19 @@ const subheading =
 
   .privacy-note {
     font-size: var(--font-01);
-    color: var(--neutral-500);
+    color: var(--text-muted);
     text-align: center;
     text-wrap: balance;
   }
 
   .privacy-note a {
-    color: var(--neutral-500);
+    color: var(--text-muted);
     text-decoration: underline;
     text-underline-offset: 2px;
   }
 
   .privacy-note a:hover {
-    color: var(--blue-200);
+    color: var(--text-link);
   }
 
   .privacy-note a:focus-visible {

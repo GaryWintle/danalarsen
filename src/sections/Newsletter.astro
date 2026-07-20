@@ -127,7 +127,7 @@ import Button from '@components/Button.astro'
     top: -5.625rem;
     width: 7.5rem;
     height: auto;
-    filter: drop-shadow(0 2px 2px oklch(from var(--blue-300) l c h / 0.1));
+    filter: drop-shadow(0 2px 2px oklch(from var(--text-title) l c h / 0.1));
   }
 
   .dana-icon::before,
@@ -140,7 +140,7 @@ import Button from '@components/Button.astro'
     height: 7.5rem;
     translate: -50% -50%;
     border-radius: 50%;
-    border: 2px solid var(--blue-100);
+    border: 2px solid var(--accent);
     animation: broadcast 6s ease-out infinite;
   }
 
@@ -158,12 +158,12 @@ import Button from '@components/Button.astro'
 
   @keyframes broadcast {
     0% {
-      border: 3px solid var(--blue-100);
+      border: 3px solid var(--accent);
       transform: scale(1);
       opacity: 0.35;
     }
     100% {
-      border: 1px solid var(--blue-100);
+      border: 1px solid var(--accent);
       transform: scale(1.5);
       opacity: 0;
     }
@@ -190,10 +190,10 @@ import Button from '@components/Button.astro'
     font-size: var(--font-04);
     font-family: var(--font-body);
     font-weight: var(--font-weight-semibold);
-    color: var(--blue-200);
-    background-color: oklch(from var(--neutral-100) l c h / 0.7);
+    color: var(--text-strong);
+    background-color: oklch(from var(--bg-surface) l c h / 0.7);
     backdrop-filter: blur(8px);
-    border: var(--image-border);
+    border: var(--border-default);
     padding: var(--sp-04) var(--sp-04);
     border-radius: var(--br-01);
     text-align: center;
@@ -203,11 +203,11 @@ import Button from '@components/Button.astro'
       box-shadow 0.3s ease;
   }
   input::placeholder {
-    color: var(--neutral-400);
+    color: var(--text-muted);
   }
   input:focus-visible {
-    border: 1px solid var(--blue-200);
-    box-shadow: 0 0 0 3px oklch(from var(--blue-200) l c h / 0.2);
+    border: 1px solid var(--input-focus);
+    box-shadow: 0 0 0 3px oklch(from var(--input-focus) l c h / 0.2);
   }
 
   input:user-invalid {
@@ -218,7 +218,7 @@ import Button from '@components/Button.astro'
   .newsletter-status {
     position: relative;
     font-weight: var(--font-weight-semibold);
-    color: var(--blue-300);
+    color: var(--text-title);
   }
 
   .newsletter-status:empty {
@@ -231,17 +231,17 @@ import Button from '@components/Button.astro'
 
   .fine-print {
     font-size: var(--font-01);
-    color: var(--neutral-400);
+    color: var(--text-muted);
   }
 
   .fine-print-link {
-    color: var(--neutral-500);
+    color: var(--text-muted);
     text-decoration: underline;
     text-underline-offset: 2px;
   }
 
   .fine-print-link:hover {
-    color: var(--blue-200);
+    color: var(--text-link);
   }
 
   .fine-print-link:focus-visible {

@@ -36,11 +36,11 @@
     border: none;
     cursor: pointer;
 
-    background-color: oklch(from var(--blue-200) l c h / 0.55);
+    background-color: oklch(from var(--button-secondary) l c h / 0.55);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid oklch(from var(--neutral-200) l c h / 0.2);
-    color: var(--neutral-200);
+    border: 1px solid oklch(from var(--bg-page) l c h / 0.2);
+    color: var(--text-body-ondark);
     box-shadow: var(--shadow-mid);
 
     /* Hidden by default */
@@ -61,7 +61,7 @@
 
   #back-to-top:hover,
   #back-to-top:focus-visible {
-    background-color: oklch(from var(--blue-200) l c h / 0.75);
+    background-color: oklch(from var(--button-secondary) l c h / 0.75);
   }
 
   #back-to-top:focus-visible {
