@@ -21,9 +21,9 @@ const Component = href ? 'a' : 'button'
 ---
 
 <Component href={href} class:list={[color, className]} {...rest}>
-  <slot />
+  <span class="label"><slot /></span>
   <slot name="icon" />
-  {showExternalIcon && <div class="ext-icon" set:html={extIcon} />}
+  {showExternalIcon && <span class="ext-icon" set:html={extIcon} aria-hidden="true" />}
 </Component>
 
 <style>
@@ -43,6 +43,26 @@ const Component = href ? 'a' : 'button'
     justify-content: center;
     align-items: center;
     gap: var(--sp-02);
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* When space runs out the label truncates — the icon never squishes */
+  .label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ext-icon {
+    flex-shrink: 0;
+    display: inline-flex;
+  }
+
+  .ext-icon :global(svg) {
+    width: 1em;
+    height: 1em;
   }
 
   button:focus-visible,

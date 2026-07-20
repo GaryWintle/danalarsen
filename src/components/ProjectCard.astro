@@ -53,6 +53,12 @@ const { src, title, text, url, href } = Astro.props
     position: relative;
   }
 
+  /* These buttons stretch to card width, so slimmer side padding just
+     gives long domain names more room before they'd truncate */
+  .card :global(.card-button) {
+    padding-inline: var(--sp-04);
+  }
+
   .card :global(.card-button)::after {
     content: '';
     position: absolute;
@@ -134,6 +140,14 @@ const { src, title, text, url, href } = Astro.props
   @media (max-width: 48rem) {
     .card {
       border: 2px solid var(--neutral-300);
+    }
+
+    /* URL labels, not primary CTAs — body size and tighter tracking keep
+       long domains intact (tap-target height comes from the padding) */
+    .card :global(.card-button) {
+      font-size: var(--font-02);
+      padding-inline: var(--sp-03);
+      letter-spacing: 0;
     }
 
     .card-text-container {

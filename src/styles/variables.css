@@ -30,13 +30,13 @@
     67% 0.17 48
   ); /* vivid — decorative only, fails under white text */
   --orange-300: oklch(64% 0.17 37); /* graphics on light bg (3.2:1) */
-  --orange-400: oklch(55% 0.17 45); /* text-safe: 4.9:1 under white */
+  --orange-400: oklch(59% 0.18 40); /* text-safe: 4.9:1 under white */
 
   /* Brand blue ramp */
   --blue-100: oklch(84% 0.18 190); /* bright cyan — highlights on dark only */
   --blue-200: oklch(67% 0.13 210); /* mid teal — decorative tints, glows */
   --blue-300: oklch(
-    52% 0.12 217
+    52% 0.14 217
   ); /* text-safe: 4.5:1 on page bg, 4.8:1 under white */
   --blue-400: oklch(47% 0.11 220); /* dark surface: white text gets 6:1 */
 
