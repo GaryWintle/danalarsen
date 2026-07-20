@@ -60,9 +60,10 @@ const optimizedBackground = await getImage({ src: aboutImage, format: 'webp' })
   .about::before {
     content: '';
     position: absolute;
-    inset: 0 0 0 -100vw;
+    inset: 0;
     background: var(--about-bg);
     background-size: cover;
+    background-position: center;
     z-index: -1;
     opacity: 0.06;
   }
@@ -70,12 +71,26 @@ const optimizedBackground = await getImage({ src: aboutImage, format: 'webp' })
   .about::after {
     content: '';
     position: absolute;
-    inset: 0 0 0 -100vw;
+    inset: 0;
     background: linear-gradient(
       oklch(from var(--blue-300) 40% c h),
       var(--blue-300)
     );
     z-index: -2;
+  }
+
+  /* Static backdrop: the photo stays pinned to the viewport while content
+     scrolls over it — the background-attachment:fixed look, but composited
+     (no scroll repaints) and working on iOS. clip-path keeps the fixed
+     layer inside this section. Reduced-motion gets the scrolling version. */
+  @media (prefers-reduced-motion: no-preference) {
+    .about {
+      clip-path: inset(0);
+    }
+
+    .about::before {
+      position: fixed;
+    }
   }
 
   .about-container {
