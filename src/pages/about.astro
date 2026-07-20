@@ -96,7 +96,11 @@ const eras = [
     </header>
 
     <div class="page-body">
-      <div class="media-placeholder hero-media" role="img" aria-label="Placeholder for a photo of Dana Larsen">
+      <div
+        class="media-placeholder hero-media"
+        role="img"
+        aria-label="Placeholder for a photo of Dana Larsen"
+      >
         <span>Photo placeholder</span>
       </div>
 
@@ -148,16 +152,21 @@ const eras = [
       </section>
 
       <section class="photo-band" aria-label="Photos of Dana in the field">
-        <div class="media-placeholder band-media" role="img" aria-label="Placeholder for a protest photo">
+        <div
+          class="media-placeholder band-media"
+          role="img"
+          aria-label="Placeholder for a protest photo"
+        >
           <span>Photo placeholder</span>
         </div>
         <blockquote class="band-quote">
-          <p>
-            “Lorem ipsum dolor sit amet consectetur. Fames nec semper duis
-            viverra, volutpat nascetur est quis enim sit.”
-          </p>
+          <p>“I want to see cannabis growing openly from coast to coast.”</p>
         </blockquote>
-        <div class="media-placeholder band-media" role="img" aria-label="Placeholder for a portrait photo">
+        <div
+          class="media-placeholder band-media"
+          role="img"
+          aria-label="Placeholder for a portrait photo"
+        >
           <span>Photo placeholder</span>
         </div>
       </section>
@@ -572,7 +581,9 @@ const eras = [
   const career = document.getElementById('career') as HTMLElement
   const rail = document.querySelector('.timeline-rail') as HTMLElement
   const railList = document.querySelector('.rail-list') as HTMLElement
-  const links = [...document.querySelectorAll('.rail-link')] as HTMLAnchorElement[]
+  const links = [
+    ...document.querySelectorAll('.rail-link'),
+  ] as HTMLAnchorElement[]
   const eras = [...document.querySelectorAll('.era')] as HTMLElement[]
   const reduceMotion = window.matchMedia(
     '(prefers-reduced-motion: reduce)',
