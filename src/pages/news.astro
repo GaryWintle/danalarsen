@@ -69,8 +69,11 @@ const sortedColumns = [...columnItems].sort(
 </Layout>
 
 <style>
+  section {
+    background-color: transparent;
+  }
   .page-wrapper {
-    width: var(--max-width);
+    width: min(100%, 800px);
     padding-inline: var(--section-inline);
     padding-block-start: calc(var(--section-block) + 4.375rem);
     padding-block-end: var(--section-block);
@@ -83,6 +86,7 @@ const sortedColumns = [...columnItems].sort(
     display: flex;
     flex-direction: column;
     gap: var(--sp-02);
+    text-align: center;
   }
 
   .page-title {
@@ -103,7 +107,7 @@ const sortedColumns = [...columnItems].sort(
   }
 
   .media-section {
-    background-color: var(--bg-surface);
+    /* background-color: var(--bg-surface); */
     border-radius: var(--br-03);
     overflow: hidden;
   }

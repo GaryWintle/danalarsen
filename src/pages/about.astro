@@ -5,8 +5,17 @@ import Footer from '@components/Footer.astro'
 import BackToTop from '@components/BackToTop.astro'
 import Button from '@components/Button.astro'
 import TimelineEra from '@components/TimelineEra.astro'
-import { Image } from 'astro:assets'
+import { getImage, Image } from 'astro:assets'
 import aboutImage from '@images/image-about-page-header.png'
+import cannabisCultureImage from '@images/about-timeline/about-cannabisculture.png'
+import bcMarijuanaPartyImage from '@images/about-timeline/about-bcmarijuanaparty.jpg'
+import dispensaryImage from '@images/about-timeline/about-cannabisdispensary.jpeg'
+import sensibleBcImage from '@images/about-timeline/about-sensiblebc.jpg'
+import drugTestingImage from '@images/about-timeline/about-getyourdrugstested.jpg'
+import mushroomDispensaryImage from '@images/about-timeline/about-mushroomdispensary.webp'
+import fightContinuesImage from '@images/about-timeline/about-fight-continues.jpg'
+import splash01Image from '@images/about-timeline/about-splash01.webp'
+import splash02Image from '@images/about-timeline/about-splash02.jpg'
 
 const fillerCopy = [
   'Lorem ipsum dolor sit amet consectetur. Fames nec semper duis viverra. Viverra volutpat nascetur est quis enim sit. Nulla dignissim duis porta sodales iaculis tellus hendrerit, lobortis tortor elementum pellentesque diam varius faucibus et id ipsum.',
@@ -30,13 +39,9 @@ const eras = [
     label: 'Editor of Cannabis Culture Magazine',
     title: 'Editor of Cannabis Culture Magazine',
     body: fillerCopy,
-  },
-  {
-    id: 'marijuana-party',
-    years: '2000',
-    label: 'Canadian Marijuana Party candidate',
-    title: 'Runs for the Canadian Marijuana Party',
-    body: fillerCopy,
+    image: cannabisCultureImage,
+    imageAlt:
+      "Cover of Cannabis Culture Magazine, 'The Magazine of the Marijuana Millennium'",
   },
   {
     id: 'bc-marijuana-party',
@@ -44,6 +49,9 @@ const eras = [
     label: 'Co-founds the BC Marijuana Party',
     title: 'Co-founds the BC Marijuana Party',
     body: fillerCopy,
+    image: bcMarijuanaPartyImage,
+    imageAlt:
+      'Cannabis Culture headquarters signage for the BC Marijuana Party',
   },
   {
     id: 'dispensary',
@@ -51,6 +59,9 @@ const eras = [
     label: 'The Medicinal Cannabis Dispensary',
     title: 'Opens The Medicinal Cannabis Dispensary',
     body: fillerCopy,
+    image: dispensaryImage,
+    imageAlt:
+      'Dana Larsen holding cannabis at The Medicinal Cannabis Dispensary',
   },
   {
     id: 'sensible-bc',
@@ -58,6 +69,9 @@ const eras = [
     label: 'Sensible BC campaign',
     title: 'Leads the Sensible BC referendum campaign',
     body: fillerCopy,
+    image: sensibleBcImage,
+    imageAlt:
+      "Dana Larsen speaking at a Sensible BC 'Decriminalize Cannabis' campaign event",
   },
   {
     id: 'drug-testing',
@@ -65,23 +79,41 @@ const eras = [
     label: 'Get Your Drugs Tested',
     title: 'Launches Get Your Drugs Tested',
     body: fillerCopy,
+    image: drugTestingImage,
+    imageAlt: 'Dana Larsen outside the Get Your Drugs Tested storefront',
   },
   {
     id: 'mushroom-dispensary',
-    years: '2019–',
+    years: '2019',
     label: 'The Medicinal Mushroom Dispensary',
     title: 'Opens The Medicinal Mushroom Dispensary',
     body: fillerCopy,
+    image: mushroomDispensaryImage,
+    imageAlt:
+      'Dana Larsen holding permits outside the Medicinal Mushroom Dispensary',
   },
   {
     id: 'today',
     years: 'Today',
     ghost: 'Now',
-    label: 'The fight continues',
-    title: 'The fight continues',
+    label: 'The fight continues...',
+    title: 'The fight continues...',
     body: fillerCopy,
+    image: fightContinuesImage,
+    imageAlt:
+      'Dana Larsen lighting a cigarette on a rooftop at dusk, city towers in the background',
   },
 ]
+
+// Social-share card for this page: Dana's header photo instead of the
+// site-wide default, cropped to the OG 1200x630 canvas
+const ogImg = await getImage({
+  src: aboutImage,
+  width: 1200,
+  height: 630,
+  fit: 'cover',
+  format: 'jpeg',
+})
 ---
 
 <Layout
@@ -89,6 +121,7 @@ const eras = [
   description="Three decades of drug policy activism: from editing Cannabis Culture Magazine to founding dispensaries, drug-testing services, and reform campaigns across Canada."
   url="https://www.danalarsen.com/about"
   schemaType="AboutPage"
+  ogImage={`https://www.danalarsen.com${ogImg.src}`}
 >
   <Nav variant="onlight" />
   <main id="main-content" class="about-page">
@@ -102,10 +135,13 @@ const eras = [
         <Image
           src={aboutImage}
           width={1200}
+          widths={[640, 960, 1200]}
+          sizes="(max-width: 67.5rem) 100vw, 62.25rem"
           format="webp"
           alt="Dana Larsen speaking with media outside a Vancouver courthouse"
           class="about-image-header"
           loading="eager"
+          fetchpriority="high"
         />
       </div>
 
@@ -123,6 +159,8 @@ const eras = [
                 years={era.years}
                 ghost={era.ghost}
                 title={era.title}
+                image={era.image}
+                imageAlt={era.imageAlt}
               >
                 {era.body.map((para) => (
                   <p>{para}</p>
@@ -155,36 +193,45 @@ const eras = [
           </ol>
         </nav>
       </section>
-
-      <section class="photo-band" aria-label="Photos of Dana in the field">
-        <div
-          class="media-placeholder band-media"
-          role="img"
-          aria-label="Placeholder for a protest photo"
-        >
-          <span>Photo placeholder</span>
-        </div>
-        <blockquote class="band-quote">
-          <p>“I want to see cannabis growing openly from coast to coast.”</p>
-        </blockquote>
-        <div
-          class="media-placeholder band-media"
-          role="img"
-          aria-label="Placeholder for a portrait photo"
-        >
-          <span>Photo placeholder</span>
-        </div>
-      </section>
     </div>
+
+    <section class="photo-band" aria-label="Photos of Dana in the field">
+      <div class="photo-band-inner">
+        <figure class="band-quote">
+          <blockquote>
+            <p>“I want to see cannabis growing openly from coast to coast.”</p>
+          </blockquote>
+          <figcaption>— Dana Larsen</figcaption>
+        </figure>
+        <Image
+          src={splash01Image}
+          width={1000}
+          widths={[500, 750, 1000]}
+          sizes="(max-width: 60rem) min(100vw, 30rem), 41rem"
+          format="webp"
+          alt="Dana Larsen outside a cannabis dispensary, backlit green signage behind him"
+          class="band-media band-media-top"
+          loading="lazy"
+        />
+        <Image
+          src={splash02Image}
+          width={1180}
+          widths={[590, 885, 1180]}
+          sizes="(max-width: 60rem) min(100vw, 30rem), 43rem"
+          format="webp"
+          alt="Dana Larsen speaking at a protest, flanked by police and fellow demonstrators"
+          class="band-media band-media-bottom"
+          loading="lazy"
+        />
+      </div>
+    </section>
 
     <section class="about-cta" aria-labelledby="about-cta-heading">
       <div class="cta-inner">
-        <h2 id="about-cta-heading">
-          Put Dana on your stage — or in your story.
-        </h2>
+        <h2 id="about-cta-heading">Reach out to Dana!</h2>
         <p>
-          Booking an event or working on a piece about drug policy? Every
-          message is read.
+          Booking an event or working on a piece about drug policy? We read
+          every message coming our way.
         </p>
         <div class="cta-actions">
           <Button color="primary" href="/contact">Contact Dana</Button>
@@ -236,7 +283,7 @@ const eras = [
     flex-direction: column;
   }
   .hero-media {
-    aspect-ratio: 21 / 9;
+    /* aspect-ratio: 21 / 9; */
     width: 100%;
     overflow: hidden;
     border-radius: var(--br-02);
@@ -244,35 +291,20 @@ const eras = [
 
   .about-image-header {
     width: 100%;
-    height: 100%;
+    /* height: min(100%, 800px); */
     object-fit: cover;
     /* faces slightly right-of-center in the source — keep the crop there */
     object-position: 62% center;
   }
 
-  /* Gray placeholder blocks stand in for photos while the shape settles */
-  .media-placeholder {
-    display: grid;
-    place-items: center;
-    background: var(--surface-tint);
-    border: 1px dashed var(--border-color);
-    border-radius: var(--br-02);
-  }
-
-  .media-placeholder span {
-    font-family: var(--font-body);
-    font-size: var(--font-01);
-    color: var(--text-strong);
-  }
-
   .statement {
     font-family: var(--font-header);
     color: var(--text-title);
-    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-size: clamp(1.75rem, 3.5vw, 3.75rem);
     line-height: 1.2;
     letter-spacing: -0.5px;
     text-wrap: balance;
-    max-width: 22ch;
+    max-width: 100%;
     padding-block: var(--layout-03);
   }
 
@@ -411,32 +443,94 @@ const eras = [
     scale: 1.4;
   }
 
-  /* ---------------- Photo band ---------------- */
+  /* ---------------- Photo band ----------------
+     Breaks out of .page-body's narrower --section-width on purpose — the
+     one place on the page allowed a wider, editorial stance. Two landscape
+     photos interlock diagonally: the middle grid row is a shared "overlap
+     strip" both photos span, so the stagger is deterministic — no negative
+     margins to fight at odd viewport sizes. The pull-quote sits in the
+     whitespace the stagger carves out. */
 
   .photo-band {
-    display: grid;
-    grid-template-columns: 1.2fr 0.9fr 1.2fr;
-    gap: var(--layout-01);
-    align-items: center;
+    width: 100%;
     padding-block: var(--section-block);
   }
 
-  .band-media {
-    aspect-ratio: 3 / 4;
+  .photo-band-inner {
+    width: min(100%, 88rem);
+    margin-inline: auto;
+    padding-inline: var(--section-inline);
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    grid-template-rows: auto clamp(3.5rem, 8vw, 6.5rem) auto;
+    column-gap: var(--layout-02);
   }
 
-  .band-media:last-of-type {
-    margin-block-start: var(--layout-03);
+  .band-media {
+    width: 100%;
+    object-fit: cover;
+    height: auto; /* required alongside aspect-ratio — see TimelineEra.astro */
+    border-radius: var(--br-02);
+    box-shadow: var(--shadow-deep);
+  }
+
+  .band-media-top {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    aspect-ratio: 3 / 2;
+    align-self: start;
+  }
+
+  .band-media-bottom {
+    grid-column: 1;
+    grid-row: 2 / 4;
+    aspect-ratio: 4 / 3;
+    align-self: start;
+  }
+
+  .band-quote {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+    text-align: right;
+    max-width: 30ch;
+    padding-block: var(--layout-01);
   }
 
   .band-quote p {
     font-family: var(--font-header);
     font-style: italic;
-    font-size: var(--font-04);
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
     line-height: 1.4;
     color: var(--text-title);
-    text-align: center;
     text-wrap: balance;
+  }
+
+  .band-quote figcaption {
+    margin-block-start: var(--sp-04);
+    font-family: var(--font-body);
+    font-size: var(--font-01);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* Soft rise-in, matching the timeline's own reveal treatment */
+  @media (prefers-reduced-motion: no-preference) {
+    .photo-band.will-reveal {
+      opacity: 0;
+      translate: 0 1.5rem;
+      transition:
+        opacity 600ms ease-out,
+        translate 600ms ease-out;
+    }
+
+    .photo-band.will-reveal.in-view {
+      opacity: 1;
+      translate: 0 0;
+    }
   }
 
   /* ---------------- Closing CTA ---------------- */
@@ -572,21 +666,40 @@ const eras = [
       gap: var(--layout-03);
     }
 
-    .photo-band {
+    /* Single column: photo, quote, photo — the interlock rows collapse */
+    .photo-band-inner {
       grid-template-columns: 1fr;
-      gap: var(--layout-01);
+      grid-template-rows: none;
+      row-gap: var(--layout-02);
+    }
+
+    .band-media-top {
+      grid-column: 1;
+      grid-row: auto;
+      order: -1;
+      justify-self: center;
+      max-width: 30rem;
+      aspect-ratio: 4 / 3;
+    }
+
+    .band-media-bottom {
+      grid-column: 1;
+      grid-row: auto;
+      justify-self: center;
+      max-width: 30rem;
     }
 
     .band-quote {
-      order: -1;
+      grid-column: 1;
+      grid-row: auto;
+      justify-self: center;
+      text-align: center;
+      max-width: 34ch;
+      padding-block: var(--sp-04);
     }
 
-    .band-media:last-of-type {
-      margin-block-start: 0;
-    }
-
-    .band-media {
-      aspect-ratio: 4 / 3;
+    .band-quote p {
+      font-size: var(--font-04);
     }
   }
 </style>
@@ -669,11 +782,13 @@ const eras = [
     },
     { threshold: 0.15, rootMargin: '9999px 0px 0px 0px' },
   )
+  const photoBand = document.querySelector('.photo-band') as HTMLElement | null
+  const revealCandidates = photoBand ? [...eras, photoBand] : eras
   if (!reduceMotion) {
-    eras.forEach((era) => {
-      if (era.getBoundingClientRect().top > window.innerHeight) {
-        era.classList.add('will-reveal')
-        revealWatcher.observe(era)
+    revealCandidates.forEach((el) => {
+      if (el.getBoundingClientRect().top > window.innerHeight) {
+        el.classList.add('will-reveal')
+        revealWatcher.observe(el)
       }
     })
   }

@@ -37,7 +37,7 @@
   ); /* vivid — decorative on light; text-safe on dark surfaces (5.5:1) */
   --orange-300: oklch(64% 0.17 37); /* graphics: 3.2:1 light / 4.9:1 dark */
   --orange-400: oklch(
-    55% 0.18 40
+    60% 0.16 50
   ); /* text-safe: 4.65:1 on bg-page, 4.93:1 under white */
 
   /* Brand blue ramp */
@@ -143,20 +143,11 @@
      --bg-page as the primary cue; the shadow reinforces it. */
   --shadow-shallow:
     0 1px 2px
-      light-dark(
-        oklch(from var(--blue-300) l c h / 0.01),
-        oklch(0% 0 0 / 0.16)
-      ),
+      light-dark(oklch(from var(--blue-300) l c h / 0.01), oklch(0% 0 0 / 0.16)),
     0 3px 5px
-      light-dark(
-        oklch(from var(--blue-300) l c h / 0.02),
-        oklch(0% 0 0 / 0.22)
-      ),
+      light-dark(oklch(from var(--blue-300) l c h / 0.02), oklch(0% 0 0 / 0.22)),
     0 4px 15px
-      light-dark(
-        oklch(from var(--blue-300) l c h / 0.04),
-        oklch(0% 0 0 / 0.28)
-      );
+      light-dark(oklch(from var(--blue-300) l c h / 0.04), oklch(0% 0 0 / 0.28));
 
   --shadow-drop-mid: drop-shadow(
       0 2px 4px
@@ -182,36 +173,18 @@
 
   --shadow-mid:
     0 2px 4px
-      light-dark(
-        oklch(from var(--blue-300) l c h / 0.02),
-        oklch(0% 0 0 / 0.2)
-      ),
+      light-dark(oklch(from var(--blue-300) l c h / 0.02), oklch(0% 0 0 / 0.2)),
     0 6px 8px
-      light-dark(
-        oklch(from var(--blue-300) l c h / 0.03),
-        oklch(0% 0 0 / 0.26)
-      ),
+      light-dark(oklch(from var(--blue-300) l c h / 0.03), oklch(0% 0 0 / 0.26)),
     0 10px 20px
-      light-dark(
-        oklch(from var(--blue-300) l c h / 0.04),
-        oklch(0% 0 0 / 0.32)
-      );
+      light-dark(oklch(from var(--blue-300) l c h / 0.04), oklch(0% 0 0 / 0.32));
   --shadow-deep:
     0 2px 3px
-      light-dark(
-        oklch(from var(--blue-300) l c h / 0.04),
-        oklch(0% 0 0 / 0.3)
-      ),
+      light-dark(oklch(from var(--blue-300) l c h / 0.04), oklch(0% 0 0 / 0.3)),
     0 7px 12px
-      light-dark(
-        oklch(from var(--blue-300) l c h / 0.05),
-        oklch(0% 0 0 / 0.36)
-      ),
+      light-dark(oklch(from var(--blue-300) l c h / 0.05), oklch(0% 0 0 / 0.36)),
     0 12px 35px
-      light-dark(
-        oklch(from var(--blue-300) l c h / 0.08),
-        oklch(0% 0 0 / 0.44)
-      );
+      light-dark(oklch(from var(--blue-300) l c h / 0.08), oklch(0% 0 0 / 0.44));
   /* Button shadows stay fixed — buttons are the same two brand colors,
      with their own baked-in contrast, in both themes. */
   --button-primary-shadow:

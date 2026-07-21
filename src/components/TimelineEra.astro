@@ -30,6 +30,8 @@ const ghost = Astro.props.ghost ?? years.match(/\d{4}/)?.[0] ?? years
         src={image}
         alt={imageAlt ?? ''}
         width={896}
+        widths={[448, 672, 896]}
+        sizes="(max-width: 60rem) 100vw, 28rem"
         loading="lazy"
       />
     ) : (
@@ -77,6 +79,10 @@ const ghost = Astro.props.ghost ?? years.match(/\d{4}/)?.[0] ?? years
   .era-media {
     aspect-ratio: 4 / 3;
     width: min(100%, 28rem);
+    /* Without this, the <img>'s width/height attributes (set by Astro's
+       Image to the source's own natural ratio) win over aspect-ratio,
+       silently defeating the 4:3 crop below. */
+    height: auto;
     object-fit: cover;
     border-radius: var(--br-02);
   }

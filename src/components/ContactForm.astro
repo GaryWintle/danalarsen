@@ -1,14 +1,24 @@
 ---
+import { getImage } from 'astro:assets'
 import Button from '@components/Button.astro'
+import contactHeaderImage from '@images/maxresdefault.jpg'
 
 // Edit these to change the form heading and intro text
 const heading = 'Get in Touch'
 const subheading =
-  'Booking a speaking engagement, working on a story, or have a question for Dana? Send a message — every one is read, and you can expect a reply within two business days.'
+  'Booking a speaking engagement, want to interview, or have a question for Dana? We check out all of our messages, and you can expect a reply within two business days.'
+
+const optimizedHeaderImage = await getImage({
+  src: contactHeaderImage,
+  format: 'webp',
+})
 ---
 
 <div class="contact-form-wrapper">
-  <div class="contact-form-header">
+  <div
+    class="contact-form-header"
+    style={`--contact-header-bg: url(${optimizedHeaderImage.src})`}
+  >
     <h1>{heading}</h1>
     <p>{subheading}</p>
   </div>
@@ -73,7 +83,8 @@ const subheading =
       <div class="field">
         <label for="subject">Subject</label>
         <select id="subject" name="subject" required>
-          <option value="" disabled selected>Select a reason for contact</option>
+          <option value="" disabled selected>Select a reason for contact</option
+          >
           <option value="speaking">Speaking Engagement</option>
           <option value="media">Media Inquiry</option>
           <option value="general">General Question</option>
@@ -89,14 +100,14 @@ const subheading =
         name="message"
         rows="6"
         maxlength="5000"
-        placeholder="What can Dana help with? If you're booking an event, include dates, location, and audience."
+        placeholder="If you're booking an event, please include dates and location. Otherwise, let's hear what's on your mind!"
         required></textarea>
     </div>
 
     <Button color="primary" type="submit">Send Message</Button>
 
     <p class="privacy-note">
-      Your message goes privately to Dana's team — it's never shared, and you
+      Your message goes privately to Dana's team. It's never shared, and you
       won't be added to any mailing list. <a href="/privacy">Privacy policy</a>
     </p>
   </form>
@@ -112,11 +123,51 @@ const subheading =
   }
 
   .contact-form-header {
+    position: relative;
+    z-index: 0;
     background: var(--surface-dark);
+    --contact-scrim-color: var(--surface-dark);
+    min-height: calc(clamp(14rem, 24vw, 20rem) + 150px);
     padding: var(--layout-02) var(--layout-03);
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     gap: var(--sp-03);
+  }
+
+  :global(:root[data-theme='dark']) .contact-form-header {
+    --contact-scrim-color: oklch(from var(--surface-dark) calc(l - 0.15) c h);
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .contact-form-header {
+      --contact-scrim-color: var(--neutral-700);
+    }
+  }
+
+  /* Header photo, pinned behind the gradient and text below */
+  .contact-form-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--contact-header-bg);
+    background-size: cover;
+    background-position: 50% 20%;
+    /* filter: grayscale(1); */
+    z-index: -2;
+  }
+
+  /* Scrim: solid --contact-scrim-color under the text, fading to transparent
+     toward the top so the photo reads as a header image */
+  .contact-form-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 30%,
+      var(--contact-scrim-color) 90%
+    );
+    z-index: -1;
   }
 
   .contact-form-header h1 {
