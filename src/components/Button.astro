@@ -23,7 +23,11 @@ const Component = href ? 'a' : 'button'
 <Component href={href} class:list={[color, className]} {...rest}>
   <span class="label"><slot /></span>
   <slot name="icon" />
-  {showExternalIcon && <span class="ext-icon" set:html={extIcon} aria-hidden="true" />}
+  {
+    showExternalIcon && (
+      <span class="ext-icon" set:html={extIcon} aria-hidden="true" />
+    )
+  }
 </Component>
 
 <style>
@@ -81,6 +85,7 @@ const Component = href ? 'a' : 'button'
   .primary {
     background-color: var(--button-primary);
     box-shadow: var(--button-primary-shadow);
+    /* border: 2px solid var(--orange-300); */
     transition: all 250ms ease-out;
   }
   .primary:hover,

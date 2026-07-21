@@ -36,8 +36,8 @@
     67% 0.17 48
   ); /* vivid — decorative on light; text-safe on dark surfaces (5.5:1) */
   --orange-300: oklch(64% 0.17 37); /* graphics: 3.2:1 light / 4.9:1 dark */
-  --orange-400: oklch(
-    60% 0.16 50
+  --orange-400: oklab(
+    57.102% 0.12955 0.11524
   ); /* text-safe: 4.65:1 on bg-page, 4.93:1 under white */
 
   /* Brand blue ramp */
@@ -51,7 +51,7 @@
   --blue-400: oklch(47% 0.11 220); /* dark surface: white text gets 6:1 */
 
   /* Neutral / gray-blue scale (100–600 light-mode, 700–800 dark-mode) */
-  --neutral-100: oklch(98% 0 237);
+  --neutral-100: oklch(97.913% 0.00011 271.152);
   --neutral-200: oklch(96% 0.006 240);
   --neutral-300: oklch(92% 0.015 227);
   --neutral-400: oklch(
