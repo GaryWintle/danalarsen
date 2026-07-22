@@ -596,6 +596,29 @@ const ogImg = await getImage({
   /* ---------------- Mobile ---------------- */
 
   @media (max-width: 60rem) {
+    /* The Image carries an intrinsic height="663" attribute; once width
+       drops to 100% on narrow screens the height stays pinned, so the hero
+       balloons into a ~663px vertical sliver. Override with a fixed aspect
+       so it stays a proportionate banner (object-fit: cover keeps the 62%
+       crop). At the 60rem edge this ~matches the desktop height, so there's
+       no visible jump. */
+    .about-image-header {
+      height: auto;
+      aspect-ratio: 3 /4;
+    }
+
+    .statement {
+      font-family: var(--font-header);
+      color: var(--text-title);
+      font-size: clamp(1.75rem, 3.5vw, 3.75rem);
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      text-wrap: balance;
+      max-width: 100%;
+      padding-block-start: var(--layout-01);
+      padding-block-end: var(--layout-03);
+    }
+
     .career {
       grid-template-columns: 1fr;
       gap: 0;

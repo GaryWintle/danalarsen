@@ -270,6 +270,34 @@ import Button from '@components/Button.astro'
   }
 
   @media (max-width: 48rem) {
+    /* Full-bleed band on phones: no page background (gray) around it on any
+       side — the light band runs edge to edge and butts straight against the
+       dark About section above and the dark footer below, like the site's
+       other full-width bands. No card shadow, no rounded corners. */
+    .newsletter {
+      padding: 0;
+    }
+
+    .newsletter-container {
+      border-radius: 0;
+      box-shadow: none;
+      /* Room for the head icon to sit fully inside the band (it no longer
+         overhangs onto the dark section above). See .dana-icon below. */
+      padding-block-start: 9rem;
+    }
+
+    /* Tuck the icon inside the band instead of overhanging the top edge.
+       The SVG has ~26px of transparent padding above the visible disc (square
+       172 viewBox rendered into a 7.5rem-wide box), so top: 0.5rem lands the
+       disc ~2rem below the band's top edge. */
+    .dana-icon {
+      top: 0.7rem;
+    }
+
+    .leaf-clip {
+      border-radius: 0;
+    }
+
     input {
       width: 100%;
       font-size: var(--font-03);
@@ -285,6 +313,13 @@ import Button from '@components/Button.astro'
 
     .newsletter-input {
       width: 100%;
+      padding-inline: var(--section-inline);
+    }
+
+    /* These sit directly on the card (no wrapper), so give them the same
+       --section-inline (32px) gutter as the content above. */
+    .fine-print,
+    .newsletter-status {
       padding-inline: var(--section-inline);
     }
 

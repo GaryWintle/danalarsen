@@ -195,10 +195,16 @@ const optimizedBackground = await getImage({ src: aboutImage, format: 'webp' })
       border-radius: var(--br-02) var(--br-02) 0 0;
       border: 0;
       box-shadow: 10px 10px 10px oklch(from var(--neutral-600) l c h / 0.2);
+      /* Override the intrinsic height attribute (700x556 landscape source)
+         so the photo isn't a full-height 556px slice on phones. A 5:7 box
+         is ~22% shorter; object-fit: cover (from the base rule) keeps the
+         same face-forward centre framing, just less tall. */
+      height: auto;
+      aspect-ratio: 3 / 3;
     }
 
     .about-copy {
-      padding-inline: var(--sp-05);
+      padding-inline: var(--sp-04);
       padding-block: var(--sp-06);
     }
 

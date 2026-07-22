@@ -386,12 +386,14 @@ const { variant = 'ondark' } = Astro.props
     display: flex;
     align-items: center;
     gap: var(--sp-03);
-  }
-
-  /* The drawer sits outside <nav>, so it doesn't inherit the variant's
-     --social-ink — pin it to the drawer's own (always-dark) ink instead. */
-  .drawer-header-actions .theme-toggle {
-    color: var(--text-title-ondark);
+    /* The drawer sits outside <nav>, so it doesn't inherit the variant's
+       --social-ink. Re-declare it here as the drawer's own always-dark ink.
+       It must be the custom property (not `color`): the ThemeToggle is a
+       child component, so Astro's style scoping blocks a `color` rule from
+       reaching its .theme-toggle, but custom properties cross that boundary.
+       ThemeToggle's own `color: var(--social-ink)` then resolves to white,
+       so the sun (light) matches the moon (dark) and the close button. */
+    --social-ink: var(--text-title-ondark);
   }
 
   .drawer-logo {
