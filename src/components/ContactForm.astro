@@ -318,17 +318,25 @@ const optimizedHeaderImage = await getImage({
     border-radius: var(--br-01);
   }
 
+  @media (max-width: 48rem) {
+    /* Full-bleed card treatment (matches contact.astro and the newsletter):
+       square corners — which removes the hero image's rounded top corners —
+       and no card shadow, since the card now runs edge to edge. Content keeps
+       the site's 32px (--section-inline) side gutter so it isn't crowded. */
+    .contact-form-wrapper {
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .contact-form-header,
+    .contact-form {
+      padding: var(--sp-06) var(--section-inline);
+    }
+  }
+
   @media (max-width: 40rem) {
     .field-row {
       grid-template-columns: 1fr;
-    }
-
-    .contact-form-header {
-      padding: var(--sp-06) var(--sp-05);
-    }
-
-    .contact-form {
-      padding: var(--sp-06) var(--sp-05);
     }
   }
 </style>

@@ -35,4 +35,15 @@ import headerImage from '@images/image-about-page-header.png'
   .contact-wrapper {
     width: min(100%, 50rem);
   }
+
+  @media (max-width: 48rem) {
+    /* Full-bleed card on phones: edge to edge with no page background framing
+       it. The top clears the absolute-positioned nav (dark-on-light) so the
+       dark hero doesn't collide with it; the sides run to the screen edges and
+       the bottom butts straight against the footer. */
+    .contact-page {
+      padding: 5.5rem 0 0;
+      min-height: 0;
+    }
+  }
 </style>
